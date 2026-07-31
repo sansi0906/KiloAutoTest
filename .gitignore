@@ -1,27 +1,36 @@
+# ==================== Python ====================
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 .Python
-
 .venv/
 venv/
 ENV/
 
+# ==================== 测试框架临时文件 ====================
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-
 allure-results/
 allure-report/
 logs/
 reports/
 
+# ==================== 日志和临时文件 ====================
 *.log
 *.tmp
-temp_*.xml
-temp_*.txt
+*.bak
 
+# ==================== UI dump XML（中间文件） ====================
+jzw/*.xml
+jzw/screenshots/
+lyt/*.xml
+
+# ==================== 敏感配置（含账号密码） ====================
+jzw/config.py
+
+# ==================== 二进制和媒体文件 ====================
 *.apk
 *.aab
 *.png
@@ -32,17 +41,24 @@ temp_*.txt
 *.xlsx
 *.xls
 
+# ==================== EasyOCR 模型和缓存 ====================
 easyocr_mirror/wandb/
 easyocr_mirror/vis_result/
 easyocr_mirror/saved_models/
 
+# ==================== IDE和系统文件 ====================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
-
 .DS_Store
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# ==================== SSH和密钥 ====================
+*.pem
+*.key
+*.p12
+*.pfx
