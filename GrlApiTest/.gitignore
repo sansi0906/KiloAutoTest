@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+token.json
+reports/
+.venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# 敏感配置（含数据库密码、API地址、登录账号）
+config.py
+data/login_data.json

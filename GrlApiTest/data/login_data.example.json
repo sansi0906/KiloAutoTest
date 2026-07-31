@@ -1,0 +1,20 @@
+[
+  {
+    "name": "test_login_success",
+    "username": "YOUR_TEST_USERNAME",
+    "password": "YOUR_TEST_PASSWORD",
+    "expected_status": 200
+  },
+  {
+    "name": "test_login_invalid_user",
+    "username": "wrong_user",
+    "password": "YOUR_TEST_PASSWORD",
+    "expected_status": 200
+  },
+  {
+    "name": "test_login_invalid_pass",
+    "username": "YOUR_TEST_USERNAME",
+    "password": "wrong_pass",
+    "expected_status": 200
+  }
+]

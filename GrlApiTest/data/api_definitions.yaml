@@ -1,0 +1,12 @@
+- name: test_get_definitions
+  path: /platform/serviceItem/paging
+  method: POST
+  expected_status: 200
+
+- name: test_search_definitions
+  path: /platform/businessScope/paging
+  method: POST
+  params:
+    pageNum: 1
+    pageSize: 10
+  expected_status: 200
