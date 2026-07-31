@@ -21,6 +21,8 @@ reports/
 *.log
 *.tmp
 *.bak
+cleanup_log.txt
+migration_log.txt
 
 # ==================== UI dump XML（中间文件） ====================
 jzw/*.xml
