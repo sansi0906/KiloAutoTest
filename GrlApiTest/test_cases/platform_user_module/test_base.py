@@ -54,6 +54,7 @@ class TestBase(BaseTest):
                 break
         assert user_id, f"User not found after creation: {page_data}"
         self._created_ids.append(user_id)
+        self._log_test_data_created(user_id, user_name)
         return user_id, user_name, real_name
 
     def _delete_test_data(self, item_id):

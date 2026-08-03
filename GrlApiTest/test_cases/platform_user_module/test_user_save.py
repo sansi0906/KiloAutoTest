@@ -45,6 +45,7 @@ class TestUserSave(TestBase):
             status=1,
         )
         self.validator.assert_status_code(response, 200)
+        self.assert_response_time(response, max_duration_ms=500)
         data = response.json()
         self.assert_save_success(data)
 
@@ -156,6 +157,39 @@ class TestUserSave(TestBase):
             sex=None,
             role_group_id=5,
             status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_user_missing_status(self):
+        """缺少 status 字段，后端实际接受并返回成功（必填校验不严格）"""
+        token = self.login()
+        self.client.set_token(token)
+
+        response = self.client.save_platform_user(
+            user_name=self._unique_user_name(),
+            real_name=self._unique_real_name(),
+            sex=1,
+            role_group_id=5,
+            status=None,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        # OpenAPI 标记 status 为必填，但后端实际接受 null
+        self.assert_save_success(data)
+
+    def test_save_user_missing_all_required(self):
+        """所有必填字段均为空，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        response = self.client.save_platform_user(
+            user_name="",
+            real_name="",
+            sex=None,
+            role_group_id=None,
+            status=None,
         )
         self.validator.assert_status_code(response, 200)
         data = response.json()

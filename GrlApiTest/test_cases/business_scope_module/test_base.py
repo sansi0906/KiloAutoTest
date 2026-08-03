@@ -44,6 +44,7 @@ class TestBase(BaseTest):
                 break
         assert scope_id, f"Business scope not found after creation: {page_data}"
         self._created_ids.append(scope_id)
+        self._log_test_data_created(scope_id, scope_name)
         return scope_id, scope_name
 
     def _delete_test_data(self, item_id):

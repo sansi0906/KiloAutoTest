@@ -57,6 +57,7 @@ class TestBase(BaseTest):
                 break
         assert knowledge_id, f"Knowledge base not found after creation: {page_data}"
         self._created_ids.append(knowledge_id)
+        self._log_test_data_created(knowledge_id, payload["title"])
         return knowledge_id, payload["title"]
 
     def _delete_test_data(self, item_id):

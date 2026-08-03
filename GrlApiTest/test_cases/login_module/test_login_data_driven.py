@@ -1,23 +1,15 @@
 """
 test_login_data_driven.py - 数据驱动登录测试
-===================================================
+==================================================
 从 data/login_data.json 读取测试数据，参数化执行登录测试
 """
 
 import pytest
-from api_clients.jeecgboot_client import JeecgBootClient
-from utils.validator import ResponseValidator
+from utils.base_test import BaseTest
 from utils.data_driver import load_test_data
 
 
-class TestLoginDataDriven:
-    @pytest.fixture(autouse=True)
-    def setup(self, config):
-        """初始化客户端和验证器"""
-        self.client = JeecgBootClient(base_url=config["base_url"])
-        self.validator = ResponseValidator()
-        self.config = config
-
+class TestLoginDataDriven(BaseTest):
     @pytest.mark.parametrize(
         "test_case",
         load_test_data("data/login_data.json"),

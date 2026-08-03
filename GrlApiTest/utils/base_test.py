@@ -17,7 +17,7 @@ from utils.validator import ResponseValidator
 
 class BaseTest:
     @pytest.fixture(autouse=True)
-    def setup(self, config, execution_id, db_helper, pg_cleanup):
+    def setup(self, config, execution_id, db_helper, pg_cleanup, request):
         """自动初始化客户端、验证器并登录"""
         self.client = JeecgBootClient(base_url=config["base_url"])
         self.validator = ResponseValidator()
@@ -27,6 +27,7 @@ class BaseTest:
         self.pg_cleanup = pg_cleanup
         self._created_ids = []
         self._module_id = None
+        self._test_name = request.node.name
         token = self.login()
         self.client.set_token(token)
 
@@ -35,6 +36,30 @@ class BaseTest:
         for item_id in getattr(self, "_created_ids", []):
             try:
                 self._delete_test_data(item_id)
+            except Exception as e:
+                if self.db_helper:
+                    try:
+                        self.db_helper.save_test_log(
+                            execution_id=self.execution_id,
+                            level="WARNING",
+                            message=f"Failed to cleanup test data id={item_id}: {e}",
+                            module=getattr(self, '_module_name', 'unknown'),
+                            case_name=getattr(self, '_test_name', 'unknown'),
+                        )
+                    except Exception:
+                        pass
+
+    def _log_test_data_created(self, item_id, item_name=None):
+        """记录测试数据创建日志"""
+        if self.db_helper:
+            try:
+                self.db_helper.save_test_log(
+                    execution_id=self.execution_id,
+                    level="INFO",
+                    message=f"Test data created: id={item_id}, name={item_name}",
+                    module=getattr(self, '_module_name', 'unknown'),
+                    case_name=getattr(self, '_test_name', 'unknown'),
+                )
             except Exception:
                 pass
 
@@ -69,6 +94,13 @@ class BaseTest:
         assert data.get("code") in ("0", "00"), f"Operation failed: {data}"
         if message:
             assert data.get("message") == message, f"Unexpected message: {data.get('message')}"
+
+    def assert_response_time(self, response, max_duration_ms=500):
+        """断言接口响应时间不超过阈值"""
+        duration_ms = response.elapsed.total_seconds() * 1000
+        assert duration_ms <= max_duration_ms, \
+            f"Response too slow: {duration_ms:.0f}ms > {max_duration_ms}ms"
+        return duration_ms
 
     def assert_save_failure(self, data, expected_code=None):
         """断言操作失败"""

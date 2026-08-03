@@ -28,9 +28,19 @@ migration_log.txt
 jzw/*.xml
 jzw/screenshots/
 lyt/*.xml
+lyt/ui_dumps/
+lyt/screenshots/
+GrlApiTest/.coverage
+*.coverage
 
 # ==================== 敏感配置（含账号密码） ====================
 jzw/config.py
+# 含硬编码测试账号的脚本（手机号/密码）
+lyt/run_*.py
+lyt/explore_app.py
+lyt/debug_ui.py
+lyt/tests/test_login.py
+lyt/testCase/app_test_cases.md
 
 # ==================== 二进制和媒体文件 ====================
 *.apk

@@ -47,3 +47,13 @@ class TestUserResetPwd(TestBase):
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_failure(data)
+
+    def test_reset_pwd_missing_id(self):
+        """缺少 id 字段，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        response = self.client.reset_pwd(user_id=None)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)

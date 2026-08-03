@@ -1,6 +1,6 @@
 """
 test_user_edit.py - 平台用户编辑接口测试
-=============================================
+============================================
 覆盖平台用户管理模块的编辑接口场景：
 - 正常编辑用户信息
 - 编辑时手机号重复
@@ -11,6 +11,8 @@ test_user_edit.py - 平台用户编辑接口测试
 
 import time
 import random
+
+import pytest
 
 from .test_base import TestBase
 
@@ -45,8 +47,9 @@ class TestUserEdit(TestBase):
         data = response.json()
         self.assert_save_success(data)
 
+    @pytest.mark.backend_bug
     def test_edit_user_not_exist(self):
-        """编辑不存在的用户ID，按正常逻辑应返回失败"""
+        """编辑不存在的用户ID，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）"""
         token = self.login()
         self.client.set_token(token)
 
@@ -60,7 +63,9 @@ class TestUserEdit(TestBase):
         )
         self.validator.assert_status_code(response, 200)
         data = response.json()
-        self.assert_save_failure(data)
+        # 预期：编辑不存在的用户应返回失败
+        # 实际后端bug：返回成功 code:00
+        assert data.get("code") not in ("0", "00"), f"Expected failure for non-existent user, got: {data}"
         """编辑用户时使用已注册的手机号，应返回失败"""
         token = self.login()
         self.client.set_token(token)
@@ -157,3 +162,115 @@ class TestUserEdit(TestBase):
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_success(data)
+
+    def test_edit_user_missing_id(self):
+        """缺少 user_id，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        response = self.client.edit_user(
+            user_id=None,
+            user_name=self._unique_user_name(),
+            real_name=self._unique_real_name(),
+            sex=1,
+            role_group_id=5,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_user_missing_user_name(self):
+        """缺少 userName，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        user_id, _, _ = self._create_user()
+
+        response = self.client.edit_user(
+            user_id=user_id,
+            user_name="",
+            real_name=self._unique_real_name(),
+            sex=1,
+            role_group_id=5,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_user_missing_status(self):
+        """缺少 status，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        user_id, user_name, real_name = self._create_user()
+
+        response = self.client.edit_user(
+            user_id=user_id,
+            user_name=user_name,
+            real_name=real_name,
+            sex=1,
+            role_group_id=5,
+            status=None,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_user_missing_real_name(self):
+        """缺少 realName，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        user_id, user_name, _ = self._create_user()
+
+        response = self.client.edit_user(
+            user_id=user_id,
+            user_name=user_name,
+            real_name="",
+            sex=1,
+            role_group_id=5,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_user_missing_role_group_id(self):
+        """缺少 roleGroupId，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        user_id, user_name, real_name = self._create_user()
+
+        response = self.client.edit_user(
+            user_id=user_id,
+            user_name=user_name,
+            real_name=real_name,
+            sex=1,
+            role_group_id=None,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_user_missing_sex(self):
+        """缺少 sex，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        user_id, user_name, real_name = self._create_user()
+
+        response = self.client.edit_user(
+            user_id=user_id,
+            user_name=user_name,
+            real_name=real_name,
+            sex=None,
+            role_group_id=5,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)

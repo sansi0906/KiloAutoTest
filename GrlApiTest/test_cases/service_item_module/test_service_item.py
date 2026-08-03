@@ -176,3 +176,62 @@ class TestServiceItem(TestBase):
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_failure(data)
+
+    def test_edit_service_item_missing_id(self):
+        """编辑服务项目缺少 id，应返回失败"""
+        response = self.client.edit_service_item(
+            item_id=None,
+            item_name="TestItem",
+            billing_method=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_service_item_missing_billing_method(self):
+        """编辑服务项目缺少 billingMethod，应返回失败"""
+        item_id, item_name = self._create_service_item()
+
+        response = self.client.edit_service_item(
+            item_id=item_id,
+            item_name=item_name,
+            billing_method=None,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_add_service_item_missing_billing_method(self):
+        """新增服务项目缺少 billingMethod，应返回失败"""
+        response = self.client.add_service_item(
+            item_name="TestItem",
+            billing_method=None,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_add_service_item_missing_item_name(self):
+        """新增服务项目缺少 itemName，应返回失败"""
+        response = self.client.add_service_item(
+            item_name="",
+            billing_method=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_update_status_missing_id(self):
+        """切换服务项目展示状态缺少 id，应返回失败"""
+        response = self.client.update_service_item_status(item_id=None, is_display=1)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_update_status_missing_is_display(self):
+        """切换服务项目展示状态缺少 isDisplay，应返回失败"""
+        item_id, _ = self._create_service_item()
+        response = self.client.update_service_item_status(item_id=item_id, is_display=None)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)

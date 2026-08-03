@@ -111,24 +111,29 @@ class TestBusinessScope(TestBase):
         records = data.get("data", {}).get("records", [])
         assert isinstance(records, list), "Records should be a list"
 
+    @pytest.mark.backend_bug
     def test_get_business_scope_detail_existing(self):
         """获取已存在的经营范围详情，当前后端detail接口存在bug，所有ID均返回404"""
         scope_id, scope_name = self._save_and_get_id()
 
         response = self.client.get_business_scope_detail(scope_id=scope_id)
-        # 当前后端detail接口无论ID是否存在都返回404 code:03，属于后端bug
-        assert response.status_code in (200, 404), f"Unexpected status: {response.status_code}"
+        assert response.status_code == 200, f"Unexpected status: {response.status_code}"
         data = response.json()
-        # 后端bug：detail接口对所有ID都返回"服务不存在"
-        assert data.get("code") == "03", f"Expected code 03 for detail bug, got: {data}"
+        # 预期：应返回成功 code:00 且 data 中包含经营范围信息
+        # 实际后端bug：detail接口对所有ID都返回 code:03 "服务不存在"
+        assert data.get("code") == "00", f"Expected success for existing scope, got: {data}"
+        assert data.get("data") is not None, "Expected data in response"
+        assert data.get("data", {}).get("id") == str(scope_id)
 
+    @pytest.mark.backend_bug
     def test_get_business_scope_detail_non_existing(self):
         """获取不存在的经营范围详情，当前后端detail接口存在bug，所有ID均返回404"""
         response = self.client.get_business_scope_detail(scope_id=999999)
-        assert response.status_code in (200, 404), f"Unexpected status: {response.status_code}"
+        # 预期：应返回 code:03 "服务不存在"
+        # 实际后端bug：返回 HTTP 404
+        assert response.status_code == 200, f"Expected HTTP 200, got {response.status_code}"
         data = response.json()
-        # 后端bug：detail接口对所有ID都返回"服务不存在"
-        assert data.get("code") == "03", f"Expected code 03 for detail bug, got: {data}"
+        assert data.get("code") == "03", f"Expected code 03 for non-existing scope, got: {data}"
 
     def test_edit_business_scope_success(self):
         """编辑已存在的经营范围，应返回成功"""
@@ -204,6 +209,28 @@ class TestBusinessScope(TestBase):
     def test_delete_business_scope_non_existing(self):
         """删除不存在的经营范围，按正常逻辑应返回失败"""
         response = self.client.delete_business_scope(scope_id=999999)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_delete_business_scope_missing_id(self):
+        """删除经营范围缺少 id，应返回失败"""
+        response = self.client.delete_business_scope(scope_id=None)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_change_status_missing_id(self):
+        """修改经营范围状态缺少 id，应返回失败"""
+        response = self.client.update_business_scope_status(scope_id=None, is_enabled=1)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_change_status_missing_is_enabled(self):
+        """修改经营范围状态缺少 isEnabled，应返回失败"""
+        scope_id, _ = self._save_and_get_id()
+        response = self.client.update_business_scope_status(scope_id=scope_id, is_enabled=None)
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_failure(data)

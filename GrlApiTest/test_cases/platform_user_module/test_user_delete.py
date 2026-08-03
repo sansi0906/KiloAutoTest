@@ -25,15 +25,18 @@ class TestUserDelete(TestBase):
         data = response.json()
         self.assert_save_success(data)
 
+    @pytest.mark.backend_bug
     def test_delete_non_existing_user(self):
-        """删除不存在的用户，按正常逻辑应返回失败"""
+        """删除不存在的用户，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）"""
         token = self.login()
         self.client.set_token(token)
 
         response = self.client.delete_user(user_id=999999)
         self.validator.assert_status_code(response, 200)
         data = response.json()
-        self.assert_save_failure(data)
+        # 预期：删除不存在的用户应返回失败
+        # 实际后端bug：返回成功 code:00
+        assert data.get("code") not in ("0", "00"), f"Expected failure for non-existent user, got: {data}"
 
     def test_delete_user_not_found_after_delete(self):
         """删除用户后，分页查询应不再返回该用户"""
@@ -53,3 +56,13 @@ class TestUserDelete(TestBase):
         records = page_data.get("data", {}).get("records", [])
         found = any(record.get("userName") == user_name for record in records)
         assert not found, f"User {user_name} still found after deletion: {page_data}"
+
+    def test_delete_missing_id(self):
+        """缺少 id 字段，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        response = self.client.delete_user(user_id=None)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)

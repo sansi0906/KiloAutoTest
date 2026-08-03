@@ -86,6 +86,7 @@ class TestBase(BaseTest):
                 break
         assert provider_id, f"Service provider not found after creation: {page_data}"
         self._created_ids.append(provider_id)
+        self._log_test_data_created(provider_id, payload["companyName"])
         return provider_id, payload["companyName"], payload["contactPhone"]
 
     def _delete_test_data(self, item_id):

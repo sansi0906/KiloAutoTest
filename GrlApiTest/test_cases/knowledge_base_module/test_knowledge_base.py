@@ -192,9 +192,80 @@ class TestKnowledgeBase(TestBase):
         data = response.json()
         self.assert_save_success(data)
 
+    @pytest.mark.backend_bug
     def test_delete_knowledge_non_existing(self):
-        """删除不存在的知识库，按正常逻辑应返回失败"""
+        """删除不存在的知识库，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）"""
         response = self.client.delete_knowledge(knowledge_id=999999)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        # 预期：删除不存在的记录应返回失败
+        # 实际后端bug：返回成功 code:00
+        assert data.get("code") not in ("0", "00"), f"Expected failure for non-existent knowledge, got: {data}"
+
+    def test_delete_knowledge_missing_id(self):
+        """删除知识库缺少 id，应返回失败"""
+        response = self.client.delete_knowledge(knowledge_id=None)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_knowledge_missing_consult_type(self):
+        """缺少 consultType，应返回失败"""
+        response = self.client.save_knowledge(
+            title="TestKB",
+            content="TestContent",
+            consult_type=None,
+            display_position=[0, 1],
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_knowledge_missing_display_position(self):
+        """缺少 displayPosition，应返回失败"""
+        response = self.client.save_knowledge(
+            title="TestKB",
+            content="TestContent",
+            consult_type=1,
+            display_position=None,
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_knowledge_missing_applicable_area(self):
+        """缺少 applicableArea，应返回失败"""
+        response = self.client.save_knowledge(
+            title="TestKB",
+            content="TestContent",
+            consult_type=1,
+            display_position=[0, 1],
+            applicable_area=None,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_change_status_missing_id(self):
+        """修改知识库状态缺少 id，应返回失败"""
+        response = self.client.change_knowledge_status(knowledge_id=None, status=0)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_change_status_missing_status(self):
+        """修改知识库状态缺少 status，应返回失败"""
+        knowledge_id, _ = self._save_and_get_id()
+        response = self.client.change_knowledge_status(knowledge_id=knowledge_id, status=None)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_detail_missing_id(self):
+        """获取知识库详情缺少 id，应返回失败"""
+        response = self.client.get_knowledge_detail(knowledge_id=None)
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_failure(data)

@@ -137,6 +137,83 @@ class TestServiceProvider(TestBase):
         data = response.json()
         self.assert_save_success(data)
 
+    def test_edit_service_provider_missing_company_name(self):
+        """编辑服务商缺少 companyName，应返回失败"""
+        provider_id, _, _ = self._save_and_get_id()
+        payload = self._build_provider_payload()
+        del payload["companyName"]
+        payload["id"] = provider_id
+        response = self.client.post("/platform/serverUser/edit", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_service_provider_missing_unified_social_code(self):
+        """编辑服务商缺少 unifiedSocialCode，应返回失败"""
+        provider_id, _, _ = self._save_and_get_id()
+        payload = self._build_provider_payload()
+        del payload["unifiedSocialCode"]
+        payload["id"] = provider_id
+        response = self.client.post("/platform/serverUser/edit", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_service_provider_missing_office_address(self):
+        """编辑服务商缺少 officeAddress，应返回失败"""
+        provider_id, _, _ = self._save_and_get_id()
+        payload = self._build_provider_payload()
+        del payload["officeAddress"]
+        payload["id"] = provider_id
+        response = self.client.post("/platform/serverUser/edit", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_service_provider_missing_service_area(self):
+        """编辑服务商缺少 serviceArea，应返回失败"""
+        provider_id, _, _ = self._save_and_get_id()
+        payload = self._build_provider_payload()
+        del payload["serviceArea"]
+        payload["id"] = provider_id
+        response = self.client.post("/platform/serverUser/edit", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_service_provider_missing_contact_person(self):
+        """编辑服务商缺少 contactPerson，应返回失败"""
+        provider_id, _, _ = self._save_and_get_id()
+        payload = self._build_provider_payload()
+        del payload["contactPerson"]
+        payload["id"] = provider_id
+        response = self.client.post("/platform/serverUser/edit", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_service_provider_missing_contact_phone(self):
+        """编辑服务商缺少 contactPhone，应返回失败"""
+        provider_id, _, _ = self._save_and_get_id()
+        payload = self._build_provider_payload()
+        del payload["contactPhone"]
+        payload["id"] = provider_id
+        response = self.client.post("/platform/serverUser/edit", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_edit_service_provider_missing_service_items(self):
+        """编辑服务商缺少 serviceItems，应返回失败"""
+        provider_id, _, _ = self._save_and_get_id()
+        payload = self._build_provider_payload()
+        del payload["serviceItems"]
+        payload["id"] = provider_id
+        response = self.client.post("/platform/serverUser/edit", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
     def test_change_status_disable(self):
         """禁用已启用的服务商，应返回成功"""
         provider_id, _, _ = self._save_and_get_id()
@@ -192,10 +269,111 @@ class TestServiceProvider(TestBase):
         data = response.json()
         self.assert_save_success(data)
 
+    @pytest.mark.backend_bug
     def test_delete_service_provider_non_existing(self):
-        """删除不存在的服务商，后端实际返回成功（疑似未做存在性校验）"""
+        """删除不存在的服务商，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）"""
         response = self.client.post("/platform/serverUser/delete", json={"id": 999999})
         self.validator.assert_status_code(response, 200)
         data = response.json()
-        # 后端bug：删除不存在的服务商仍返回成功 code:00
-        self.assert_save_success(data)
+        # 预期：删除不存在的服务商应返回失败
+        # 实际后端bug：返回成功 code:00
+        assert data.get("code") not in ("0", "00"), f"Expected failure for non-existent provider, got: {data}"
+
+    def test_delete_service_provider_missing_id(self):
+        """删除服务商缺少 id，应返回失败"""
+        response = self.client.post("/platform/serverUser/delete", json={})
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_detail_missing_id(self):
+        """获取服务商详情缺少 id，应返回失败"""
+        response = self.client.post("/platform/serverUser/detail", json={})
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_change_status_missing_id(self):
+        """修改服务商状态缺少 id，应返回失败"""
+        response = self.client.post("/platform/serverUser/changeStatus", json={"status": 0})
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_change_status_missing_status(self):
+        """修改服务商状态缺少 status，应返回失败"""
+        provider_id, _, _ = self._save_and_get_id()
+        response = self.client.post("/platform/serverUser/changeStatus", json={"id": provider_id})
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_reset_password_missing_id(self):
+        """重置服务商密码缺少 id，应返回失败"""
+        response = self.client.post("/platform/serverUser/resetPwd", json={})
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_service_provider_missing_company_name(self):
+        """新增服务商缺少 companyName，应返回失败"""
+        payload = self._build_provider_payload()
+        del payload["companyName"]
+        response = self.client.post("/platform/serverUser/save", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_service_provider_missing_unified_social_code(self):
+        """新增服务商缺少 unifiedSocialCode，应返回失败"""
+        payload = self._build_provider_payload()
+        del payload["unifiedSocialCode"]
+        response = self.client.post("/platform/serverUser/save", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_service_provider_missing_office_address(self):
+        """新增服务商缺少 officeAddress，应返回失败"""
+        payload = self._build_provider_payload()
+        del payload["officeAddress"]
+        response = self.client.post("/platform/serverUser/save", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_service_provider_missing_service_area(self):
+        """新增服务商缺少 serviceArea，应返回失败"""
+        payload = self._build_provider_payload()
+        del payload["serviceArea"]
+        response = self.client.post("/platform/serverUser/save", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_service_provider_missing_contact_person(self):
+        """新增服务商缺少 contactPerson，应返回失败"""
+        payload = self._build_provider_payload()
+        del payload["contactPerson"]
+        response = self.client.post("/platform/serverUser/save", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_service_provider_missing_contact_phone(self):
+        """新增服务商缺少 contactPhone，应返回失败"""
+        payload = self._build_provider_payload()
+        del payload["contactPhone"]
+        response = self.client.post("/platform/serverUser/save", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_service_provider_missing_service_items(self):
+        """新增服务商缺少 serviceItems，应返回失败"""
+        payload = self._build_provider_payload()
+        del payload["serviceItems"]
+        response = self.client.post("/platform/serverUser/save", json=payload)
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)

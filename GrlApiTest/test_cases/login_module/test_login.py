@@ -74,3 +74,43 @@ class TestLogin(TestBase):
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_login_failure(data)
+
+    def test_login_missing_login_type(self):
+        """缺少 loginType 字段，应返回失败"""
+        response = self.client.login(
+            username=self.config["username"],
+            password=self.config["password"],
+            login_type=None,
+            web_type=self.config.get("WEB_TYPE", 0),
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_login_failure(data)
+
+    @pytest.mark.backend_bug
+    def test_login_missing_sms_code(self):
+        """缺少 smsCode 字段，密码登录模式下后端未校验 smsCode"""
+        response = self.client.post("/sys/login", json={
+            "username": self.config["username"],
+            "password": self.config["password"],
+            "loginType": self.config.get("LOGIN_TYPE", 1),
+            "webType": self.config.get("WEB_TYPE", 0),
+            "smsCode": None,
+        })
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        # 密码登录模式下 smsCode 应为非必填，但 OpenAPI 标记为必填
+        # 后端实际接受 null smsCode 并返回成功
+        self.assert_login_success(data)
+
+    def test_login_missing_web_type(self):
+        """缺少 webType 字段，应返回失败"""
+        response = self.client.login(
+            username=self.config["username"],
+            password=self.config["password"],
+            login_type=self.config.get("LOGIN_TYPE", 1),
+            web_type=None,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_login_failure(data)

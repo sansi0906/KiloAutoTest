@@ -1,6 +1,6 @@
 """
 test_logout.py - 用户登出接口测试
-======================================
+=====================================
 覆盖登出模块的场景：
 - 有效 Token 登出成功
 - 无 Token 登出失败
@@ -8,6 +8,8 @@ test_logout.py - 用户登出接口测试
 - 空 Token 登出
 - 登出后重新登录的完整生命周期
 """
+
+import pytest
 
 from .test_base import TestBase
 
@@ -22,12 +24,15 @@ class TestLogout(TestBase):
         data = response.json()
         self.assert_save_success(data)
 
+    @pytest.mark.backend_bug
     def test_logout_without_token(self):
-        """无 Token 登出，应返回失败"""
+        """无 Token 登出，预期应返回失败，但后端实际返回成功（疑似未做 Token 校验）"""
         response = self.client.logout()
         assert response.status_code == 200
         data = response.json()
-        self.assert_save_failure(data)
+        # 预期：无 Token 登出应返回失败
+        # 实际后端bug：返回成功 code:00
+        assert data.get("code") not in ("0", "00"), f"Expected failure without token, got: {data}"
 
     def test_logout_with_invalid_token(self):
         """使用无效 Token 登出，应返回失败"""
