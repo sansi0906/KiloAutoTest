@@ -1,0 +1,122 @@
+[
+  {
+    "module": "设置",
+    "case_id": "营销-SET-001",
+    "name": "设置/个人中心页面",
+    "status": "PASS",
+    "detail": "菜单: ['系统设置']",
+    "timestamp": "10:51:56"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-006",
+    "name": "审核状态Tab",
+    "status": "SKIP",
+    "detail": "无审核Tab",
+    "timestamp": "10:52:01"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-007",
+    "name": "客户详情页",
+    "status": "FAIL",
+    "detail": "离开App",
+    "timestamp": "10:52:06"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-009",
+    "name": "电话拨打功能",
+    "status": "FAIL",
+    "detail": "弹窗: []",
+    "timestamp": "10:52:15"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-007",
+    "name": "管理按钮功能",
+    "status": "FAIL",
+    "detail": "无管理按钮",
+    "timestamp": "10:52:20"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-008",
+    "name": "结算按钮",
+    "status": "FAIL",
+    "detail": "按钮: []",
+    "timestamp": "10:52:23"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-009",
+    "name": "全选并查看合计",
+    "status": "FAIL",
+    "detail": "无全选按钮",
+    "timestamp": "10:52:23"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-010",
+    "name": "数量增减",
+    "status": "FAIL",
+    "detail": "无数量按钮",
+    "timestamp": "10:52:23"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-007",
+    "name": "查看协议和凭证",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "timestamp": "10:52:25"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-008",
+    "name": "查看发票",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "timestamp": "10:52:27"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-009",
+    "name": "订单详情完整字段",
+    "status": "FAIL",
+    "detail": "字段: []",
+    "timestamp": "10:52:42"
+  },
+  {
+    "module": "消息",
+    "case_id": "营销-MSG-003",
+    "name": "消息入口",
+    "status": "FAIL",
+    "detail": "首页无消息入口",
+    "timestamp": "10:52:47"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-010",
+    "name": "下拉刷新",
+    "status": "PASS",
+    "detail": "5个元素",
+    "timestamp": "10:52:55"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-011",
+    "name": "轮播图/Banner",
+    "status": "FAIL",
+    "detail": "内容: []",
+    "timestamp": "10:52:57"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-012",
+    "name": "轮播图滑动",
+    "status": "PASS",
+    "detail": "5个元素",
+    "timestamp": "10:53:00"
+  }
+]

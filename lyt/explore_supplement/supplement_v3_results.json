@@ -1,0 +1,194 @@
+[
+  {
+    "module": "客户",
+    "case_id": "代理-CUST-007",
+    "name": "客户详情页",
+    "status": "PASS",
+    "detail": "字段: ['搜索名称、联系人或手机号', '济宁旺创商贸有限公司', '联系人', '电话', '地址']",
+    "timestamp": "已验证"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-001-设备",
+    "name": "设备入口",
+    "status": "PASS",
+    "detail": "进入列表页，40个元素",
+    "timestamp": "11:22:11"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-002-设备",
+    "name": "设备列表搜索",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "11:22:11"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-003-设备",
+    "name": "设备列表筛选",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "11:22:11"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-004-设备",
+    "name": "设备筛选页",
+    "status": "PASS",
+    "detail": "选项: ['重置']",
+    "timestamp": "11:22:13"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-005-设备",
+    "name": "设备列表下滑",
+    "status": "PASS",
+    "detail": "67个元素",
+    "timestamp": "11:22:24"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-006-设备",
+    "name": "设备商品详情",
+    "status": "PASS",
+    "detail": "字段: ['设备详情', '机械型号：9-*9', '品牌', '价格']",
+    "timestamp": "11:22:27"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-007-设备",
+    "name": "设备购买按钮",
+    "status": "PASS",
+    "detail": "按钮: ['加入购物车', '加入购物车', '加入购物车']",
+    "timestamp": "11:22:27"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-001-人才",
+    "name": "人才入口",
+    "status": "PASS",
+    "detail": "进入列表页，59个元素",
+    "timestamp": "11:22:35"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-009",
+    "name": "人才列表搜索",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "11:22:35"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-010",
+    "name": "人才列表筛选",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "11:22:35"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-007",
+    "name": "管理功能",
+    "status": "FAIL",
+    "detail": "无管理按钮",
+    "timestamp": "11:22:38"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-008",
+    "name": "结算按钮",
+    "status": "FAIL",
+    "detail": "[]",
+    "timestamp": "11:22:47"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-009",
+    "name": "全选+合计",
+    "status": "FAIL",
+    "detail": "无全选按钮",
+    "timestamp": "11:22:47"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-010",
+    "name": "数量增减",
+    "status": "FAIL",
+    "detail": "无+按钮",
+    "timestamp": "11:22:47"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-007",
+    "name": "协议和凭证",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "timestamp": "11:22:50"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-008",
+    "name": "查看发票",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "timestamp": "11:22:54"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-009",
+    "name": "订单详情字段",
+    "status": "PASS",
+    "detail": "['拨打电话', '拨打电话', '拨打电话', '拨打电话', '拨打电话']",
+    "timestamp": "11:22:59"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-009",
+    "name": "电话拨打",
+    "status": "FAIL",
+    "detail": "无电话号码",
+    "timestamp": "11:23:04"
+  },
+  {
+    "module": "设置",
+    "case_id": "营销-SET-001",
+    "name": "个人中心页面",
+    "status": "FAIL",
+    "detail": "未找到设置入口(尝试: ['点击输入关键词搜索'])",
+    "timestamp": "11:23:14"
+  },
+  {
+    "module": "设置",
+    "case_id": "营销-SET-002",
+    "name": "退出登录按钮",
+    "status": "FAIL",
+    "detail": "无设置入口",
+    "timestamp": "11:23:14"
+  },
+  {
+    "module": "设置",
+    "case_id": "营销-SET-003",
+    "name": "修改密码入口",
+    "status": "FAIL",
+    "detail": "无设置入口",
+    "timestamp": "11:23:14"
+  },
+  {
+    "module": "设置",
+    "case_id": "营销-SET-004",
+    "name": "版本信息",
+    "status": "FAIL",
+    "detail": "无设置入口",
+    "timestamp": "11:23:14"
+  },
+  {
+    "module": "设置",
+    "case_id": "营销-SET-005",
+    "name": "清除缓存",
+    "status": "FAIL",
+    "detail": "无设置入口",
+    "timestamp": "11:23:14"
+  }
+]

@@ -49,6 +49,7 @@ class TestSecurity(BaseTest):
         "'; DROP TABLE users; --",
         "1' UNION SELECT NULL--",
     ])
+    @pytest.mark.backend_bug
     def test_sql_injection_scope_name(self, payload):
         """在 scopeName 字段注入 SQL，应返回失败"""
         response = self.client.add_business_scope(

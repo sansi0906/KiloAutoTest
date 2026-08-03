@@ -1,0 +1,282 @@
+[
+  {
+    "step": 1,
+    "title": "Step 0: 启动App并登录营销账号",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:34:00"
+  },
+  {
+    "step": 2,
+    "title": "已登录状态",
+    "status": "PASS",
+    "detail": "底部Tab: ['客户', '首页', '客户', '购物车', '订单']",
+    "time": "11:34:10"
+  },
+  {
+    "step": 3,
+    "title": "Step 1: 首页验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:34:10"
+  },
+  {
+    "step": 4,
+    "title": "HOME-001 用户信息",
+    "status": "PASS",
+    "detail": "找到: ['杨涛轩', '营销333']",
+    "time": "11:34:13"
+  },
+  {
+    "step": 5,
+    "title": "HOME-003 功能入口",
+    "status": "PASS",
+    "detail": "找到: ['服务', '多元化客户服务', '人才', '建材', '设备', '设备租赁与采购', '班组技术人才推荐', '优质建材供应']",
+    "time": "11:34:13"
+  },
+  {
+    "step": 6,
+    "title": "HOME-004 消息区域",
+    "status": "PASS",
+    "detail": "找到: ['你有一笔订单已完成', '你有一笔订单待开票', '订单已发货，请及时上传发票']",
+    "time": "11:34:13"
+  },
+  {
+    "step": 7,
+    "title": "Step 2: 商品列表-设备验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:34:13"
+  },
+  {
+    "step": 8,
+    "title": "PROD-001 设备列表入口",
+    "status": "PASS",
+    "detail": "成功进入设备列表页",
+    "time": "11:34:13"
+  },
+  {
+    "step": 9,
+    "title": "PROD-002 设备列表搜索",
+    "status": "FAIL",
+    "detail": "无搜索按钮",
+    "time": "11:34:13"
+  },
+  {
+    "step": 10,
+    "title": "PROD-003 设备列表筛选",
+    "status": "FAIL",
+    "detail": "无筛选按钮",
+    "time": "11:34:13"
+  },
+  {
+    "step": 11,
+    "title": "PROD-005 设备列表下滑",
+    "status": "PASS",
+    "detail": "下滑后35个元素",
+    "time": "11:34:16"
+  },
+  {
+    "step": 12,
+    "title": "PROD-006 设备商品详情",
+    "status": "FAIL",
+    "detail": "无详情字段",
+    "time": "11:34:19"
+  },
+  {
+    "step": 13,
+    "title": "PROD-007 设备购买按钮",
+    "status": "FAIL",
+    "detail": "无购买按钮",
+    "time": "11:34:19"
+  },
+  {
+    "step": 14,
+    "title": "Step 3: 商品列表-人才验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:34:20"
+  },
+  {
+    "step": 15,
+    "title": "App不在前台，重新启动",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:34:20"
+  },
+  {
+    "step": 16,
+    "title": "PROD-001 人才入口",
+    "status": "PASS",
+    "detail": "成功进入人才列表页",
+    "time": "11:34:29"
+  },
+  {
+    "step": 17,
+    "title": "PROD-009 人才列表搜索",
+    "status": "FAIL",
+    "detail": "无搜索按钮",
+    "time": "11:34:29"
+  },
+  {
+    "step": 18,
+    "title": "PROD-010 人才列表筛选",
+    "status": "FAIL",
+    "detail": "无筛选按钮",
+    "time": "11:34:29"
+  },
+  {
+    "step": 19,
+    "title": "Step 4: 购物车管理验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:34:29"
+  },
+  {
+    "step": 20,
+    "title": "CART-007 管理按钮",
+    "status": "PASS",
+    "detail": "有管理按钮",
+    "time": "11:34:31"
+  },
+  {
+    "step": 21,
+    "title": "CART-007 管理功能",
+    "status": "PASS",
+    "detail": "操作: ['完成', '删除', '全选']",
+    "time": "11:34:34"
+  },
+  {
+    "step": 22,
+    "title": "CART-008 结算按钮",
+    "status": "PASS",
+    "detail": "找到: ['合计：', '￥']",
+    "time": "11:34:38"
+  },
+  {
+    "step": 23,
+    "title": "CART-009 全选按钮",
+    "status": "PASS",
+    "detail": "有全选按钮",
+    "time": "11:34:38"
+  },
+  {
+    "step": 24,
+    "title": "CART-009 全选+合计",
+    "status": "PASS",
+    "detail": "找到: ['合计：', '￥']",
+    "time": "11:34:39"
+  },
+  {
+    "step": 25,
+    "title": "CART-010 数量增加",
+    "status": "PASS",
+    "detail": "有+按钮",
+    "time": "11:34:39"
+  },
+  {
+    "step": 26,
+    "title": "Step 5: 订单操作验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:34:40"
+  },
+  {
+    "step": 27,
+    "title": "ORD-007 协议和凭证按钮",
+    "status": "PASS",
+    "detail": "找到: ['查看协议和凭证']",
+    "time": "11:34:43"
+  },
+  {
+    "step": 28,
+    "title": "ORD-007 协议凭证页",
+    "status": "PASS",
+    "detail": "字段: ['查看协议和凭证', '协议和凭证', '凭证', '协议']",
+    "time": "11:34:45"
+  },
+  {
+    "step": 29,
+    "title": "ORD-008 查看发票按钮",
+    "status": "PASS",
+    "detail": "找到: ['查看发票']",
+    "time": "11:34:50"
+  },
+  {
+    "step": 30,
+    "title": "ORD-008 发票页",
+    "status": "PASS",
+    "detail": "字段: ['查看发票']",
+    "time": "11:34:52"
+  },
+  {
+    "step": 31,
+    "title": "ORD-009 订单详情字段",
+    "status": "PASS",
+    "detail": "字段: ['订单编号', '订单金额合计', '收件人：', '订单编号：2075505113501401088', '收货地址：', '订单编号：2076569413917736960', '下单时间', '订单编号：2076589231551152128']",
+    "time": "11:34:59"
+  },
+  {
+    "step": 32,
+    "title": "Step 6: 客户电话拨打验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:35:01"
+  },
+  {
+    "step": 33,
+    "title": "CUST-009 电话拨打",
+    "status": "PASS",
+    "detail": "弹窗: ['联系电话']",
+    "time": "11:35:06"
+  },
+  {
+    "step": 34,
+    "title": "Step 7: 设置/个人中心验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:35:07"
+  },
+  {
+    "step": 35,
+    "title": "SET-001 个人中心页面",
+    "status": "FAIL",
+    "detail": "未找到设置入口",
+    "time": "11:35:13"
+  },
+  {
+    "step": 36,
+    "title": "SET-002 退出登录按钮",
+    "status": "FAIL",
+    "detail": "无设置入口",
+    "time": "11:35:13"
+  },
+  {
+    "step": 37,
+    "title": "SET-003 修改密码入口",
+    "status": "FAIL",
+    "detail": "无设置入口",
+    "time": "11:35:13"
+  },
+  {
+    "step": 38,
+    "title": "SET-004 版本信息",
+    "status": "FAIL",
+    "detail": "无设置入口",
+    "time": "11:35:13"
+  },
+  {
+    "step": 39,
+    "title": "SET-005 清除缓存",
+    "status": "FAIL",
+    "detail": "无设置入口",
+    "time": "11:35:13"
+  },
+  {
+    "step": 40,
+    "title": "生成验证报告",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:35:13"
+  }
+]

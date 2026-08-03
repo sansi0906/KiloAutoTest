@@ -1,0 +1,162 @@
+[
+  {
+    "module": "设置",
+    "case_id": "营销-SET-001",
+    "name": "个人中心页面",
+    "status": "PASS",
+    "detail": "菜单: ['消息', '更多消息']",
+    "timestamp": "10:57:02"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-006",
+    "name": "审核Tab-待审核",
+    "status": "PASS",
+    "detail": "36个元素",
+    "timestamp": "10:57:31"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-006",
+    "name": "审核Tab-已入驻",
+    "status": "PASS",
+    "detail": "42个元素",
+    "timestamp": "10:57:33"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-007",
+    "name": "客户详情页",
+    "status": "PASS",
+    "detail": "字段: ['客户资料审核', '\\u3000\\u3000\\u3000\\u3000工人乐（天津）科技集团有限公司', '联系人', '联系电话', '搜索名称、联系人或手机号']",
+    "timestamp": "10:58:01"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-008",
+    "name": "客户详情操作按钮",
+    "status": "PASS",
+    "detail": "操作: ['客户资料审核', '联系人', '联系电话']",
+    "timestamp": "10:58:01"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-009",
+    "name": "电话拨打",
+    "status": "FAIL",
+    "detail": "弹窗: []",
+    "timestamp": "10:58:24"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-001-设备",
+    "name": "设备入口",
+    "status": "FAIL",
+    "detail": "未找到入口",
+    "timestamp": "10:58:58"
+  },
+  {
+    "module": "商品",
+    "case_id": "营销-PROD-001-人才",
+    "name": "人才入口",
+    "status": "FAIL",
+    "detail": "未找到入口",
+    "timestamp": "10:58:58"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-007",
+    "name": "管理功能",
+    "status": "FAIL",
+    "detail": "无管理按钮",
+    "timestamp": "10:59:31"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-008",
+    "name": "结算按钮",
+    "status": "FAIL",
+    "detail": "[]",
+    "timestamp": "11:00:04"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-009",
+    "name": "全选+合计",
+    "status": "FAIL",
+    "detail": "无全选",
+    "timestamp": "11:00:04"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-010",
+    "name": "数量增减",
+    "status": "FAIL",
+    "detail": "无+按钮",
+    "timestamp": "11:00:04"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-007",
+    "name": "协议和凭证",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "timestamp": "11:00:37"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-008",
+    "name": "查看发票",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "timestamp": "11:01:10"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-009",
+    "name": "订单详情字段",
+    "status": "FAIL",
+    "detail": "[]",
+    "timestamp": "11:01:56"
+  },
+  {
+    "module": "消息",
+    "case_id": "营销-MSG-004",
+    "name": "消息详情",
+    "status": "PASS",
+    "detail": "['订单(笔)', '你有一笔订单待开票', '订单已发货，请及时上传发票', '你有一笔订单已完成', '你有一笔订单待开票']",
+    "timestamp": "11:02:32"
+  },
+  {
+    "module": "消息",
+    "case_id": "营销-MSG-005",
+    "name": "已读状态",
+    "status": "PASS",
+    "detail": "点击自动标记",
+    "timestamp": "11:02:32"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-010",
+    "name": "下拉刷新",
+    "status": "PASS",
+    "detail": "35个元素",
+    "timestamp": "11:02:57"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-011",
+    "name": "轮播图",
+    "status": "PASS",
+    "detail": "['班组技术人才推荐']",
+    "timestamp": "11:03:16"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-012",
+    "name": "轮播滑动",
+    "status": "PASS",
+    "detail": "35个元素",
+    "timestamp": "11:03:19"
+  }
+]

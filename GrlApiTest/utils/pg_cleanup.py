@@ -35,7 +35,7 @@ CLEANUP_SQL = {
     "cjgt_service_provider": "DELETE FROM {table} WHERE create_user_uuid = %s",
     "cjgt_business_scope": "DELETE FROM {table} WHERE create_user_uuid = %s",
     "cjgt_service_item": "DELETE FROM {table} WHERE create_user_uuid = %s",
-    "cjgt_platform_user": "DELETE FROM {table} WHERE create_user_uuid = %s",
+    "cjgt_platform_user": "DELETE FROM {table} WHERE create_user_uuid = %s AND is_super_admin != 1",
 }
 
 

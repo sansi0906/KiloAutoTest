@@ -1,0 +1,50 @@
+[
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-007",
+    "name": "管理功能",
+    "status": "PASS",
+    "detail": "按钮: ['完成', '全选', '删除']",
+    "timestamp": "11:24:49"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-008",
+    "name": "结算按钮",
+    "status": "PASS",
+    "detail": "['合计：', '￥']",
+    "timestamp": "11:24:53"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-009",
+    "name": "全选+合计",
+    "status": "PASS",
+    "detail": "['合计：', '￥']",
+    "timestamp": "11:24:55"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-010",
+    "name": "数量增加",
+    "status": "PASS",
+    "detail": "点击+按钮",
+    "timestamp": "11:24:56"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-007",
+    "name": "协议和凭证",
+    "status": "PASS",
+    "detail": "['协议和凭证', '协议', '凭证', '查看协议和凭证', '查看协议和凭证']",
+    "timestamp": "11:25:02"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-008",
+    "name": "查看发票",
+    "status": "PASS",
+    "detail": "['查看发票', '查看发票', '查看发票']",
+    "timestamp": "11:25:09"
+  }
+]

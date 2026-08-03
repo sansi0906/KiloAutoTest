@@ -1,0 +1,146 @@
+[
+  {
+    "module": "设置",
+    "case_id": "代理-SET-001",
+    "name": "设置/个人中心页面",
+    "status": "PASS",
+    "detail": "菜单项: ['系统设置']",
+    "timestamp": "10:44:14"
+  },
+  {
+    "module": "客户",
+    "case_id": "代理-CUST-006",
+    "name": "审核状态Tab",
+    "status": "SKIP",
+    "detail": "无审核Tab",
+    "timestamp": "10:44:18"
+  },
+  {
+    "module": "客户",
+    "case_id": "代理-CUST-007",
+    "name": "客户详情页",
+    "status": "FAIL",
+    "detail": "离开App",
+    "timestamp": "10:44:24"
+  },
+  {
+    "module": "客户",
+    "case_id": "代理-CUST-009",
+    "name": "电话拨打功能",
+    "status": "PASS",
+    "detail": "弹窗: ['电话', '拨打电话', '电话']",
+    "timestamp": "10:44:32"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-007",
+    "name": "管理按钮功能",
+    "status": "FAIL",
+    "detail": "无管理按钮",
+    "timestamp": "10:44:38"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-008",
+    "name": "结算按钮",
+    "status": "FAIL",
+    "detail": "按钮: []",
+    "timestamp": "10:44:40"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-009",
+    "name": "全选并查看合计",
+    "status": "FAIL",
+    "detail": "无全选按钮",
+    "timestamp": "10:44:40"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-010",
+    "name": "数量增加",
+    "status": "PASS",
+    "detail": "点击+按钮",
+    "timestamp": "10:44:42"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-007",
+    "name": "查看协议和凭证",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "timestamp": "10:44:44"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-008",
+    "name": "查看发票",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "timestamp": "10:44:47"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-009",
+    "name": "订单详情完整字段",
+    "status": "PASS",
+    "detail": "字段: ['收货地址：', '浙江省 温州市 龙湾区 浙江的收货地址详细的 温宁宁 13821245141', '收件人：', '订单编号', '下单时间', '订单金额合计', '备注', '订单编号：2077917233925951488']",
+    "timestamp": "10:44:57"
+  },
+  {
+    "module": "消息",
+    "case_id": "代理-MSG-003",
+    "name": "消息入口",
+    "status": "FAIL",
+    "detail": "首页无消息入口",
+    "timestamp": "10:45:01"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-010",
+    "name": "下拉刷新",
+    "status": "PASS",
+    "detail": "刷新后24个元素",
+    "timestamp": "10:45:09"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-011",
+    "name": "轮播图/Banner",
+    "status": "FAIL",
+    "detail": "内容: []",
+    "timestamp": "10:45:12"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-012",
+    "name": "轮播图滑动",
+    "status": "PASS",
+    "detail": "滑动后24个元素",
+    "timestamp": "10:45:15"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-010",
+    "name": "确认收货按钮",
+    "status": "PASS",
+    "detail": "按钮: ['待确认', '已完成', '已完成']",
+    "timestamp": "10:45:17"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-011",
+    "name": "代理订单详情操作",
+    "status": "PASS",
+    "detail": "操作: ['收货地址：', '浙江省 温州市 龙湾区 浙江的收货地址详细的 温宁宁 13821245141', '备注']",
+    "timestamp": "10:45:25"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-012",
+    "name": "物流信息",
+    "status": "PASS",
+    "detail": "物流: ['待发货', '待发货']",
+    "timestamp": "10:45:25"
+  }
+]

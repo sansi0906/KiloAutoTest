@@ -124,6 +124,7 @@ class TestPricing(TestBase):
         data = response.json()
         self.assert_save_success(data)
 
+    @pytest.mark.backend_bug
     def test_update_pricing_no_record(self):
         """更新未导入定价数据的服务项目定价，按正常逻辑应返回失败"""
         item_id, item_name = self._create_service_item()

@@ -1,0 +1,268 @@
+[
+  {
+    "title": "Step 0: 确认登录状态",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:38:14",
+    "screenshot": ""
+  },
+  {
+    "title": "已登录营销角色",
+    "status": "PASS",
+    "detail": "Tab: ['客户', '首页', '客户', '购物车', '订单']",
+    "time": "11:38:23",
+    "screenshot": ""
+  },
+  {
+    "title": "Step 1: 首页验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:38:23",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-001 用户信息",
+    "status": "PASS",
+    "detail": "找到: ['杨涛轩']",
+    "time": "11:38:25",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/home_113825.png"
+  },
+  {
+    "title": "HOME-003 功能入口",
+    "status": "PASS",
+    "detail": "找到: ['设备', '设备租赁与采购', '人才', '班组技术人才推荐']",
+    "time": "11:38:25",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-004 消息区域",
+    "status": "PASS",
+    "detail": "找到: ['你有一笔订单已完成']",
+    "time": "11:38:25",
+    "screenshot": ""
+  },
+  {
+    "title": "Step 2: 商品列表-设备验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:38:25",
+    "screenshot": ""
+  },
+  {
+    "title": "点击设备入口 @(281, 974)",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:38:28",
+    "screenshot": ""
+  },
+  {
+    "title": "PROD-001 设备列表入口",
+    "status": "PASS",
+    "detail": "成功进入设备列表页",
+    "time": "11:38:31",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/device_list_113831.png"
+  },
+  {
+    "title": "PROD-002 设备列表搜索",
+    "status": "PASS",
+    "detail": "有搜索按钮",
+    "time": "11:38:31",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/device_list_113831.png"
+  },
+  {
+    "title": "PROD-003 设备列表筛选",
+    "status": "PASS",
+    "detail": "有筛选按钮",
+    "time": "11:38:31",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/device_list_113831.png"
+  },
+  {
+    "title": "PROD-004 设备筛选页",
+    "status": "PASS",
+    "detail": "选项: ['重置']",
+    "time": "11:38:34",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/device_filter_113834.png"
+  },
+  {
+    "title": "PROD-005 设备列表下滑",
+    "status": "PASS",
+    "detail": "下滑后20个元素",
+    "time": "11:38:38",
+    "screenshot": ""
+  },
+  {
+    "title": "PROD-006 设备商品详情",
+    "status": "PASS",
+    "detail": "字段: ['价格']",
+    "time": "11:38:41",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/device_detail_113841.png"
+  },
+  {
+    "title": "PROD-007 设备购买按钮",
+    "status": "PASS",
+    "detail": "按钮: ['加入购物车', '加入购物车', '加入购物车', '加入购物车']",
+    "time": "11:38:41",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/device_detail_113841.png"
+  },
+  {
+    "title": "Step 3: 商品列表-人才验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:38:43",
+    "screenshot": ""
+  },
+  {
+    "title": "PROD-001 人才入口",
+    "status": "PASS",
+    "detail": "成功进入人才列表页",
+    "time": "11:38:54",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/talent_list_113854.png"
+  },
+  {
+    "title": "PROD-009 人才列表搜索",
+    "status": "PASS",
+    "detail": "有搜索按钮",
+    "time": "11:38:54",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/talent_list_113854.png"
+  },
+  {
+    "title": "PROD-010 人才列表筛选",
+    "status": "PASS",
+    "detail": "有筛选按钮",
+    "time": "11:38:54",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/talent_list_113854.png"
+  },
+  {
+    "title": "Step 4: 购物车管理验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:38:54",
+    "screenshot": ""
+  },
+  {
+    "title": "CART-007 管理按钮",
+    "status": "FAIL",
+    "detail": "无管理按钮",
+    "time": "11:38:59",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/cart_113859.png"
+  },
+  {
+    "title": "CART-008 结算按钮",
+    "status": "FAIL",
+    "detail": "无结算按钮",
+    "time": "11:38:59",
+    "screenshot": ""
+  },
+  {
+    "title": "CART-009 全选按钮",
+    "status": "FAIL",
+    "detail": "无全选按钮",
+    "time": "11:38:59",
+    "screenshot": ""
+  },
+  {
+    "title": "CART-010 数量增加",
+    "status": "PASS",
+    "detail": "有+按钮",
+    "time": "11:38:59",
+    "screenshot": ""
+  },
+  {
+    "title": "Step 5: 订单操作验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:38:59",
+    "screenshot": ""
+  },
+  {
+    "title": "ORD-007 协议和凭证按钮",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "time": "11:39:10",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/order_list_113910.png"
+  },
+  {
+    "title": "ORD-008 查看发票按钮",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "time": "11:39:10",
+    "screenshot": ""
+  },
+  {
+    "title": "ORD-009 订单详情字段",
+    "status": "FAIL",
+    "detail": "无详情字段",
+    "time": "11:39:13",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v2/order_detail_113913.png"
+  },
+  {
+    "title": "Step 6: 客户电话拨打验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:39:14",
+    "screenshot": ""
+  },
+  {
+    "title": "CUST-009 电话拨打",
+    "status": "FAIL",
+    "detail": "无电话号码可点击",
+    "time": "11:39:19",
+    "screenshot": ""
+  },
+  {
+    "title": "Step 7: 设置/个人中心验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:39:19",
+    "screenshot": ""
+  },
+  {
+    "title": "SET-001 个人中心页面",
+    "status": "FAIL",
+    "detail": "未找到用户信息",
+    "time": "11:39:22",
+    "screenshot": ""
+  },
+  {
+    "title": "SET-002~005 设置相关",
+    "status": "FAIL",
+    "detail": "无设置入口",
+    "time": "11:39:22",
+    "screenshot": ""
+  },
+  {
+    "title": "Step 8: 消息详情验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:39:22",
+    "screenshot": ""
+  },
+  {
+    "title": "MSG-004 消息详情入口",
+    "status": "FAIL",
+    "detail": "无消息入口",
+    "time": "11:39:25",
+    "screenshot": ""
+  },
+  {
+    "title": "Step 9: 首页功能验证",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:39:25",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-010 下拉刷新",
+    "status": "PASS",
+    "detail": "57个元素",
+    "time": "11:39:33",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-011 轮播图",
+    "status": "FAIL",
+    "detail": "无轮播图",
+    "time": "11:39:36",
+    "screenshot": ""
+  }
+]

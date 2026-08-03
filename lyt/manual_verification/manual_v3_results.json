@@ -1,0 +1,429 @@
+[
+  {
+    "title": "确认首页",
+    "status": "PASS",
+    "detail": "Tab: []",
+    "time": "11:41:51",
+    "screenshot": ""
+  },
+  {
+    "title": "=== 1. 首页完整验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:41:51",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-001 用户信息",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:41:54",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/home_complete_114154.png"
+  },
+  {
+    "title": "HOME-002 角色信息",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:41:54",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-003 功能入口",
+    "status": "FAIL",
+    "detail": "['建材', '人才', '服务']",
+    "time": "11:41:54",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/home_complete_114154.png"
+  },
+  {
+    "title": "HOME-004 销售业绩",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:41:54",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-005 今日订单",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:41:54",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-006 业绩排名",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:41:54",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-007 消息区域",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:41:54",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-008 团队业绩",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:41:54",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-009 功能说明",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:41:54",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-010 下拉刷新",
+    "status": "PASS",
+    "detail": "57元素",
+    "time": "11:41:59",
+    "screenshot": ""
+  },
+  {
+    "title": "HOME-011 轮播图/横幅",
+    "status": "PASS",
+    "detail": "57个ImageView",
+    "time": "11:42:02",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/home_banner_114202.png"
+  },
+  {
+    "title": "HOME-012 消息条目",
+    "status": "FAIL",
+    "detail": "无条目",
+    "time": "11:42:05",
+    "screenshot": ""
+  },
+  {
+    "title": "=== 2. 设备商品列表验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:42:05",
+    "screenshot": ""
+  },
+  {
+    "title": "PROD-001 设备列表入口",
+    "status": "PASS",
+    "detail": "进入列表页",
+    "time": "11:42:11",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/device_list_v3_114211.png"
+  },
+  {
+    "title": "PROD-002 搜索按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "11:42:11",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/device_list_v3_114211.png"
+  },
+  {
+    "title": "PROD-003 筛选按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "11:42:13",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/device_list_v3_114211.png"
+  },
+  {
+    "title": "PROD-004 筛选功能",
+    "status": "PASS",
+    "detail": "['重置']",
+    "time": "11:42:15",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/device_filter_v3_114215.png"
+  },
+  {
+    "title": "PROD-005 列表下滑",
+    "status": "PASS",
+    "detail": "46元素",
+    "time": "11:42:22",
+    "screenshot": ""
+  },
+  {
+    "title": "PROD-006 商品详情",
+    "status": "FAIL",
+    "detail": "无价格",
+    "time": "11:42:28",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/device_detail_v3_114228.png"
+  },
+  {
+    "title": "PROD-006b 品牌信息",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "11:42:28",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/device_detail_v3_114228.png"
+  },
+  {
+    "title": "PROD-007 加入购物车按钮",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "11:42:28",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/device_detail_v3_114228.png"
+  },
+  {
+    "title": "PROD-008 立即购买按钮",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "11:42:29",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/device_detail_v3_114228.png"
+  },
+  {
+    "title": "=== 3. 人才商品列表验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:42:29",
+    "screenshot": ""
+  },
+  {
+    "title": "PROD-009 人才列表入口",
+    "status": "PASS",
+    "detail": "进入列表页",
+    "time": "11:42:41",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/talent_list_v3_114241.png"
+  },
+  {
+    "title": "PROD-009b 搜索按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "11:42:41",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/talent_list_v3_114241.png"
+  },
+  {
+    "title": "PROD-010 筛选按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "11:42:41",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/talent_list_v3_114241.png"
+  },
+  {
+    "title": "=== 4. 购物车验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:42:41",
+    "screenshot": ""
+  },
+  {
+    "title": "CART-001~011 购物车验证",
+    "status": "INFO",
+    "detail": "购物车为空，已跳过",
+    "time": "11:42:45",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/cart_v3_114245.png"
+  },
+  {
+    "title": "CART-012 空购物车提示",
+    "status": "FAIL",
+    "detail": "无空状态提示",
+    "time": "11:42:45",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/cart_v3_114245.png"
+  },
+  {
+    "title": "=== 5. 订单验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:42:45",
+    "screenshot": ""
+  },
+  {
+    "title": "ORD-001 订单状态Tab",
+    "status": "FAIL",
+    "detail": "无状态Tab",
+    "time": "11:42:50",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/order_list_v3_114250.png"
+  },
+  {
+    "title": "ORD-002 订单列表",
+    "status": "FAIL",
+    "detail": "无订单",
+    "time": "11:42:50",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/order_list_v3_114250.png"
+  },
+  {
+    "title": "ORD-003 订单状态",
+    "status": "FAIL",
+    "detail": "无状态",
+    "time": "11:42:50",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/order_list_v3_114250.png"
+  },
+  {
+    "title": "ORD-004 订单详情",
+    "status": "PASS",
+    "detail": "['人才或服务类商品，同一个商品不能重复添加']",
+    "time": "11:42:53",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/order_detail_v3_114252.png"
+  },
+  {
+    "title": "ORD-005 返回订单列表",
+    "status": "PASS",
+    "detail": "返回成功",
+    "time": "11:42:54",
+    "screenshot": ""
+  },
+  {
+    "title": "ORD-006 订单操作按钮",
+    "status": "FAIL",
+    "detail": "无操作按钮",
+    "time": "11:43:01",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/order_detail_v3b_114301.png"
+  },
+  {
+    "title": "ORD-007 协议和凭证",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "time": "11:43:01",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/order_detail_v3b_114301.png"
+  },
+  {
+    "title": "ORD-008 发票按钮",
+    "status": "FAIL",
+    "detail": "无此按钮",
+    "time": "11:43:01",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/order_detail_v3b_114301.png"
+  },
+  {
+    "title": "=== 6. 客户管理验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:43:03",
+    "screenshot": ""
+  },
+  {
+    "title": "CUST-001 客户列表",
+    "status": "FAIL",
+    "detail": "无客户",
+    "time": "11:43:07",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/customer_v3_114307.png"
+  },
+  {
+    "title": "CUST-002 搜索按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "11:43:07",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/customer_v3_114307.png"
+  },
+  {
+    "title": "CUST-003 筛选按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "11:43:07",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/customer_v3_114307.png"
+  },
+  {
+    "title": "CUST-004 排序按钮",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "11:43:07",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/customer_v3_114307.png"
+  },
+  {
+    "title": "CUST-005 新增客户",
+    "status": "FAIL",
+    "detail": "无新增按钮",
+    "time": "11:43:07",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/customer_v3_114307.png"
+  },
+  {
+    "title": "CUST-006 客户详情",
+    "status": "FAIL",
+    "detail": "无名称",
+    "time": "11:43:10",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/customer_detail_v3_114310.png"
+  },
+  {
+    "title": "CUST-007 客户操作",
+    "status": "FAIL",
+    "detail": "无操作按钮",
+    "time": "11:43:10",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/customer_detail_v3_114310.png"
+  },
+  {
+    "title": "CUST-008 客户标签",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "11:43:10",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/customer_detail_v3_114310.png"
+  },
+  {
+    "title": "CUST-009 电话拨打",
+    "status": "FAIL",
+    "detail": "无电话号码",
+    "time": "11:43:10",
+    "screenshot": ""
+  },
+  {
+    "title": "=== 7. 设置/个人中心验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:43:11",
+    "screenshot": ""
+  },
+  {
+    "title": "SET-001 个人中心页面",
+    "status": "FAIL",
+    "detail": "未识别(可能在消息页)",
+    "time": "11:43:17",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/profile_click_user_114317.png"
+  },
+  {
+    "title": "SET-002~005 设置相关",
+    "status": "FAIL",
+    "detail": "未找到设置入口",
+    "time": "11:43:17",
+    "screenshot": ""
+  },
+  {
+    "title": "=== 8. 消息详情验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:43:18",
+    "screenshot": ""
+  },
+  {
+    "title": "MSG-001 消息列表",
+    "status": "FAIL",
+    "detail": "无消息入口",
+    "time": "11:43:21",
+    "screenshot": ""
+  },
+  {
+    "title": "=== 9. 建材/服务验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:43:21",
+    "screenshot": ""
+  },
+  {
+    "title": "BUILD-001 建材入口",
+    "status": "PASS",
+    "detail": "进入列表",
+    "time": "11:43:27",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/building_list_114327.png"
+  },
+  {
+    "title": "BUILD-002 建材搜索",
+    "status": "PASS",
+    "detail": "有",
+    "time": "11:43:27",
+    "screenshot": ""
+  },
+  {
+    "title": "BUILD-003 建材筛选",
+    "status": "PASS",
+    "detail": "有",
+    "time": "11:43:27",
+    "screenshot": ""
+  },
+  {
+    "title": "SERV-001 服务入口",
+    "status": "PASS",
+    "detail": "进入列表",
+    "time": "11:43:33",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_v3/service_list_114333.png"
+  },
+  {
+    "title": "SERV-002 服务搜索",
+    "status": "PASS",
+    "detail": "有",
+    "time": "11:43:33",
+    "screenshot": ""
+  }
+]

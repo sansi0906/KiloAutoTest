@@ -1,0 +1,366 @@
+[
+  {
+    "title": "=== 1. 首页验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "11:59:53",
+    "screenshot": ""
+  },
+  {
+    "title": "F-001 用户信息",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:59:58",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/home_115958.png"
+  },
+  {
+    "title": "F-002 销售业绩",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:59:58",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/home_115958.png"
+  },
+  {
+    "title": "F-003 业绩排名",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:59:58",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/home_115958.png"
+  },
+  {
+    "title": "F-004 今日订单",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:59:58",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/home_115958.png"
+  },
+  {
+    "title": "F-005 团队业绩",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:59:58",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/home_115958.png"
+  },
+  {
+    "title": "F-006 功能入口",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:59:58",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/home_115958.png"
+  },
+  {
+    "title": "F-007 消息通知",
+    "status": "FAIL",
+    "detail": "未找到",
+    "time": "11:59:58",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/home_115958.png"
+  },
+  {
+    "title": "F-008 下拉刷新",
+    "status": "PASS",
+    "detail": "元素数:23",
+    "time": "12:00:04",
+    "screenshot": ""
+  },
+  {
+    "title": "=== 2. 设备商品验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "12:00:04",
+    "screenshot": ""
+  },
+  {
+    "title": "F-009 设备列表入口",
+    "status": "PASS",
+    "detail": "进入设备列表",
+    "time": "12:00:17",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/device_list_120016.png"
+  },
+  {
+    "title": "F-010 搜索按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "12:00:17",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/device_list_120016.png"
+  },
+  {
+    "title": "F-011 筛选按钮",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "12:00:25",
+    "screenshot": "无"
+  },
+  {
+    "title": "F-012 商品详情页",
+    "status": "FAIL",
+    "detail": "未进入详情页",
+    "time": "12:00:28",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/device_detail_120027.png"
+  },
+  {
+    "title": "=== 3. 人才商品验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "12:00:37",
+    "screenshot": ""
+  },
+  {
+    "title": "F-017 人才列表入口",
+    "status": "PASS",
+    "detail": "进入人才列表",
+    "time": "12:00:44",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/talent_list_120043.png"
+  },
+  {
+    "title": "F-018 搜索按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "12:00:44",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/talent_list_120043.png"
+  },
+  {
+    "title": "F-019 筛选按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "12:00:44",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/talent_list_120043.png"
+  },
+  {
+    "title": "F-020 人才详情页",
+    "status": "PASS",
+    "detail": "进入详情页",
+    "time": "12:00:46",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/talent_detail_120046.png"
+  },
+  {
+    "title": "F-021 拨打电话按钮",
+    "status": "PASS",
+    "detail": "存在",
+    "time": "12:00:46",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/talent_detail_120046.png"
+  },
+  {
+    "title": "F-022 添加合作按钮",
+    "status": "PASS",
+    "detail": "存在",
+    "time": "12:00:46",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/talent_detail_120046.png"
+  },
+  {
+    "title": "F-023 拨打电话操作",
+    "status": "FAIL",
+    "detail": "未显示",
+    "time": "12:00:49",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/phone_call_120049.png"
+  },
+  {
+    "title": "=== 4. 建材/服务验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "12:00:58",
+    "screenshot": ""
+  },
+  {
+    "title": "F-024 建材列表入口",
+    "status": "PASS",
+    "detail": "有搜索按钮",
+    "time": "12:01:10",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/building_list_120110.png"
+  },
+  {
+    "title": "F-025 服务列表入口",
+    "status": "PASS",
+    "detail": "有搜索按钮",
+    "time": "12:01:28",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/service_list_120128.png"
+  },
+  {
+    "title": "=== 5. 购物车验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "12:01:34",
+    "screenshot": ""
+  },
+  {
+    "title": "F-026 购物车状态",
+    "status": "INFO",
+    "detail": "有商品",
+    "time": "12:01:46",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/cart_120146.png"
+  },
+  {
+    "title": "F-027 管理按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "12:01:46",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/cart_120146.png"
+  },
+  {
+    "title": "F-028 结算按钮",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "12:01:46",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/cart_120146.png"
+  },
+  {
+    "title": "F-029 全选按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "12:01:46",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/cart_120146.png"
+  },
+  {
+    "title": "=== 6. 订单验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "12:01:46",
+    "screenshot": ""
+  },
+  {
+    "title": "F-030 订单页面",
+    "status": "PASS",
+    "detail": "进入订单页",
+    "time": "12:01:52",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/order_list_120152.png"
+  },
+  {
+    "title": "F-031 订单状态Tab",
+    "status": "PASS",
+    "detail": "无状态Tab",
+    "time": "12:01:52",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/order_list_120152.png"
+  },
+  {
+    "title": "F-032 订单详情",
+    "status": "PASS",
+    "detail": "有地址信息",
+    "time": "12:01:55",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/order_detail_120155.png"
+  },
+  {
+    "title": "F-033 订单操作",
+    "status": "FAIL",
+    "detail": "无操作按钮",
+    "time": "12:01:55",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/order_detail_120155.png"
+  },
+  {
+    "title": "F-034 协议凭证",
+    "status": "PASS",
+    "detail": "有入口",
+    "time": "12:01:55",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/order_detail_120155.png"
+  },
+  {
+    "title": "F-035 发票入口",
+    "status": "PASS",
+    "detail": "有入口",
+    "time": "12:01:55",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/order_detail_120155.png"
+  },
+  {
+    "title": "=== 7. 客户验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "12:01:57",
+    "screenshot": ""
+  },
+  {
+    "title": "F-036 客户页面",
+    "status": "PASS",
+    "detail": "进入客户页",
+    "time": "12:02:03",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/customer_list_120203.png"
+  },
+  {
+    "title": "F-037 搜索按钮",
+    "status": "PASS",
+    "detail": "有",
+    "time": "12:02:03",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/customer_list_120203.png"
+  },
+  {
+    "title": "F-038 筛选按钮",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "12:02:03",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/customer_list_120203.png"
+  },
+  {
+    "title": "F-039 新增按钮",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "12:02:03",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/customer_list_120203.png"
+  },
+  {
+    "title": "F-040 客户详情",
+    "status": "PASS",
+    "detail": "有客户信息",
+    "time": "12:02:06",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/customer_detail_120206.png"
+  },
+  {
+    "title": "F-041 电话拨打",
+    "status": "FAIL",
+    "detail": "未显示",
+    "time": "12:02:09",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/phone_customer_120208.png"
+  },
+  {
+    "title": "=== 8. 设置/个人中心 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "12:02:12",
+    "screenshot": ""
+  },
+  {
+    "title": "F-042 个人中心页面",
+    "status": "FAIL",
+    "detail": "未识别",
+    "time": "12:02:19",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/profile_120219.png"
+  },
+  {
+    "title": "F-043 退出登录",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "12:02:19",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/profile_120219.png"
+  },
+  {
+    "title": "F-044 修改密码",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "12:02:19",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/profile_120219.png"
+  },
+  {
+    "title": "F-045 版本信息",
+    "status": "FAIL",
+    "detail": "无",
+    "time": "12:02:19",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/profile_120219.png"
+  },
+  {
+    "title": "=== 9. 消息验证 ===",
+    "status": "INFO",
+    "detail": "",
+    "time": "12:02:20",
+    "screenshot": ""
+  },
+  {
+    "title": "F-046 消息列表",
+    "status": "PASS",
+    "detail": "进入消息页",
+    "time": "12:02:31",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/msg_list_120231.png"
+  },
+  {
+    "title": "F-047 消息详情",
+    "status": "PASS",
+    "detail": "有详情内容",
+    "time": "12:02:33",
+    "screenshot": "E:/KiloAutoTest/lyt/manual_verification/screenshots_final/msg_detail_120233.png"
+  }
+]

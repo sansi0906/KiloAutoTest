@@ -1,0 +1,570 @@
+[
+  {
+    "module": "登录",
+    "case_id": "营销-LOG-001",
+    "name": "隐私政策-同意",
+    "status": "PASS",
+    "detail": "默认坐标",
+    "timestamp": "10:01:20"
+  },
+  {
+    "module": "登录",
+    "case_id": "营销-LOG-002",
+    "name": "引导页-开始使用",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:01:22"
+  },
+  {
+    "module": "登录",
+    "case_id": "营销-LOG-003",
+    "name": "切换短信验证码登录",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:01:24"
+  },
+  {
+    "module": "登录",
+    "case_id": "营销-LOG-004",
+    "name": "输入手机号",
+    "status": "PASS",
+    "detail": "输入: 17472686748",
+    "timestamp": "10:01:27"
+  },
+  {
+    "module": "登录",
+    "case_id": "营销-LOG-005",
+    "name": "勾选协议",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:01:29"
+  },
+  {
+    "module": "登录",
+    "case_id": "营销-LOG-006",
+    "name": "获取验证码",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:01:32"
+  },
+  {
+    "module": "登录",
+    "case_id": "营销-LOG-007",
+    "name": "输入验证码",
+    "status": "PASS",
+    "detail": "000000",
+    "timestamp": "10:01:35"
+  },
+  {
+    "module": "登录",
+    "case_id": "营销-LOG-008",
+    "name": "登录成功验证",
+    "status": "PASS",
+    "detail": "Tab: ['客户', '首页', '客户', '购物车', '订单']",
+    "timestamp": "10:01:50"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-001",
+    "name": "用户信息",
+    "status": "PASS",
+    "detail": "用户:杨涛轩, 角色:营销333",
+    "timestamp": "10:01:52"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-002",
+    "name": "统计信息",
+    "status": "PASS",
+    "detail": "统计: ['用户评价', '销售额(万元)', '客户', '订单(笔)', '业绩排名']",
+    "timestamp": "10:01:52"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-003",
+    "name": "功能入口",
+    "status": "PASS",
+    "detail": "入口: ['设备', '建材', '人才', '服务']",
+    "timestamp": "10:01:52"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-004",
+    "name": "消息区域",
+    "status": "PASS",
+    "detail": "消息: ['消息', '你有一笔订单待开票', '订单已发货，请及时上传发票']",
+    "timestamp": "10:01:52"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-005",
+    "name": "首页下滑",
+    "status": "PASS",
+    "detail": "35个元素",
+    "timestamp": "10:01:55"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-006-设备",
+    "name": "入口-设备",
+    "status": "PASS",
+    "detail": "40个元素",
+    "timestamp": "10:02:06"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-006-建材",
+    "name": "入口-建材",
+    "status": "FAIL",
+    "detail": "离开App: cn.yunts.app",
+    "timestamp": "10:02:12"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-006-人才",
+    "name": "入口-人才",
+    "status": "PASS",
+    "detail": "45个元素",
+    "timestamp": "10:02:25"
+  },
+  {
+    "module": "首页",
+    "case_id": "营销-HOME-006-服务",
+    "name": "入口-服务",
+    "status": "FAIL",
+    "detail": "离开App: cn.yunts.app",
+    "timestamp": "10:02:31"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-001",
+    "name": "搜索框",
+    "status": "PASS",
+    "detail": "搜索: ['搜索名称、联系人或手机号', '搜索']",
+    "timestamp": "10:02:37"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-002",
+    "name": "状态Tab",
+    "status": "PASS",
+    "detail": "Tabs: ['全部', '待审核', '已入驻', '已驳回']",
+    "timestamp": "10:02:37"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-003",
+    "name": "客户列表",
+    "status": "PASS",
+    "detail": "项: 8",
+    "timestamp": "10:02:37"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-004",
+    "name": "列表下滑",
+    "status": "PASS",
+    "detail": "40个元素",
+    "timestamp": "10:02:41"
+  },
+  {
+    "module": "客户",
+    "case_id": "营销-CUST-005",
+    "name": "搜索功能",
+    "status": "PASS",
+    "detail": "结果: ['工人乐', '工人乐（天津）科技集团有限公司']",
+    "timestamp": "10:02:47"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-001",
+    "name": "购物车标题",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:02:51"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-002",
+    "name": "管理按钮",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:02:51"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-003",
+    "name": "商品列表",
+    "status": "PASS",
+    "detail": "商品: 3",
+    "timestamp": "10:02:51"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-004",
+    "name": "数量调节",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:02:51"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-005",
+    "name": "全选按钮",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:02:51"
+  },
+  {
+    "module": "购物车",
+    "case_id": "营销-CART-006",
+    "name": "下滑",
+    "status": "PASS",
+    "detail": "39个元素",
+    "timestamp": "10:02:54"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-001",
+    "name": "订单Tab",
+    "status": "PASS",
+    "detail": "Tabs: ['全部', '客户订单', '记录订单', '客户订单', '客户订单', '客户订单']",
+    "timestamp": "10:02:57"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-002",
+    "name": "订单列表",
+    "status": "PASS",
+    "detail": "订单: 6",
+    "timestamp": "10:02:57"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-003",
+    "name": "订单状态",
+    "status": "PASS",
+    "detail": "状态: ['已完成', '已完成', '待代理确认']",
+    "timestamp": "10:02:57"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-004",
+    "name": "操作按钮",
+    "status": "PASS",
+    "detail": "操作: ['查看协议和凭证', '查看发票', '查看协议和凭证', '查看发票']",
+    "timestamp": "10:02:57"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-005",
+    "name": "列表下滑",
+    "status": "PASS",
+    "detail": "28个元素",
+    "timestamp": "10:03:01"
+  },
+  {
+    "module": "订单",
+    "case_id": "营销-ORD-006",
+    "name": "订单详情",
+    "status": "PASS",
+    "detail": "字段: ['订单编号：2075505113501401088', '订单编号：2074417529568231424', '订单编号：2072873417413099520']",
+    "timestamp": "10:03:10"
+  },
+  {
+    "module": "消息",
+    "case_id": "营销-MSG-001",
+    "name": "消息列表",
+    "status": "PASS",
+    "detail": "消息: 8",
+    "timestamp": "10:03:22"
+  },
+  {
+    "module": "消息",
+    "case_id": "营销-MSG-002",
+    "name": "消息类型",
+    "status": "PASS",
+    "detail": "类型: ['你有一笔订单待开票', '你有一笔订单已完成', '订单已发货，请及时上传发票']",
+    "timestamp": "10:03:22"
+  },
+  {
+    "module": "登录",
+    "case_id": "代理-LOG-001",
+    "name": "隐私政策-同意",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:03:37"
+  },
+  {
+    "module": "登录",
+    "case_id": "代理-LOG-002",
+    "name": "引导页-开始使用",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:03:39"
+  },
+  {
+    "module": "登录",
+    "case_id": "代理-LOG-003",
+    "name": "切换短信验证码登录",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:03:41"
+  },
+  {
+    "module": "登录",
+    "case_id": "代理-LOG-004",
+    "name": "输入手机号",
+    "status": "PASS",
+    "detail": "输入: 17407448918",
+    "timestamp": "10:03:44"
+  },
+  {
+    "module": "登录",
+    "case_id": "代理-LOG-005",
+    "name": "勾选协议",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:03:46"
+  },
+  {
+    "module": "登录",
+    "case_id": "代理-LOG-006",
+    "name": "获取验证码",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:03:49"
+  },
+  {
+    "module": "登录",
+    "case_id": "代理-LOG-007",
+    "name": "输入验证码",
+    "status": "PASS",
+    "detail": "000000",
+    "timestamp": "10:03:52"
+  },
+  {
+    "module": "登录",
+    "case_id": "代理-LOG-008",
+    "name": "登录成功验证",
+    "status": "PASS",
+    "detail": "Tab: ['首页', '订单']",
+    "timestamp": "10:04:06"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-001",
+    "name": "用户信息",
+    "status": "PASS",
+    "detail": "用户:许星刚, 角色:代理333",
+    "timestamp": "10:04:09"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-002",
+    "name": "统计信息",
+    "status": "PASS",
+    "detail": "统计: ['销售额(万元)', '订单(笔)', '你有一笔订单待发货', '订单已确认，请联系供应商尽快发货', '你有新的订单待确认']",
+    "timestamp": "10:04:09"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-003",
+    "name": "功能入口",
+    "status": "FAIL",
+    "detail": "入口: []",
+    "timestamp": "10:04:09"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-004",
+    "name": "消息区域",
+    "status": "PASS",
+    "detail": "消息: ['你有新的订单待确认', '你有一笔订单已完成', '更多消息']",
+    "timestamp": "10:04:09"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-005",
+    "name": "首页下滑",
+    "status": "PASS",
+    "detail": "24个元素",
+    "timestamp": "10:04:12"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-006-设备",
+    "name": "入口-设备",
+    "status": "PASS",
+    "detail": "24个元素",
+    "timestamp": "10:04:22"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-006-建材",
+    "name": "入口-建材",
+    "status": "FAIL",
+    "detail": "离开App: cn.yunts.app",
+    "timestamp": "10:04:28"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-006-人才",
+    "name": "入口-人才",
+    "status": "PASS",
+    "detail": "49个元素",
+    "timestamp": "10:04:41"
+  },
+  {
+    "module": "首页",
+    "case_id": "代理-HOME-006-服务",
+    "name": "入口-服务",
+    "status": "PASS",
+    "detail": "49个元素",
+    "timestamp": "10:04:53"
+  },
+  {
+    "module": "客户",
+    "case_id": "代理-CUST-001",
+    "name": "搜索框",
+    "status": "PASS",
+    "detail": "搜索: ['搜索名称、联系人或手机号', '搜索']",
+    "timestamp": "10:04:57"
+  },
+  {
+    "module": "客户",
+    "case_id": "代理-CUST-002",
+    "name": "状态Tab",
+    "status": "PASS",
+    "detail": "Tabs: ['全部']",
+    "timestamp": "10:04:57"
+  },
+  {
+    "module": "客户",
+    "case_id": "代理-CUST-003",
+    "name": "客户列表",
+    "status": "PASS",
+    "detail": "项: 7",
+    "timestamp": "10:04:57"
+  },
+  {
+    "module": "客户",
+    "case_id": "代理-CUST-004",
+    "name": "列表下滑",
+    "status": "PASS",
+    "detail": "37个元素",
+    "timestamp": "10:05:00"
+  },
+  {
+    "module": "客户",
+    "case_id": "代理-CUST-005",
+    "name": "搜索功能",
+    "status": "PASS",
+    "detail": "结果: ['工人乐']",
+    "timestamp": "10:05:07"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-001",
+    "name": "购物车标题",
+    "status": "FAIL",
+    "detail": "",
+    "timestamp": "10:05:11"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-002",
+    "name": "管理按钮",
+    "status": "FAIL",
+    "detail": "",
+    "timestamp": "10:05:11"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-003",
+    "name": "商品列表",
+    "status": "FAIL",
+    "detail": "商品: 0",
+    "timestamp": "10:05:11"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-004",
+    "name": "数量调节",
+    "status": "PASS",
+    "detail": "",
+    "timestamp": "10:05:11"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-005",
+    "name": "全选按钮",
+    "status": "FAIL",
+    "detail": "",
+    "timestamp": "10:05:11"
+  },
+  {
+    "module": "购物车",
+    "case_id": "代理-CART-006",
+    "name": "下滑",
+    "status": "PASS",
+    "detail": "39个元素",
+    "timestamp": "10:05:14"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-001",
+    "name": "订单Tab",
+    "status": "PASS",
+    "detail": "Tabs: ['全部']",
+    "timestamp": "10:05:17"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-002",
+    "name": "订单列表",
+    "status": "PASS",
+    "detail": "订单: 7",
+    "timestamp": "10:05:17"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-003",
+    "name": "订单状态",
+    "status": "PASS",
+    "detail": "状态: ['待发货', '已完成', '待发货', '已完成', '已完成']",
+    "timestamp": "10:05:17"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-004",
+    "name": "操作按钮",
+    "status": "FAIL",
+    "detail": "操作: []",
+    "timestamp": "10:05:17"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-005",
+    "name": "列表下滑",
+    "status": "PASS",
+    "detail": "28个元素",
+    "timestamp": "10:05:21"
+  },
+  {
+    "module": "订单",
+    "case_id": "代理-ORD-006",
+    "name": "订单详情",
+    "status": "PASS",
+    "detail": "字段: ['收货地址：', '收件人：', '订单编号', '下单时间', '订单金额合计']",
+    "timestamp": "10:05:31"
+  },
+  {
+    "module": "消息",
+    "case_id": "代理-MSG-001",
+    "name": "消息入口",
+    "status": "FAIL",
+    "detail": "未找到",
+    "timestamp": "10:05:35"
+  }
+]

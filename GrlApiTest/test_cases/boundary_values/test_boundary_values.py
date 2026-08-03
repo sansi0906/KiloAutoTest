@@ -257,6 +257,7 @@ class TestBoundaryValues(BaseTest):
 
     # ==================== 金额边界（pricing） ====================
 
+    @pytest.mark.backend_bug
     def test_pricing_amount_zero(self):
         """amount=0，应返回失败"""
         item_id, _ = self._get_existing_service_item()
@@ -270,6 +271,7 @@ class TestBoundaryValues(BaseTest):
         data = response.json()
         self.assert_save_failure(data)
 
+    @pytest.mark.backend_bug
     def test_pricing_amount_negative(self):
         """amount=-1，应返回失败"""
         item_id, _ = self._get_existing_service_item()
