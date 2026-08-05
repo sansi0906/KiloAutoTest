@@ -1,0 +1,18 @@
+# 测试数据 —— 运行时自动追加时间戳避免重复
+
+# 服务项目
+service_project:
+  name: "测项{ts}"
+  subtitle: "副标题{ts}"
+  content: "测试描述内容_{ts}"
+
+# 合同服务
+contract_service:
+  title: "合同标题_{ts}"
+  content: "合同服务内容_{ts}"
+  fee: "100"
+
+# 知识库
+knowledge:
+  title: "测试知识_{ts}"
+  content: "<p>这是知识库测试内容_{ts}</p><p>包含多个段落</p>"
