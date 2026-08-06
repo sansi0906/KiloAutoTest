@@ -14,6 +14,7 @@ import threading
 
 import pytest
 
+from api_clients.jeecgboot_client import JeecgBootClient
 from utils.base_test import BaseTest
 
 
@@ -91,3 +92,38 @@ class TestExceptionScenarios(BaseTest):
 
         assert len(results) == 5, f"Expected 5 results, got {len(results)}"
         assert len(errors) == 0, f"Unexpected errors: {errors}"
+
+    def test_401_unauthorized_access(self):
+        """未携带 Token 访问受保护接口，应返回 401 或认证错误"""
+        client_no_token = JeecgBootClient(base_url=self.config["base_url"])
+        response = client_no_token.post("/platform/user/page", json={"pageNum": 1, "pageSize": 10})
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        # 应返回认证错误
+        assert data.get("code") not in ("0", "00"), f"Unauthorized access accepted: {data}"
+
+    def test_403_forbidden_access(self):
+        """使用低权限 Token 访问受限接口，应返回 403 或权限错误"""
+        token = self.login()
+        self.client.set_token(token)
+        response = self.client.post("/platform/user/save", json={
+            "userName": self._unique_user_name(),
+            "realName": self._unique_real_name(),
+            "sex": 1,
+            "roleGroupId": 5,
+            "status": 1,
+        })
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        # 应返回权限错误或成功（取决于后端权限控制）
+        assert data.get("code") in ("0", "00", "03", "01"), f"Unexpected response: {data}"
+
+    def test_malformed_token(self):
+        """使用格式错误的 Token，应返回认证错误"""
+        malformed_token = "not-a-valid-jwt-token"
+        self.client.set_token(malformed_token)
+        response = self.client.post("/platform/user/page", json={"pageNum": 1, "pageSize": 10})
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        # 应返回认证错误
+        assert data.get("code") not in ("0", "00"), f"Malformed token accepted: {data}"

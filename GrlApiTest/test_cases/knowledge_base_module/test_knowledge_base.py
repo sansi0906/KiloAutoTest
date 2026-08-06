@@ -269,3 +269,83 @@ class TestKnowledgeBase(TestBase):
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_failure(data)
+
+    def test_save_knowledge_content_too_long(self):
+        """content 超过 2000 个字符，应返回失败"""
+        response = self.client.save_knowledge(
+            title="TestKB",
+            content="A" * 2001,
+            consult_type=1,
+            display_position=[0, 1],
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_knowledge_content_empty(self):
+        """content 为空，应返回失败"""
+        response = self.client.save_knowledge(
+            title="TestKB",
+            content="",
+            consult_type=1,
+            display_position=[0, 1],
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_knowledge_invalid_consult_type(self):
+        """consultType 非法值，应返回失败"""
+        response = self.client.save_knowledge(
+            title="TestKB",
+            content="TestContent",
+            consult_type=99,
+            display_position=[0, 1],
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_knowledge_invalid_display_position(self):
+        """displayPosition 越界，应返回失败"""
+        response = self.client.save_knowledge(
+            title="TestKB",
+            content="TestContent",
+            consult_type=1,
+            display_position=[99],
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_knowledge_title_special_chars(self):
+        """title 含特殊字符，应返回失败或净化"""
+        response = self.client.save_knowledge(
+            title="TestKB<script>alert('xss')</script>",
+            content="TestContent",
+            consult_type=1,
+            display_position=[0, 1],
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        # 只记录结果，不做断言
+        assert data.get("code") in ("0", "00", "03"), f"Unexpected response: {data}"
+
+    def test_edit_knowledge_non_existing(self):
+        """编辑不存在的知识库，应返回失败"""
+        response = self.client.edit_knowledge(
+            knowledge_id=999999,
+            title="TestKB",
+            content="TestContent",
+            consult_type=1,
+            display_position=[0, 1],
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)

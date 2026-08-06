@@ -3,35 +3,260 @@
 > 依据：http://172.16.1.165:9200/doc.html#/home  
 > 测试时间：2026-08-06  
 > 测试环境：http://172.16.1.165:9200  
-> 测试套件：263 passed+failed，29 failed（清理业务数据已开启）  
+> 测试套件：275 passed+failed，40 failed（清理业务数据已开启）  
 > 标记：needs_retest（未提交云效）  
-> 共 29 个真实后端缺陷（入参/出参为真实捕获报文）
+> 共 40 个真实后端缺陷（入参/出参为真实捕获报文）
 
 ---
 
 ## 1. 必填项校验 Bug
 
-### Bug 1-1：worker_sign_module/test_worker_save_invalid_phone_format
+### Bug 1-1：boundary_values/test_real_name_too_long
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-019 |
+| **严重程度** | high |
+| **请求地址** | `POST /boundary_values/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_real_name_too_long（realName 超过 20 个字符，应返回失败） |
+
+### Bug 1-2：knowledge_base_module/test_save_knowledge_invalid_consult_type
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-021 |
+| **严重程度** | high |
+| **请求地址** | `POST /knowledge_base/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_save_knowledge_invalid_consult_type（consultType 非法值，应返回失败） |
+
+### Bug 1-3：knowledge_base_module/test_save_knowledge_invalid_display_position
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-022 |
+| **严重程度** | high |
+| **请求地址** | `POST /knowledge_base/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_save_knowledge_invalid_display_position（displayPosition 越界，应返回失败） |
+
+### Bug 1-4：platform_user_module/test_save_user_real_name_too_long
 
 | 项目 | 内容 |
 |------|------|
 | **缺陷ID** | BUG-024 |
 | **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/api/worker-sign/worker-save` |
-| **入参** | `{"name":"TestUser1785979750","phone":"12345","certNum":"110101199001011234","certFrontPhoto":"/tmp/cert_front.jpg","certBackPhoto":"/tmp/cert_back.jpg","address":"Beijing","verifyDate":false}` |
-| **出参** | `{"code":"00","message":"操作成功","data":{"name":"TestUser1785979750","phone":"12345","certNo":"110101199001011234","userUuid":"89baa8c6-ad12-4c31-aa79-e4fdbaefebe5","newUser":2,"isAuth":1,"isSignSuccess":2,"provinceAreaCode":null,"cityAreaCode":null,"districtAreaCode":null,"serverEndTime":null,"provinceAreaCodeName":"","cityAreaCodeName":"","districtAreaCodeName":"","serverStartTime":null,"stationInfoId":null}}` |
-| **Bug描述** | 必填字段 phone 缺失未校验，返回成功 |
+| **请求地址** | `POST /platform_user/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_save_user_real_name_too_long（realName 超过 20 个字符，应返回失败） |
 
-### Bug 1-2：worker_sign_module/test_worker_save_invalid_cert_num
+### Bug 1-5：platform_user_module/test_save_user_real_name_special_chars
 
 | 项目 | 内容 |
 |------|------|
 | **缺陷ID** | BUG-025 |
 | **严重程度** | high |
+| **请求地址** | `POST /platform_user/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_save_user_real_name_special_chars（realName 含特殊字符，应返回失败） |
+
+### Bug 1-6：service_provider_module/test_save_provider_company_name_too_long
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-027 |
+| **严重程度** | high |
+| **请求地址** | `POST /service_provider/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_save_provider_company_name_too_long（companyName 超过 50 个字符，应返回失败） |
+
+### Bug 1-7：service_provider_module/test_save_provider_invalid_unified_social_code
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-028 |
+| **严重程度** | high |
+| **请求地址** | `POST /service_provider/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_save_provider_invalid_unified_social_code（unifiedSocialCode 格式无效，应返回失败） |
+
+### Bug 1-8：worker_sign_module/test_worker_authorization_with_invalid_phone
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-029 |
+| **严重程度** | high |
+| **请求地址** | `POST /worker_sign/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | phone 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_authorization_with_invalid_phone（Authorize with invalid phone format, should fail） |
+
+### Bug 1-9：worker_sign_module/test_worker_save_invalid_phone_format
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-030 |
+| **严重程度** | high |
+| **请求地址** | `http://172.16.1.165:9200/api/worker-sign/worker-save` |
+| **入参** | `{"name":"TestUser1785979750","phone":"12345","certNum":"110101199001011234","certFrontPhoto":"/tmp/cert_front.jpg","certBackPhoto":"/tmp/cert_back.jpg","address":"Beijing","verifyDate":false}` |
+| **出参** | `{"code":"00","message":"操作成功","data":{"name":"TestUser1785979750","phone":"12345","certNo":"110101199001011234","userUuid":"89baa8c6-ad12-4c31-aa79-e4fdbaefebe5","newUser":2,"isAuth":1,"isSignSuccess":2,"provinceAreaCode":null,"cityAreaCode":null,"districtAreaCode":null,"serverEndTime":null,"provinceAreaCodeName":"","cityAreaCodeName":"","districtAreaCodeName":"","serverStartTime":null,"stationInfoId":null}}` |
+| **Bug描述** | phone 字段未做格式校验，传入无效值后端返回 code="00"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_save_invalid_phone_format（使用无效的手机号格式，应返回失败） |
+
+### Bug 1-10：worker_sign_module/test_worker_save_invalid_cert_num
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-031 |
+| **严重程度** | high |
 | **请求地址** | `http://172.16.1.165:9200/api/worker-sign/worker-save` |
 | **入参** | `{"name":"TestUser1785979750","phone":"17460388735","certNum":"123456","certFrontPhoto":"/tmp/cert_front.jpg","certBackPhoto":"/tmp/cert_back.jpg","address":"Beijing","verifyDate":false}` |
 | **出参** | `{"code":"00","message":"操作成功","data":{"name":"TestUser1785979750","phone":"17460388735","certNo":"123456","userUuid":"a8806cfc-3d6b-4800-a824-71b91a10f272","newUser":2,"isAuth":1,"isSignSuccess":2,"provinceAreaCode":null,"cityAreaCode":null,"districtAreaCode":null,"serverEndTime":null,"provinceAreaCodeName":"","cityAreaCodeName":"","districtAreaCodeName":"","serverStartTime":null,"stationInfoId":null}}` |
-| **Bug描述** | 必填字段 certNum 缺失未校验，返回成功 |
+| **Bug描述** | certNum 字段未做格式校验，传入无效值后端返回 code="00"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_save_invalid_cert_num（使用无效的证件号，应返回失败） |
+
+### Bug 1-11：worker_sign_module/test_worker_save_missing_name
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-032 |
+| **严重程度** | high |
+| **请求地址** | `http://172.16.1.165:9200/api/worker-sign/worker-save` |
+| **入参** | `{"name":"","phone":"17450788743","certNum":"110101199001011234","certFrontPhoto":"/tmp/cert_front.jpg","certBackPhoto":"/tmp/cert_back.jpg","address":"Beijing","verifyDate":false}` |
+| **出参** | `{"code":"00","message":"操作成功","data":{"name":"","phone":"17450788743","certNo":"110101199001011234","userUuid":"bcc27843-d897-462d-848c-b4afaf8bef3e","newUser":2,"isAuth":1,"isSignSuccess":2,"provinceAreaCode":null,"cityAreaCode":null,"districtAreaCode":null,"serverEndTime":null,"provinceAreaCodeName":"","cityAreaCodeName":"","districtAreaCodeName":"","serverStartTime":null,"stationInfoId":null}}` |
+| **Bug描述** | name 字段未做格式校验，传入无效值后端返回 code="00"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_save_missing_name（Missing name field, should fail） |
+
+### Bug 1-12：worker_sign_module/test_worker_save_missing_cert_num
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-033 |
+| **严重程度** | high |
+| **请求地址** | `http://172.16.1.165:9200/api/worker-sign/worker-save` |
+| **入参** | `{"name":"TestUser1785979749","phone":"17456674315","certNum":"","certFrontPhoto":"/tmp/cert_front.jpg","certBackPhoto":"/tmp/cert_back.jpg","address":"Beijing","verifyDate":false}` |
+| **出参** | `{"code":"00","message":"操作成功","data":{"name":"TestUser1785979749","phone":"17456674315","certNo":"","userUuid":"6a470a3d-2df5-4201-8f5b-ae67ec6925be","newUser":2,"isAuth":1,"isSignSuccess":2,"provinceAreaCode":null,"cityAreaCode":null,"districtAreaCode":null,"serverEndTime":null,"provinceAreaCodeName":"","cityAreaCodeName":"","districtAreaCodeName":"","serverStartTime":null,"stationInfoId":null}}` |
+| **Bug描述** | certNum 字段未做格式校验，传入无效值后端返回 code="00"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_save_missing_cert_num（Missing certNum field, should fail） |
+
+### Bug 1-13：worker_sign_module/test_worker_save_missing_cert_photos
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-034 |
+| **严重程度** | high |
+| **请求地址** | `POST /worker_sign/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | certPhotos 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_save_missing_cert_photos（Missing cert photos, should fail） |
+
+### Bug 1-14：worker_sign_module/test_worker_save_name_too_long
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-035 |
+| **严重程度** | high |
+| **请求地址** | `POST /worker_sign/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_save_name_too_long（Name exceeds 20 characters, should fail） |
+
+### Bug 1-15：worker_sign_module/test_worker_save_name_special_chars
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-036 |
+| **严重程度** | high |
+| **请求地址** | `POST /worker_sign/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_save_name_special_chars（Name contains special characters, should fail） |
+
+### Bug 1-16：worker_sign_module/test_worker_save_cert_num_too_short
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-037 |
+| **严重程度** | high |
+| **请求地址** | `POST /worker_sign/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_save_cert_num_too_short（certNum too short (less than 18 digits), should fail） |
+
+### Bug 1-17：worker_sign_module/test_worker_save_duplicate_phone
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-038 |
+| **严重程度** | high |
+| **请求地址** | `POST /worker_sign/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_save_duplicate_phone（Duplicate phone number, should fail） |
+
+### Bug 1-18：worker_sign_module/test_worker_sign_save_invalid_station_info_id
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-039 |
+| **严重程度** | high |
+| **请求地址** | `POST /worker_sign/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_sign_save_invalid_station_info_id（Invalid/nonexistent stationInfoId, should fail） |
+
+### Bug 1-19：worker_sign_module/test_worker_sign_save_invalid_service_item_id
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-040 |
+| **严重程度** | high |
+| **请求地址** | `POST /worker_sign/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | field 字段未做格式校验，传入无效值后端返回 code="unknown"。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_sign_save_invalid_service_item_id（Invalid/nonexistent serviceItemId, should fail） |
 
 ## 2. 存在性校验 Bug
 
@@ -44,7 +269,9 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/delete` |
 | **入参** | `{"id":999999}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 删除知识库前未校验知识库是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败 |
+| **Bug描述** | 对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code="00"。
+预期：应返回 code="03" 记录不存在。
+测试用例：test_delete_knowledge_non_existing（删除不存在的知识库，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）） |
 
 ### Bug 2-2：修改不存在的用户状态，返回成功
 
@@ -55,7 +282,9 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/user/changeStatus` |
 | **入参** | `{"id":999999,"status":0}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 修改用户状态前未校验用户是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败 |
+| **Bug描述** | 对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code="00"。
+预期：应返回 code="03" 记录不存在。
+测试用例：test_change_status_non_existing_user（修改不存在的用户状态，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）） |
 
 ### Bug 2-3：删除不存在的用户，返回成功
 
@@ -66,7 +295,9 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/user/delete` |
 | **入参** | `{"id":999999}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 删除用户前未校验用户是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败 |
+| **Bug描述** | 对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code="00"。
+预期：应返回 code="03" 记录不存在。
+测试用例：test_delete_non_existing_user（删除不存在的用户，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）） |
 
 ### Bug 2-4：编辑不存在的用户，返回成功
 
@@ -77,7 +308,9 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/user/edit` |
 | **入参** | `{"id":999999,"userName":"17477034714","realName":"测试用户1785979711","sex":1,"roleGroupId":5,"status":1}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 编辑用户前未校验用户是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败 |
+| **Bug描述** | 对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code="00"。
+预期：应返回 code="03" 记录不存在。
+测试用例：test_edit_user_not_exist（编辑不存在的用户ID，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）） |
 
 ### Bug 2-5：删除不存在的服务商，返回成功
 
@@ -88,134 +321,41 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/serverUser/delete` |
 | **入参** | `{"id":999999}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 删除服务商前未校验服务商是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败 |
+| **Bug描述** | 对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code="00"。
+预期：应返回 code="03" 记录不存在。
+测试用例：test_delete_service_provider_non_existing（删除不存在的服务商，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）） |
 
 ## 3. 接口逻辑 Bug
 
-### Bug 3-1：经营范围详情接口对所有 ID 返回 404
-
-| 项目 | 内容 |
-|------|------|
-| **缺陷ID** | BUG-009 |
-| **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/platform/businessScope/detail` |
-| **入参** | `{"id":"394"}` |
-| **出参** | `{"code":"03","message":"请求的资源不存在!","data":null}` |
-| **Bug描述** | detail 接口对所有 ID（包括数据库中存在的 ID）均返回 HTTP 404 或 code:03，属于后端查询逻辑 Bug |
-
-### Bug 3-2：经营范围详情接口对所有 ID 返回 404
-
-| 项目 | 内容 |
-|------|------|
-| **缺陷ID** | BUG-009 |
-| **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/platform/businessScope/detail` |
-| **入参** | `{"id":999999}` |
-| **出参** | `{"code":"03","message":"请求的资源不存在!","data":null}` |
-| **Bug描述** | detail 接口对所有 ID（包括数据库中存在的 ID）均返回 HTTP 404 或 code:03，属于后端查询逻辑 Bug |
-
-### Bug 3-3：login_module/test_logout_without_token
-
-| 项目 | 内容 |
-|------|------|
-| **缺陷ID** | BUG-018 |
-| **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/sys/logout` |
-| **入参** | `（无请求体）` |
-| **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 接口逻辑异常 |
-
-### Bug 3-4：pricing_module/test_update_pricing_no_record
-
-| 项目 | 内容 |
-|------|------|
-| **缺陷ID** | BUG-019 |
-| **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/platform/pricing/updatePricing` |
-| **入参** | `{"serviceItemId":"419","amount":150.0,"areaList":[{"code":"110101000000","level":"county","name":"东城区"}]}` |
-| **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 接口逻辑异常，OpenAPI 规范 ServicePricingUpdateReqDto 定义了标准行为，但实际返回异常 |
-
-### Bug 3-5：worker_sign_module/test_worker_authorization_success
-
-| 项目 | 内容 |
-|------|------|
-| **缺陷ID** | BUG-020 |
-| **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/api/worker-sign/save` |
-| **入参** | `{"userUuid":"worker-1785979746","workerPhone":"17427786358","stationInfoId":1,"stationInfoName":"Test Station","provinceAreaCode":"110119000000","cityAreaCode":"110119000000","districtAreaCode":"110119000000","sourceType":1,"serviceItems":[{"serviceItemId":1,"itemName":"Test Service","billingMethod":1,"amount":100.0}]}` |
-| **出参** | `{"code":"02","message":"系统繁忙，请稍后再试!","data":null}` |
-| **Bug描述** | 接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常 |
-
-### Bug 3-6：worker_sign_module/test_worker_authorization_with_phone
-
-| 项目 | 内容 |
-|------|------|
-| **缺陷ID** | BUG-021 |
-| **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/api/worker-sign/save` |
-| **入参** | `{"userUuid":"worker-1785979747","workerPhone":"17480850962","stationInfoId":1,"stationInfoName":"Test Station","provinceAreaCode":"110119000000","cityAreaCode":"110119000000","districtAreaCode":"110119000000","sourceType":1,"serviceItems":[{"serviceItemId":1,"itemName":"Test Service","billingMethod":1,"amount":100.0}]}` |
-| **出参** | `{"code":"02","message":"系统繁忙，请稍后再试!","data":null}` |
-| **Bug描述** | 接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常 |
-
-### Bug 3-7：worker_sign_module/test_worker_info_success_with_uuid
-
-| 项目 | 内容 |
-|------|------|
-| **缺陷ID** | BUG-022 |
-| **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/api/worker-sign/save` |
-| **入参** | `{"userUuid":"worker-1785979747","workerPhone":"17442489112","stationInfoId":1,"stationInfoName":"Test Station","provinceAreaCode":"110119000000","cityAreaCode":"110119000000","districtAreaCode":"110119000000","sourceType":1,"serviceItems":[{"serviceItemId":1,"itemName":"Test Service","billingMethod":1,"amount":100.0}]}` |
-| **出参** | `{"code":"02","message":"系统繁忙，请稍后再试!","data":null}` |
-| **Bug描述** | 接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常 |
-
-### Bug 3-8：worker_sign_module/test_worker_info_success_with_phone
+### Bug 3-1：login_module/test_logout_without_token
 
 | 项目 | 内容 |
 |------|------|
 | **缺陷ID** | BUG-023 |
 | **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/api/worker-sign/save` |
-| **入参** | `{"userUuid":"worker-1785979747","workerPhone":"17431300776","stationInfoId":1,"stationInfoName":"Test Station","provinceAreaCode":"110119000000","cityAreaCode":"110119000000","districtAreaCode":"110119000000","sourceType":1,"serviceItems":[{"serviceItemId":1,"itemName":"Test Service","billingMethod":1,"amount":100.0}]}` |
-| **出参** | `{"code":"02","message":"系统繁忙，请稍后再试!","data":null}` |
-| **Bug描述** | 接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常 |
+| **请求地址** | `http://172.16.1.165:9200/sys/logout` |
+| **入参** | `（无请求体）` |
+| **出参** | `{"code":"00","message":"操作成功","data":null}` |
+| **Bug描述** | 未携带 Token 调用登出接口，后端返回 code="00"，绕过了认证校验。
+预期：应返回 code="03" 需认证错误。
+测试用例：test_logout_without_token（无 Token 登出，预期应返回失败，但后端实际返回成功（疑似未做 Token 校验）） |
 
-### Bug 3-9：worker_sign_module/test_worker_sign_save_success
+### Bug 3-2：pricing_module/test_update_pricing_no_record
 
 | 项目 | 内容 |
 |------|------|
 | **缺陷ID** | BUG-026 |
 | **严重程度** | high |
-| **请求地址** | `http://172.16.1.165:9200/api/worker-sign/save` |
-| **入参** | `{"userUuid":"worker-1785979751","workerPhone":"17410622448","stationInfoId":1,"stationInfoName":"Test Station","provinceAreaCode":"110119000000","cityAreaCode":"110119000000","districtAreaCode":"110119000000","sourceType":1,"serviceItems":[{"serviceItemId":1,"itemName":"Test Service","billingMethod":1,"amount":100.0}]}` |
-| **出参** | `{"code":"02","message":"系统繁忙，请稍后再试!","data":null}` |
-| **Bug描述** | 接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常 |
+| **请求地址** | `http://172.16.1.165:9200/platform/pricing/updatePricing` |
+| **入参** | `{"serviceItemId":"419","amount":150.0,"areaList":[{"code":"110101000000","level":"county","name":"东城区"}]}` |
+| **出参** | `{"code":"00","message":"操作成功","data":null}` |
+| **Bug描述** | 更新不存在的服务项目定价记录，未做存在性校验，传入 serviceItemId 后端返回 code="00"。
+预期：应返回 code="03" 记录不存在，拒绝更新不存在的定价记录。
+测试用例：test_update_pricing_no_record（更新未导入定价数据的服务项目定价，按正常逻辑应返回失败） |
 
 ## 4. 安全漏洞（SQL 注入 / XSS）
 
-### Bug 4-1：经营范围 scopeName 字段 SQL 注入
-
-| 项目 | 内容 |
-|------|------|
-| **缺陷ID** | BUG-014 |
-| **严重程度** | critical |
-| **请求地址** | `http://172.16.1.165:9200/platform/businessScope/add` |
-| **入参** | `{"scopeName":"' OR '1'='1","remark":"TestRemark"}` |
-| **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 经营范围 scopeName 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险 |
-
-### Bug 4-2：经营范围 scopeName 字段 SQL 注入
-
-| 项目 | 内容 |
-|------|------|
-| **缺陷ID** | BUG-014 |
-| **严重程度** | critical |
-| **请求地址** | `http://172.16.1.165:9200/platform/businessScope/add` |
-| **入参** | `{"scopeName":"' OR 1=1 --","remark":"TestRemark"}` |
-| **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 经营范围 scopeName 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险 |
-
-### Bug 4-3：知识库标题存在 SQL 注入漏洞
+### Bug 4-1：知识库标题存在 SQL 注入漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -224,9 +364,11 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"' OR '1'='1","content":"TestContent","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 title 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险 |
+| **Bug描述** | title 字段存在SQL 注入漏洞（CWE-89，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_sql_injection_knowledge_title[1' UNION SELECT NULL--]（在 knowledge title 字段注入 SQL/XSS，应返回失败） |
 
-### Bug 4-4：知识库标题存在 SQL 注入漏洞
+### Bug 4-2：知识库标题存在 SQL 注入漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -235,9 +377,11 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"' OR 1=1 --","content":"TestContent","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 title 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险 |
+| **Bug描述** | title 字段存在SQL 注入漏洞（CWE-89，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_sql_injection_knowledge_title[1' UNION SELECT NULL--]（在 knowledge title 字段注入 SQL/XSS，应返回失败） |
 
-### Bug 4-5：知识库标题存在 SQL 注入漏洞
+### Bug 4-3：知识库标题存在 SQL 注入漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -246,9 +390,11 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"'; DROP TABLE users; --","content":"TestContent","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 title 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险 |
+| **Bug描述** | title 字段存在SQL 注入漏洞（CWE-89，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_sql_injection_knowledge_title[1' UNION SELECT NULL--]（在 knowledge title 字段注入 SQL/XSS，应返回失败） |
 
-### Bug 4-6：知识库标题存在 SQL 注入漏洞
+### Bug 4-4：知识库标题存在 SQL 注入漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -257,9 +403,11 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"1' UNION SELECT NULL--","content":"TestContent","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 title 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险 |
+| **Bug描述** | title 字段存在SQL 注入漏洞（CWE-89，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_sql_injection_knowledge_title[1' UNION SELECT NULL--]（在 knowledge title 字段注入 SQL/XSS，应返回失败） |
 
-### Bug 4-7：知识库标题存在 XSS 漏洞
+### Bug 4-5：知识库标题存在 XSS 漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -268,9 +416,11 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"<script>alert('xss')</script>","content":"TestContent","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 title 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险 |
+| **Bug描述** | title 字段存在XSS漏洞（CWE-79，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_xss_knowledge_title[<svg onload=alert('xss')>]（在 knowledge title 字段注入 XSS，应返回失败或净化） |
 
-### Bug 4-8：知识库标题存在 XSS 漏洞
+### Bug 4-6：知识库标题存在 XSS 漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -279,9 +429,11 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"<img src=x onerror=alert('xss')>","content":"TestContent","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 title 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险 |
+| **Bug描述** | title 字段存在XSS漏洞（CWE-79，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_xss_knowledge_title[<svg onload=alert('xss')>]（在 knowledge title 字段注入 XSS，应返回失败或净化） |
 
-### Bug 4-9：知识库标题存在 XSS 漏洞
+### Bug 4-7：知识库标题存在 XSS 漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -290,9 +442,11 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"<svg onload=alert('xss')>","content":"TestContent","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 title 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险 |
+| **Bug描述** | title 字段存在XSS漏洞（CWE-79，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_xss_knowledge_title[<svg onload=alert('xss')>]（在 knowledge title 字段注入 XSS，应返回失败或净化） |
 
-### Bug 4-10：知识库内容存在 XSS 漏洞
+### Bug 4-8：知识库内容存在 XSS 漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -301,9 +455,11 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"TestTitle","content":"<script>alert('xss')</script>","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 content 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险 |
+| **Bug描述** | content 字段存在XSS漏洞（CWE-79，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_xss_content_field[<svg onload=alert('xss')>]（在 knowledge content 字段注入 XSS，应返回失败或净化） |
 
-### Bug 4-11：知识库内容存在 XSS 漏洞
+### Bug 4-9：知识库内容存在 XSS 漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -312,9 +468,11 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"TestTitle","content":"<img src=x onerror=alert('xss')>","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 content 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险 |
+| **Bug描述** | content 字段存在XSS漏洞（CWE-79，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_xss_content_field[<svg onload=alert('xss')>]（在 knowledge content 字段注入 XSS，应返回失败或净化） |
 
-### Bug 4-12：知识库内容存在 XSS 漏洞
+### Bug 4-10：知识库内容存在 XSS 漏洞
 
 | 项目 | 内容 |
 |------|------|
@@ -323,7 +481,9 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/knowledge/save` |
 | **入参** | `{"title":"TestTitle","content":"<svg onload=alert('xss')>","consultType":1,"displayPosition":[0,1],"applicableArea":[{"code":"110119000000","name":"延庆区","level":"county"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 知识库 content 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险 |
+| **Bug描述** | content 字段存在XSS漏洞（CWE-79，OWASP A03:2021），传入恶意 payload 后端返回 code="00"，未过滤危险字符。
+预期：应返回 code="03" 拒绝恶意输入。
+测试用例：test_xss_content_field[<svg onload=alert('xss')>]（在 knowledge content 字段注入 XSS，应返回失败或净化） |
 
 ## 5. 边界值
 
@@ -336,7 +496,22 @@
 | **请求地址** | `http://172.16.1.165:9200/platform/pricing/updatePricing` |
 | **入参** | `{"serviceItemId":"418","amount":0,"areaList":[{"code":"110101000000","level":"county","name":"东城区"}]}` |
 | **出参** | `{"code":"00","message":"操作成功","data":null}` |
-| **Bug描述** | 金额 amount=-1 时后端未做校验，返回成功 code:00，预期应返回失败 |
+| **Bug描述** | amount 边界值校验缺失，传入边界/格式异常值后端返回 code="00" 操作成功。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_pricing_amount_zero（amount=0，应返回失败） |
+
+### Bug 5-2：worker_sign_module/test_worker_sign_save_negative_amount
+
+| 项目 | 内容 |
+|------|------|
+| **缺陷ID** | BUG-041 |
+| **严重程度** | high |
+| **请求地址** | `POST /worker_sign/*` |
+| **入参** | `（无请求体）` |
+| **出参** | `（无响应）` |
+| **Bug描述** | amount 边界值校验缺失，传入边界/格式异常值后端返回 code="unknown" 。
+预期：应返回 code="03" 参数校验失败。
+测试用例：test_worker_sign_save_negative_amount（Negative amount in service_items, should fail） |
 
 ---
 
@@ -344,9 +519,9 @@
 
 | 类别 | Bug 数量 |
 |------|----------|
-| 必填项校验 Bug | 2 |
+| 必填项校验 Bug | 19 |
 | 存在性校验 Bug | 5 |
-| 接口逻辑 Bug | 9 |
-| 安全漏洞（SQL 注入 / XSS） | 12 |
-| 边界值 | 1 |
-| **后端 Bug 总计** | **29** |
+| 接口逻辑 Bug | 2 |
+| 安全漏洞（SQL 注入 / XSS） | 10 |
+| 边界值 | 2 |
+| **后端 Bug 总计** | **40** |

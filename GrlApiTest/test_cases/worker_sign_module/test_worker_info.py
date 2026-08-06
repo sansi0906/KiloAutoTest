@@ -46,3 +46,11 @@ class TestWorkerInfo(TestBase):
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_success(data)
+
+    def test_worker_info_invalid_user_uuid_format(self):
+        """Invalid userUuid format (not a valid UUID), should fail or return empty"""
+        response = self.client.worker_info(user_uuid="invalid-uuid-format")
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        # Should either fail or return empty data
+        assert data.get("code") in ("0", "00", "03"), f"Unexpected response: {data}"

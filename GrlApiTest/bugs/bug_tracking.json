@@ -157,6 +157,86 @@
       "test_suite": "263 tests, 29 failed, 0 error, 0 skipped (pass rate 89.0%)",
       "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
       "created_at": "2026-08-06T14:02:56.714440"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "263 tests, 29 failed, 0 error, 0 skipped (pass rate 89.0%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T15:00:07.284817"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "263 tests, 29 failed, 0 error, 0 skipped (pass rate 89.0%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T15:01:35.726670"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "263 tests, 29 failed, 0 error, 0 skipped (pass rate 89.0%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T15:02:35.474444"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "263 tests, 29 failed, 0 error, 0 skipped (pass rate 89.0%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T15:06:21.003397"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "263 tests, 29 failed, 0 error, 0 skipped (pass rate 89.0%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T15:09:46.332563"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "263 tests, 29 failed, 0 error, 0 skipped (pass rate 89.0%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T15:32:35.390271"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "263 tests, 29 failed, 0 error, 0 skipped (pass rate 89.0%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T15:53:47.584006"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "233 tests, 20 failed, 0 error, 0 skipped (pass rate 91.4%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T16:00:26.484562"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "275 tests, 40 failed, 0 error, 0 skipped (pass rate 85.5%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T16:45:37.201535"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "275 tests, 40 failed, 0 error, 0 skipped (pass rate 85.5%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T16:47:03.343962"
     }
   ],
   "bugs": [
@@ -282,7 +362,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "删除用户前未校验用户是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "description": "对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 记录不存在。\n测试用例：test_delete_non_existing_user（删除不存在的用户，预期应返回失败，但后端实际返回成功（疑似未做存在性校验））",
       "severity": "high",
       "status": "needs_retest",
       "yunxiao": {
@@ -301,7 +381,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "id",
-      "tag": "nonexist"
+      "tag": "nonexist",
+      "test_case": "test_delete_non_existing_user",
+      "nodeid": "test_cases.platform_user_module.test_user_delete.TestUserDelete::test_delete_non_existing_user"
     },
     {
       "id": "BUG-005",
@@ -322,7 +404,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "编辑用户前未校验用户是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "description": "对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 记录不存在。\n测试用例：test_edit_user_not_exist（编辑不存在的用户ID，预期应返回失败，但后端实际返回成功（疑似未做存在性校验））",
       "severity": "high",
       "status": "needs_retest",
       "yunxiao": {
@@ -341,7 +423,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "id",
-      "tag": "nonexist"
+      "tag": "nonexist",
+      "test_case": "test_edit_user_not_exist",
+      "nodeid": "test_cases.platform_user_module.test_user_edit.TestUserEdit::test_edit_user_not_exist"
     },
     {
       "id": "BUG-006",
@@ -358,7 +442,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "修改用户状态前未校验用户是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "description": "对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 记录不存在。\n测试用例：test_change_status_non_existing_user（修改不存在的用户状态，预期应返回失败，但后端实际返回成功（疑似未做存在性校验））",
       "severity": "high",
       "status": "needs_retest",
       "yunxiao": {
@@ -377,7 +461,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "id",
-      "tag": "nonexist"
+      "tag": "nonexist",
+      "test_case": "test_change_status_non_existing_user",
+      "nodeid": "test_cases.platform_user_module.test_user_change_status.TestUserChangeStatus::test_change_status_non_existing_user"
     },
     {
       "id": "BUG-007",
@@ -393,7 +479,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "删除服务商前未校验服务商是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "description": "对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 记录不存在。\n测试用例：test_delete_service_provider_non_existing（删除不存在的服务商，预期应返回失败，但后端实际返回成功（疑似未做存在性校验））",
       "severity": "high",
       "status": "needs_retest",
       "yunxiao": {
@@ -412,7 +498,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "id",
-      "tag": "nonexist"
+      "tag": "nonexist",
+      "test_case": "test_delete_service_provider_non_existing",
+      "nodeid": "test_cases.service_provider_module.test_service_provider.TestServiceProvider::test_delete_service_provider_non_existing"
     },
     {
       "id": "BUG-008",
@@ -428,7 +516,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "删除知识库前未校验知识库是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "description": "对不存在记录执行删除/编辑操作，传入 id=999999 后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 记录不存在。\n测试用例：test_delete_knowledge_non_existing（删除不存在的知识库，预期应返回失败，但后端实际返回成功（疑似未做存在性校验））",
       "severity": "high",
       "status": "needs_retest",
       "yunxiao": {
@@ -447,7 +535,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "id",
-      "tag": "nonexist"
+      "tag": "nonexist",
+      "test_case": "test_delete_knowledge_non_existing",
+      "nodeid": "test_cases.knowledge_base_module.test_knowledge_base.TestKnowledgeBase::test_delete_knowledge_non_existing"
     },
     {
       "id": "BUG-009",
@@ -463,7 +553,7 @@
         "message": "请求的资源不存在!",
         "data": null
       },
-      "description": "detail 接口对所有 ID（包括数据库中存在的 ID）均返回 HTTP 404 或 code:03，属于后端查询逻辑 Bug",
+      "description": "未知 定义的接口，传入已存在的记录 ID 后端返回 code=\"03\" / HTTP 404，资源不存在。\n预期：应返回 code=\"00\" 并包含记录详情，或对已存在记录正常返回。\n测试用例：test_get_business_scope_detail_non_existing（）",
       "severity": "high",
       "status": "needs_retest",
       "yunxiao": {
@@ -482,7 +572,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "id",
-      "tag": "exception"
+      "tag": "exception",
+      "test_case": "test_get_business_scope_detail_non_existing",
+      "nodeid": "test_cases.business_scope_module.test_business_scope.TestBusinessScope::test_get_business_scope_detail_non_existing"
     },
     {
       "id": "BUG-010",
@@ -540,7 +632,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "知识库 title 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险",
+      "description": "title 字段存在SQL 注入漏洞（CWE-89，OWASP A03:2021），传入恶意 payload 后端返回 code=\"00\"，未过滤危险字符。\n预期：应返回 code=\"03\" 拒绝恶意输入。\n测试用例：test_sql_injection_knowledge_title[1' UNION SELECT NULL--]（在 knowledge title 字段注入 SQL/XSS，应返回失败）",
       "severity": "critical",
       "status": "needs_retest",
       "yunxiao": {
@@ -559,7 +651,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "title",
-      "tag": "SQL"
+      "tag": "SQL",
+      "test_case": "test_sql_injection_knowledge_title[1' UNION SELECT NULL--]",
+      "nodeid": "test_cases.test_security.TestSecurity::test_sql_injection_knowledge_title[1' UNION SELECT NULL--]"
     },
     {
       "id": "BUG-012",
@@ -588,7 +682,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "知识库 title 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险",
+      "description": "title 字段存在XSS漏洞（CWE-79，OWASP A03:2021），传入恶意 payload 后端返回 code=\"00\"，未过滤危险字符。\n预期：应返回 code=\"03\" 拒绝恶意输入。\n测试用例：test_xss_knowledge_title[<svg onload=alert('xss')>]（在 knowledge title 字段注入 XSS，应返回失败或净化）",
       "severity": "critical",
       "status": "needs_retest",
       "yunxiao": {
@@ -607,7 +701,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "title",
-      "tag": "XSS"
+      "tag": "XSS",
+      "test_case": "test_xss_knowledge_title[<svg onload=alert('xss')>]",
+      "nodeid": "test_cases.test_security.TestSecurity::test_xss_knowledge_title[<svg onload=alert('xss')>]"
     },
     {
       "id": "BUG-013",
@@ -636,7 +732,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "知识库 content 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险",
+      "description": "content 字段存在XSS漏洞（CWE-79，OWASP A03:2021），传入恶意 payload 后端返回 code=\"00\"，未过滤危险字符。\n预期：应返回 code=\"03\" 拒绝恶意输入。\n测试用例：test_xss_content_field[<svg onload=alert('xss')>]（在 knowledge content 字段注入 XSS，应返回失败或净化）",
       "severity": "critical",
       "status": "needs_retest",
       "yunxiao": {
@@ -655,7 +751,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "content",
-      "tag": "XSS"
+      "tag": "XSS",
+      "test_case": "test_xss_content_field[<svg onload=alert('xss')>]",
+      "nodeid": "test_cases.test_security.TestSecurity::test_xss_content_field[<svg onload=alert('xss')>]"
     },
     {
       "id": "BUG-014",
@@ -672,7 +770,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "经营范围 scopeName 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险",
+      "description": "scopeName 字段存在SQL 注入漏洞（CWE-89，OWASP A03:2021），传入恶意 payload 后端返回 code=\"00\"，未过滤危险字符。\n预期：应返回 code=\"03\" 拒绝恶意输入。\n测试用例：test_sql_injection_scope_name[' OR 1=1 --]（）",
       "severity": "critical",
       "status": "needs_retest",
       "yunxiao": {
@@ -691,7 +789,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "scopeName",
-      "tag": "SQL"
+      "tag": "SQL",
+      "test_case": "test_sql_injection_scope_name[' OR 1=1 --]",
+      "nodeid": "test_cases.test_security.TestSecurity::test_sql_injection_scope_name[' OR 1=1 --]"
     },
     {
       "id": "BUG-015",
@@ -754,7 +854,7 @@
         "message": "操作成功",
         "data": null
       },
-      "description": "金额 amount=-1 时后端未做校验，返回成功 code:00，预期应返回失败",
+      "description": "amount 边界值校验缺失，传入边界/格式异常值后端返回 code=\"00\" 操作成功。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_pricing_amount_zero（amount=0，应返回失败）",
       "severity": "medium",
       "status": "needs_retest",
       "yunxiao": {
@@ -773,7 +873,9 @@
       "last_execution": "exec_20260806",
       "last_seen": "2026-08-06",
       "field": "amount",
-      "tag": "0"
+      "tag": "0",
+      "test_case": "test_pricing_amount_zero",
+      "nodeid": "test_cases.boundary_values.test_boundary_values.TestBoundaryValues::test_pricing_amount_zero"
     },
     {
       "id": "BUG-017",
@@ -817,12 +919,162 @@
     {
       "id": "BUG-018",
       "execution_id": "exec_20260806",
+      "category": "unknown",
+      "title": "test_security/test_path_traversal_in_filename",
+      "api_path": "POST /test_security",
+      "test_case": "test_path_traversal_in_filename",
+      "nodeid": "test_cases.test_security.TestSecurity::test_path_traversal_in_filename",
+      "description": "需人工确认",
+      "severity": "medium",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "other",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.313710"
+    },
+    {
+      "id": "BUG-019",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "boundary_values/test_real_name_too_long",
+      "api_path": "POST /boundary_values/*",
+      "test_case": "test_real_name_too_long",
+      "nodeid": "test_cases.boundary_values.test_boundary_values.TestBoundaryValues::test_real_name_too_long",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_real_name_too_long（realName 超过 20 个字符，应返回失败）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.316292"
+    },
+    {
+      "id": "BUG-020",
+      "execution_id": "exec_20260806",
+      "category": "unknown",
+      "title": "boundary_values/test_subtitle_length_boundary",
+      "api_path": "POST /boundary_values",
+      "test_case": "test_subtitle_length_boundary",
+      "nodeid": "test_cases.boundary_values.test_boundary_values.TestBoundaryValues::test_subtitle_length_boundary",
+      "description": "需人工确认",
+      "severity": "medium",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "other",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.317813"
+    },
+    {
+      "id": "BUG-021",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "knowledge_base_module/test_save_knowledge_invalid_consult_type",
+      "api_path": "POST /knowledge_base/*",
+      "test_case": "test_save_knowledge_invalid_consult_type",
+      "nodeid": "test_cases.knowledge_base_module.test_knowledge_base.TestKnowledgeBase::test_save_knowledge_invalid_consult_type",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_save_knowledge_invalid_consult_type（consultType 非法值，应返回失败）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.321732"
+    },
+    {
+      "id": "BUG-022",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "knowledge_base_module/test_save_knowledge_invalid_display_position",
+      "api_path": "POST /knowledge_base/*",
+      "test_case": "test_save_knowledge_invalid_display_position",
+      "nodeid": "test_cases.knowledge_base_module.test_knowledge_base.TestKnowledgeBase::test_save_knowledge_invalid_display_position",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_save_knowledge_invalid_display_position（displayPosition 越界，应返回失败）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.323748"
+    },
+    {
+      "id": "BUG-023",
+      "execution_id": "exec_20260806",
       "category": "logic_bug",
       "title": "login_module/test_logout_without_token",
       "api_path": "http://172.16.1.165:9200/sys/logout",
       "test_case": "test_logout_without_token",
       "nodeid": "test_cases.login_module.test_logout.TestLogout::test_logout_without_token",
-      "description": "接口逻辑异常",
+      "description": "未携带 Token 调用登出接口，后端返回 code=\"00\"，绕过了认证校验。\n预期：应返回 code=\"03\" 需认证错误。\n测试用例：test_logout_without_token（无 Token 登出，预期应返回失败，但后端实际返回成功（疑似未做 Token 校验））",
       "severity": "high",
       "status": "needs_retest",
       "request_body": null,
@@ -846,17 +1098,77 @@
         "verified": false,
         "verified_date": null
       },
-      "created_at": "2026-08-06T14:02:56.713411"
+      "created_at": "2026-08-06T16:47:03.323748"
     },
     {
-      "id": "BUG-019",
+      "id": "BUG-024",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "platform_user_module/test_save_user_real_name_too_long",
+      "api_path": "POST /platform_user/*",
+      "test_case": "test_save_user_real_name_too_long",
+      "nodeid": "test_cases.platform_user_module.test_user_save.TestUserSave::test_save_user_real_name_too_long",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_save_user_real_name_too_long（realName 超过 20 个字符，应返回失败）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.326770"
+    },
+    {
+      "id": "BUG-025",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "platform_user_module/test_save_user_real_name_special_chars",
+      "api_path": "POST /platform_user/*",
+      "test_case": "test_save_user_real_name_special_chars",
+      "nodeid": "test_cases.platform_user_module.test_user_save.TestUserSave::test_save_user_real_name_special_chars",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_save_user_real_name_special_chars（realName 含特殊字符，应返回失败）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.326770"
+    },
+    {
+      "id": "BUG-026",
       "execution_id": "exec_20260806",
       "category": "logic_bug",
       "title": "pricing_module/test_update_pricing_no_record",
       "api_path": "http://172.16.1.165:9200/platform/pricing/updatePricing",
       "test_case": "test_update_pricing_no_record",
       "nodeid": "test_cases.pricing_module.test_pricing.TestPricing::test_update_pricing_no_record",
-      "description": "接口逻辑异常，OpenAPI 规范 ServicePricingUpdateReqDto 定义了标准行为，但实际返回异常",
+      "description": "更新不存在的服务项目定价记录，未做存在性校验，传入 serviceItemId 后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 记录不存在，拒绝更新不存在的定价记录。\n测试用例：test_update_pricing_no_record（更新未导入定价数据的服务项目定价，按正常逻辑应返回失败）",
       "severity": "high",
       "status": "needs_retest",
       "request_body": {
@@ -890,44 +1202,23 @@
         "verified": false,
         "verified_date": null
       },
-      "created_at": "2026-08-06T14:02:56.714440"
+      "created_at": "2026-08-06T16:47:03.327772"
     },
     {
-      "id": "BUG-020",
+      "id": "BUG-027",
       "execution_id": "exec_20260806",
-      "category": "logic_bug",
-      "title": "worker_sign_module/test_worker_authorization_success",
-      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
-      "test_case": "test_worker_authorization_success",
-      "nodeid": "test_cases.worker_sign_module.test_worker_authorization.TestWorkerAuthorization::test_worker_authorization_success",
-      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
+      "category": "required_field_validation",
+      "title": "service_provider_module/test_save_provider_company_name_too_long",
+      "api_path": "POST /service_provider/*",
+      "test_case": "test_save_provider_company_name_too_long",
+      "nodeid": "test_cases.service_provider_module.test_service_provider.TestServiceProvider::test_save_provider_company_name_too_long",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_save_provider_company_name_too_long（companyName 超过 50 个字符，应返回失败）",
       "severity": "high",
       "status": "needs_retest",
-      "request_body": {
-        "userUuid": "worker-1785979746",
-        "workerPhone": "17427786358",
-        "stationInfoId": 1,
-        "stationInfoName": "Test Station",
-        "provinceAreaCode": "110119000000",
-        "cityAreaCode": "110119000000",
-        "districtAreaCode": "110119000000",
-        "sourceType": 1,
-        "serviceItems": [
-          {
-            "serviceItemId": 1,
-            "itemName": "Test Service",
-            "billingMethod": 1,
-            "amount": 100.0
-          }
-        ]
-      },
-      "response_body": {
-        "code": "02",
-        "message": "系统繁忙，请稍后再试!",
-        "data": null
-      },
-      "field": "uuid",
-      "tag": "exception",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
       "yunxiao": {
         "submitted": false,
         "workitem_id": null,
@@ -941,44 +1232,23 @@
         "verified": false,
         "verified_date": null
       },
-      "created_at": "2026-08-06T14:02:56.714440"
+      "created_at": "2026-08-06T16:47:03.331873"
     },
     {
-      "id": "BUG-021",
+      "id": "BUG-028",
       "execution_id": "exec_20260806",
-      "category": "logic_bug",
-      "title": "worker_sign_module/test_worker_authorization_with_phone",
-      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
-      "test_case": "test_worker_authorization_with_phone",
-      "nodeid": "test_cases.worker_sign_module.test_worker_authorization.TestWorkerAuthorization::test_worker_authorization_with_phone",
-      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
+      "category": "required_field_validation",
+      "title": "service_provider_module/test_save_provider_invalid_unified_social_code",
+      "api_path": "POST /service_provider/*",
+      "test_case": "test_save_provider_invalid_unified_social_code",
+      "nodeid": "test_cases.service_provider_module.test_service_provider.TestServiceProvider::test_save_provider_invalid_unified_social_code",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_save_provider_invalid_unified_social_code（unifiedSocialCode 格式无效，应返回失败）",
       "severity": "high",
       "status": "needs_retest",
-      "request_body": {
-        "userUuid": "worker-1785979747",
-        "workerPhone": "17480850962",
-        "stationInfoId": 1,
-        "stationInfoName": "Test Station",
-        "provinceAreaCode": "110119000000",
-        "cityAreaCode": "110119000000",
-        "districtAreaCode": "110119000000",
-        "sourceType": 1,
-        "serviceItems": [
-          {
-            "serviceItemId": 1,
-            "itemName": "Test Service",
-            "billingMethod": 1,
-            "amount": 100.0
-          }
-        ]
-      },
-      "response_body": {
-        "code": "02",
-        "message": "系统繁忙，请稍后再试!",
-        "data": null
-      },
-      "field": "uuid",
-      "tag": "exception",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
       "yunxiao": {
         "submitted": false,
         "workitem_id": null,
@@ -992,44 +1262,23 @@
         "verified": false,
         "verified_date": null
       },
-      "created_at": "2026-08-06T14:02:56.714440"
+      "created_at": "2026-08-06T16:47:03.333873"
     },
     {
-      "id": "BUG-022",
+      "id": "BUG-029",
       "execution_id": "exec_20260806",
-      "category": "logic_bug",
-      "title": "worker_sign_module/test_worker_info_success_with_uuid",
-      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
-      "test_case": "test_worker_info_success_with_uuid",
-      "nodeid": "test_cases.worker_sign_module.test_worker_info.TestWorkerInfo::test_worker_info_success_with_uuid",
-      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_authorization_with_invalid_phone",
+      "api_path": "POST /worker_sign/*",
+      "test_case": "test_worker_authorization_with_invalid_phone",
+      "nodeid": "test_cases.worker_sign_module.test_worker_authorization.TestWorkerAuthorization::test_worker_authorization_with_invalid_phone",
+      "description": "phone 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_authorization_with_invalid_phone（Authorize with invalid phone format, should fail）",
       "severity": "high",
       "status": "needs_retest",
-      "request_body": {
-        "userUuid": "worker-1785979747",
-        "workerPhone": "17442489112",
-        "stationInfoId": 1,
-        "stationInfoName": "Test Station",
-        "provinceAreaCode": "110119000000",
-        "cityAreaCode": "110119000000",
-        "districtAreaCode": "110119000000",
-        "sourceType": 1,
-        "serviceItems": [
-          {
-            "serviceItemId": 1,
-            "itemName": "Test Service",
-            "billingMethod": 1,
-            "amount": 100.0
-          }
-        ]
-      },
-      "response_body": {
-        "code": "02",
-        "message": "系统繁忙，请稍后再试!",
-        "data": null
-      },
-      "field": "uuid",
-      "tag": "exception",
+      "request_body": null,
+      "response_body": null,
+      "field": "phone",
+      "tag": "missing",
       "yunxiao": {
         "submitted": false,
         "workitem_id": null,
@@ -1043,68 +1292,17 @@
         "verified": false,
         "verified_date": null
       },
-      "created_at": "2026-08-06T14:02:56.714440"
+      "created_at": "2026-08-06T16:47:03.333873"
     },
     {
-      "id": "BUG-023",
-      "execution_id": "exec_20260806",
-      "category": "logic_bug",
-      "title": "worker_sign_module/test_worker_info_success_with_phone",
-      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
-      "test_case": "test_worker_info_success_with_phone",
-      "nodeid": "test_cases.worker_sign_module.test_worker_info.TestWorkerInfo::test_worker_info_success_with_phone",
-      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
-      "severity": "high",
-      "status": "needs_retest",
-      "request_body": {
-        "userUuid": "worker-1785979747",
-        "workerPhone": "17431300776",
-        "stationInfoId": 1,
-        "stationInfoName": "Test Station",
-        "provinceAreaCode": "110119000000",
-        "cityAreaCode": "110119000000",
-        "districtAreaCode": "110119000000",
-        "sourceType": 1,
-        "serviceItems": [
-          {
-            "serviceItemId": 1,
-            "itemName": "Test Service",
-            "billingMethod": 1,
-            "amount": 100.0
-          }
-        ]
-      },
-      "response_body": {
-        "code": "02",
-        "message": "系统繁忙，请稍后再试!",
-        "data": null
-      },
-      "field": "uuid",
-      "tag": "exception",
-      "yunxiao": {
-        "submitted": false,
-        "workitem_id": null,
-        "title": null,
-        "submitted_date": null,
-        "url": null
-      },
-      "fix": {
-        "fixed": false,
-        "fixed_date": null,
-        "verified": false,
-        "verified_date": null
-      },
-      "created_at": "2026-08-06T14:02:56.714440"
-    },
-    {
-      "id": "BUG-024",
+      "id": "BUG-030",
       "execution_id": "exec_20260806",
       "category": "required_field_validation",
       "title": "worker_sign_module/test_worker_save_invalid_phone_format",
       "api_path": "http://172.16.1.165:9200/api/worker-sign/worker-save",
       "test_case": "test_worker_save_invalid_phone_format",
       "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_invalid_phone_format",
-      "description": "必填字段 phone 缺失未校验，返回成功",
+      "description": "phone 字段未做格式校验，传入无效值后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_save_invalid_phone_format（使用无效的手机号格式，应返回失败）",
       "severity": "high",
       "status": "needs_retest",
       "request_body": {
@@ -1153,17 +1351,17 @@
         "verified": false,
         "verified_date": null
       },
-      "created_at": "2026-08-06T14:02:56.714440"
+      "created_at": "2026-08-06T16:47:03.335378"
     },
     {
-      "id": "BUG-025",
+      "id": "BUG-031",
       "execution_id": "exec_20260806",
       "category": "required_field_validation",
       "title": "worker_sign_module/test_worker_save_invalid_cert_num",
       "api_path": "http://172.16.1.165:9200/api/worker-sign/worker-save",
       "test_case": "test_worker_save_invalid_cert_num",
       "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_invalid_cert_num",
-      "description": "必填字段 certNum 缺失未校验，返回成功",
+      "description": "certNum 字段未做格式校验，传入无效值后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_save_invalid_cert_num（使用无效的证件号，应返回失败）",
       "severity": "high",
       "status": "needs_retest",
       "request_body": {
@@ -1212,44 +1410,52 @@
         "verified": false,
         "verified_date": null
       },
-      "created_at": "2026-08-06T14:02:56.714440"
+      "created_at": "2026-08-06T16:47:03.335925"
     },
     {
-      "id": "BUG-026",
+      "id": "BUG-032",
       "execution_id": "exec_20260806",
-      "category": "logic_bug",
-      "title": "worker_sign_module/test_worker_sign_save_success",
-      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
-      "test_case": "test_worker_sign_save_success",
-      "nodeid": "test_cases.worker_sign_module.test_worker_sign_save.TestWorkerSignSave::test_worker_sign_save_success",
-      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_save_missing_name",
+      "api_path": "http://172.16.1.165:9200/api/worker-sign/worker-save",
+      "test_case": "test_worker_save_missing_name",
+      "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_missing_name",
+      "description": "name 字段未做格式校验，传入无效值后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_save_missing_name（Missing name field, should fail）",
       "severity": "high",
       "status": "needs_retest",
       "request_body": {
-        "userUuid": "worker-1785979751",
-        "workerPhone": "17410622448",
-        "stationInfoId": 1,
-        "stationInfoName": "Test Station",
-        "provinceAreaCode": "110119000000",
-        "cityAreaCode": "110119000000",
-        "districtAreaCode": "110119000000",
-        "sourceType": 1,
-        "serviceItems": [
-          {
-            "serviceItemId": 1,
-            "itemName": "Test Service",
-            "billingMethod": 1,
-            "amount": 100.0
-          }
-        ]
+        "name": "",
+        "phone": "17450788743",
+        "certNum": "110101199001011234",
+        "certFrontPhoto": "/tmp/cert_front.jpg",
+        "certBackPhoto": "/tmp/cert_back.jpg",
+        "address": "Beijing",
+        "verifyDate": false
       },
       "response_body": {
-        "code": "02",
-        "message": "系统繁忙，请稍后再试!",
-        "data": null
+        "code": "00",
+        "message": "操作成功",
+        "data": {
+          "name": "",
+          "phone": "17450788743",
+          "certNo": "110101199001011234",
+          "userUuid": "bcc27843-d897-462d-848c-b4afaf8bef3e",
+          "newUser": 2,
+          "isAuth": 1,
+          "isSignSuccess": 2,
+          "provinceAreaCode": null,
+          "cityAreaCode": null,
+          "districtAreaCode": null,
+          "serverEndTime": null,
+          "provinceAreaCodeName": "",
+          "cityAreaCodeName": "",
+          "districtAreaCodeName": "",
+          "serverStartTime": null,
+          "stationInfoId": null
+        }
       },
-      "field": "uuid",
-      "tag": "exception",
+      "field": "name",
+      "tag": "missing",
       "yunxiao": {
         "submitted": false,
         "workitem_id": null,
@@ -1263,7 +1469,306 @@
         "verified": false,
         "verified_date": null
       },
-      "created_at": "2026-08-06T14:02:56.714440"
+      "created_at": "2026-08-06T16:47:03.336934"
+    },
+    {
+      "id": "BUG-033",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_save_missing_cert_num",
+      "api_path": "http://172.16.1.165:9200/api/worker-sign/worker-save",
+      "test_case": "test_worker_save_missing_cert_num",
+      "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_missing_cert_num",
+      "description": "certNum 字段未做格式校验，传入无效值后端返回 code=\"00\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_save_missing_cert_num（Missing certNum field, should fail）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": {
+        "name": "TestUser1785979749",
+        "phone": "17456674315",
+        "certNum": "",
+        "certFrontPhoto": "/tmp/cert_front.jpg",
+        "certBackPhoto": "/tmp/cert_back.jpg",
+        "address": "Beijing",
+        "verifyDate": false
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": {
+          "name": "TestUser1785979749",
+          "phone": "17456674315",
+          "certNo": "",
+          "userUuid": "6a470a3d-2df5-4201-8f5b-ae67ec6925be",
+          "newUser": 2,
+          "isAuth": 1,
+          "isSignSuccess": 2,
+          "provinceAreaCode": null,
+          "cityAreaCode": null,
+          "districtAreaCode": null,
+          "serverEndTime": null,
+          "provinceAreaCodeName": "",
+          "cityAreaCodeName": "",
+          "districtAreaCodeName": "",
+          "serverStartTime": null,
+          "stationInfoId": null
+        }
+      },
+      "field": "certNum",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.337930"
+    },
+    {
+      "id": "BUG-034",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_save_missing_cert_photos",
+      "api_path": "POST /worker_sign/*",
+      "test_case": "test_worker_save_missing_cert_photos",
+      "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_missing_cert_photos",
+      "description": "certPhotos 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_save_missing_cert_photos（Missing cert photos, should fail）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "certPhotos",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.338435"
+    },
+    {
+      "id": "BUG-035",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_save_name_too_long",
+      "api_path": "POST /worker_sign/*",
+      "test_case": "test_worker_save_name_too_long",
+      "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_name_too_long",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_save_name_too_long（Name exceeds 20 characters, should fail）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.339439"
+    },
+    {
+      "id": "BUG-036",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_save_name_special_chars",
+      "api_path": "POST /worker_sign/*",
+      "test_case": "test_worker_save_name_special_chars",
+      "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_name_special_chars",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_save_name_special_chars（Name contains special characters, should fail）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.339439"
+    },
+    {
+      "id": "BUG-037",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_save_cert_num_too_short",
+      "api_path": "POST /worker_sign/*",
+      "test_case": "test_worker_save_cert_num_too_short",
+      "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_cert_num_too_short",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_save_cert_num_too_short（certNum too short (less than 18 digits), should fail）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.340952"
+    },
+    {
+      "id": "BUG-038",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_save_duplicate_phone",
+      "api_path": "POST /worker_sign/*",
+      "test_case": "test_worker_save_duplicate_phone",
+      "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_duplicate_phone",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_save_duplicate_phone（Duplicate phone number, should fail）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.340952"
+    },
+    {
+      "id": "BUG-039",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_sign_save_invalid_station_info_id",
+      "api_path": "POST /worker_sign/*",
+      "test_case": "test_worker_sign_save_invalid_station_info_id",
+      "nodeid": "test_cases.worker_sign_module.test_worker_sign_save.TestWorkerSignSave::test_worker_sign_save_invalid_station_info_id",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_sign_save_invalid_station_info_id（Invalid/nonexistent stationInfoId, should fail）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.341962"
+    },
+    {
+      "id": "BUG-040",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_sign_save_invalid_service_item_id",
+      "api_path": "POST /worker_sign/*",
+      "test_case": "test_worker_sign_save_invalid_service_item_id",
+      "nodeid": "test_cases.worker_sign_module.test_worker_sign_save.TestWorkerSignSave::test_worker_sign_save_invalid_service_item_id",
+      "description": "field 字段未做格式校验，传入无效值后端返回 code=\"unknown\"。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_sign_save_invalid_service_item_id（Invalid/nonexistent serviceItemId, should fail）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "field",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.342961"
+    },
+    {
+      "id": "BUG-041",
+      "execution_id": "exec_20260806",
+      "category": "boundary_value",
+      "title": "worker_sign_module/test_worker_sign_save_negative_amount",
+      "api_path": "POST /worker_sign/*",
+      "test_case": "test_worker_sign_save_negative_amount",
+      "nodeid": "test_cases.worker_sign_module.test_worker_sign_save.TestWorkerSignSave::test_worker_sign_save_negative_amount",
+      "description": "amount 边界值校验缺失，传入边界/格式异常值后端返回 code=\"unknown\" 。\n预期：应返回 code=\"03\" 参数校验失败。\n测试用例：test_worker_sign_save_negative_amount（Negative amount in service_items, should fail）",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": null,
+      "field": "amount",
+      "tag": "-1",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T16:47:03.343962"
     }
   ],
   "summary": {

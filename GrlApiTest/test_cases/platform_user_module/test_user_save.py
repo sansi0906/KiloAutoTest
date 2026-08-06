@@ -194,3 +194,35 @@ class TestUserSave(TestBase):
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_failure(data)
+
+    def test_save_user_real_name_too_long(self):
+        """realName 超过 20 个字符，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        response = self.client.save_platform_user(
+            user_name=self._unique_user_name(),
+            real_name="A" * 21,
+            sex=1,
+            role_group_id=5,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_save_user_real_name_special_chars(self):
+        """realName 含特殊字符，应返回失败"""
+        token = self.login()
+        self.client.set_token(token)
+
+        response = self.client.save_platform_user(
+            user_name=self._unique_user_name(),
+            real_name="Test@#$%^&*",
+            sex=1,
+            role_group_id=5,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)

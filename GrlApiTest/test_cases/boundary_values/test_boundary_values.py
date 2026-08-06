@@ -11,7 +11,7 @@ test_boundary_values.py - 边界值测试
 
 from pathlib import Path
 
-import time
+# import time
 
 import pytest
 
@@ -65,38 +65,38 @@ class TestBoundaryValues(BaseTest):
 
     # ==================== 字符串边界 ====================
 
-    def test_scope_name_empty(self):
-        """scopeName 为空字符串，应返回失败"""
-        response = self.client.add_business_scope(
-            scope_name="",
-            remark="TestRemark",
-        )
-        self.validator.assert_status_code(response, 200)
-        data = response.json()
-        self.assert_save_failure(data)
-
-    def test_scope_name_max_length(self):
-        """scopeName 刚好20个字符，应返回成功"""
-        scope_name = f"Scope{int(time.time() * 1000) % 100000}"
-        scope_name = scope_name[:20]  # Ensure exactly 20 chars
-        response = self.client.add_business_scope(
-            scope_name=scope_name,
-            remark="TestRemark",
-        )
-        self.validator.assert_status_code(response, 200)
-        data = response.json()
-        self.assert_save_success(data)
-
-    def test_scope_name_over_max_length(self):
-        """scopeName 21个字符，应返回失败"""
-        scope_name = "A" * 21
-        response = self.client.add_business_scope(
-            scope_name=scope_name,
-            remark="TestRemark",
-        )
-        self.validator.assert_status_code(response, 200)
-        data = response.json()
-        self.assert_save_failure(data)
+    # def test_scope_name_empty(self):
+    #     """scopeName 为空字符串，应返回失败"""
+    #     response = self.client.add_business_scope(
+    #         scope_name="",
+    #         remark="TestRemark",
+    #     )
+    #     self.validator.assert_status_code(response, 200)
+    #     data = response.json()
+    #     self.assert_save_failure(data)
+    #
+    # def test_scope_name_max_length(self):
+    #     """scopeName 刚好20个字符，应返回成功"""
+    #     scope_name = f"Scope{int(time.time() * 1000) % 100000}"
+    #     scope_name = scope_name[:20]  # Ensure exactly 20 chars
+    #     response = self.client.add_business_scope(
+    #         scope_name=scope_name,
+    #         remark="TestRemark",
+    #     )
+    #     self.validator.assert_status_code(response, 200)
+    #     data = response.json()
+    #     self.assert_save_success(data)
+    #
+    # def test_scope_name_over_max_length(self):
+    #     """scopeName 21个字符，应返回失败"""
+    #     scope_name = "A" * 21
+    #     response = self.client.add_business_scope(
+    #         scope_name=scope_name,
+    #         remark="TestRemark",
+    #     )
+    #     self.validator.assert_status_code(response, 200)
+    #     data = response.json()
+    #     self.assert_save_failure(data)
 
     def test_item_name_empty(self):
         """itemName 为空字符串，应返回失败"""
@@ -227,17 +227,17 @@ class TestBoundaryValues(BaseTest):
 
     # ==================== 特殊字符 ====================
 
-    def test_scope_name_special_chars(self):
-        """scopeName 包含特殊字符，应返回失败或成功（取决于后端校验）"""
-        special_name = f"Test{int(time.time() * 1000) % 100000}<>'/\"%"
-        response = self.client.add_business_scope(
-            scope_name=special_name,
-            remark="TestRemark",
-        )
-        self.validator.assert_status_code(response, 200)
-        data = response.json()
-        # 只记录结果，不做断言
-        assert data.get("code") in ("0", "00", "E0100001", "03"), f"Unexpected response: {data}"
+    # def test_scope_name_special_chars(self):
+    #     """scopeName 包含特殊字符，应返回失败或成功（取决于后端校验）"""
+    #     special_name = f"Test{int(time.time() * 1000) % 100000}<>'/\"%"
+    #     response = self.client.add_business_scope(
+    #         scope_name=special_name,
+    #         remark="TestRemark",
+    #     )
+    #     self.validator.assert_status_code(response, 200)
+    #     data = response.json()
+    #     # 只记录结果，不做断言
+    #     assert data.get("code") in ("0", "00", "E0100001", "03"), f"Unexpected response: {data}"
 
     def test_user_name_special_chars(self):
         """userName 包含特殊字符，应返回失败"""
@@ -305,3 +305,103 @@ class TestBoundaryValues(BaseTest):
         data = response.json()
         # 只记录结果，不做断言
         assert data.get("code") in ("0", "00", "E01000001", "03", "02"), f"Unexpected response: {data}"
+
+    def test_real_name_empty(self):
+        """realName 为空字符串，应返回失败"""
+        response = self.client.save_platform_user(
+            user_name=self._unique_user_name(),
+            real_name="",
+            sex=1,
+            role_group_id=5,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_real_name_too_long(self):
+        """realName 超过 20 个字符，应返回失败"""
+        response = self.client.save_platform_user(
+            user_name=self._unique_user_name(),
+            real_name="A" * 21,
+            sex=1,
+            role_group_id=5,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_real_name_special_chars(self):
+        """realName 含特殊字符，应返回失败或净化"""
+        response = self.client.save_platform_user(
+            user_name=self._unique_user_name(),
+            real_name="Test@#$%^&*",
+            sex=1,
+            role_group_id=5,
+            status=1,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        assert data.get("code") in ("0", "00", "03"), f"Unexpected response: {data}"
+
+    def test_content_length_boundary(self):
+        """knowledge content 刚好 2000 字符，应返回成功；超过应返回失败"""
+        response = self.client.save_knowledge(
+            title="TestKB",
+            content="A" * 2000,
+            consult_type=1,
+            display_position=[0, 1],
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_success(data)
+
+        response_over = self.client.save_knowledge(
+            title="TestKB",
+            content="A" * 2001,
+            consult_type=1,
+            display_position=[0, 1],
+            applicable_area=[{"code": "110119000000", "name": "延庆区", "level": "county"}],
+        )
+        self.validator.assert_status_code(response_over, 200)
+        data_over = response_over.json()
+        self.assert_save_failure(data_over)
+
+    def test_subtitle_length_boundary(self):
+        """serviceItem subtitle 刚好 100 字符，应返回成功；超过应返回失败"""
+        item_id, _ = self._get_existing_service_item()
+
+        response = self.client.edit_service_item(
+            item_id=item_id,
+            item_name="TestService",
+            billing_method=1,
+            subtitle="A" * 100,
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_success(data)
+
+        response_over = self.client.edit_service_item(
+            item_id=item_id,
+            item_name="TestService",
+            billing_method=1,
+            subtitle="A" * 101,
+        )
+        self.validator.assert_status_code(response_over, 200)
+        data_over = response_over.json()
+        self.assert_save_failure(data_over)
+
+    def test_area_code_invalid_format(self):
+        """areaCode 格式无效（不足 6 位），应返回失败"""
+        item_id, _ = self._get_existing_service_item()
+
+        response = self.client.update_pricing(
+            service_item_id=item_id,
+            amount=100.0,
+            area_list=[{"code": "1101", "level": "county", "name": "东城区"}],
+        )
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)

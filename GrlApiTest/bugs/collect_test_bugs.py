@@ -17,6 +17,7 @@ collect_test_bugs.py - 收集全量测试失败用例为缺陷，打标 needs_re
   bugs/latest_bug_list.md       - 历史格式缺陷清单（含真实入参/出参）
 """
 import argparse
+import ast
 import json
 import os
 import re
@@ -176,53 +177,150 @@ def get_api_info(api_path):
     
     return None
 
-def build_description(category, field, api_info, extra_info=""):
-    """构建详细的 Bug 描述，整合 OpenAPI 信息"""
-    if api_info:
-        dto = api_info.get("dto", "未知")
-        required = api_info.get("required_fields", [])
-        summary = api_info.get("summary", "")
-        
-        if category == "required_field_validation":
-            if field in required:
-                return f"OpenAPI 规范中 {dto} 标记 {field} 为必填项，但传 null 时后端未做校验，返回成功"
-            else:
-                return f"字段 {field} 缺失未校验，OpenAPI 规范 {dto} 中该字段{'是' if field in required else '不是'}必填项，返回成功"
-        
-        elif category == "existence_validation":
-            return f"对不存在记录操作未返回失败，OpenAPI 规范 {dto} 标记 {field} 为必填项，但未校验存在性"
-        
-        elif category == "boundary_value":
-            return f"{field} 边界/格式值未校验，OpenAPI 规范 {dto} 标记 {field} 为必填项，需增加边界值校验"
-        
-        elif category in ("security_sql_injection", "security_xss"):
-            vuln_type = "SQL 注入" if "sql" in category else "XSS"
-            return f"{field} 字段未过滤 {vuln_type} payload，OpenAPI 规范 {dto} 定义了该字段，后端接受并返回成功"
-        
-        elif category == "logic_bug":
-            if "404" in extra_info or "资源不存在" in extra_info:
-                return f"接口返回 404，OpenAPI 规范 {dto} 定义了该接口，疑似路径变更或后端查询逻辑问题"
-            elif "token" in field.lower():
-                return f"未校验 Token，OpenAPI 规范 {dto} 定义了认证机制，但后端未做校验"
-            else:
-                return f"接口逻辑异常，OpenAPI 规范 {dto} 定义了标准行为，但实际返回异常"
+def get_test_docstring(cls_str, method_name):
+    """从测试源文件中提取方法的 docstring
+
+    Args:
+        cls_str: 类名字符串，如 'test_cases.worker_sign_module.test_worker_save.TestWorkerSave'
+        method_name: 方法名，可能带 parametrize 后缀
+
+    Returns:
+        docstring 内容，如果找不到则返回空字符串
+    """
+    parts = cls_str.split(".")
+    if len(parts) < 2:
+        return ""
+    class_name = parts[-1]
+    module_parts = parts[:-1]
+    method_name = method_name.split("[")[0]
+    file_path = os.path.join(ROOT, *module_parts) + ".py"
+    if not os.path.exists(file_path):
+        return ""
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            tree = ast.parse(f.read())
+    except Exception:
+        return ""
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ClassDef) and node.name == class_name:
+            for item in node.body:
+                if isinstance(item, (ast.FunctionDef, ast.AsyncFunctionDef)) and item.name == method_name:
+                    return _translate_docstring(ast.get_docstring(item) or "")
+    return ""
+
+
+DOCSTRING_TRANSLATIONS = {
+    # worker_sign_module（英文 docstring → 中文）
+    "Create a worker user with valid params, should succeed": "使用有效参数创建工人用户，应返回成功",
+    "Use invalid phone format, should fail": "使用无效的手机号格式，应返回失败",
+    "Use invalid cert number, should fail": "使用无效的证件号，应返回失败",
+    "Empty payload, should fail or return error": "空请求体，应返回失败或错误",
+    "Create a worker sign record with valid params, should succeed": "使用有效参数创建工人入驻签署记录，应返回成功",
+    "Missing userUuid field, should fail": "缺少 userUuid 字段，应返回失败",
+    "Missing workerPhone field, should fail": "缺少 workerPhone 字段，应返回失败",
+    "Missing stationInfoId field, should fail": "缺少 stationInfoId 字段，应返回失败",
+    "Missing serviceItems field, should fail": "缺少 serviceItems 字段，应返回失败",
+    "All required fields empty, should fail": "所有必填字段为空，应返回失败",
+    "Query worker info using userUuid, should succeed": "使用 userUuid 查询工人信息，应返回成功",
+    "Query worker info using phone, should succeed": "使用手机号查询工人信息，应返回成功",
+    "Query without any params, should fail with validation error": "不带任何参数查询，应返回校验错误",
+    "Query with nonexistent userUuid, should succeed but return empty": "使用不存在的 userUuid 查询，应返回成功但数据为空",
+    "Authorize worker user, should succeed": "授权工人用户，应返回成功",
+    "Authorize worker using phone param, should succeed": "使用 phone 参数授权工人，应返回成功",
+    "Authorize without any params, should fail with validation error": "不带任何参数授权，应返回校验错误",
+    "Query station list using userUuid, should succeed": "使用 userUuid 查询站点列表，应返回成功",
+    "Query station list using name filter, should succeed": "使用名称筛选查询站点列表，应返回成功",
+    "Query station list with pagination params, should succeed": "使用分页参数查询站点列表，应返回成功",
+    "Query without any params, should succeed": "不带任何参数查询，应返回成功",
+    "Query station detail using valid businessId, should succeed": "使用有效 businessId 查询站点详情，应返回成功",
+    "Query station detail using nonexistent businessId, should succeed": "使用不存在的 businessId 查询站点详情，应返回成功",
+    "Query gongrenle worker info using valid phone, should succeed": "使用有效手机号查询工人信息，应返回成功",
+    "Query gongrenle worker info using nonexistent phone, should succeed": "使用不存在的手机号查询工人信息，应返回成功",
+    "Create a worker user via worker-save API\n\n    Args:\n        ...": "创建工人用户",
+    "Create a worker sign record via worker-sign/save API\n\n    Args:\n        ...": "创建工人入驻签署记录",
+    "Generate a unique real name for test users": "生成唯一的真实姓名",
+    "Generate a unique username starting with 174 (11-digit phone)": "生成以 174 开头的唯一用户名（11 位手机号）",
+    "Generate a unique phone number starting with 174": "生成以 174 开头的唯一手机号",
+    "Create a worker user via worker-save API": "通过 worker-save 接口创建工人用户",
+    "Create a worker sign record via worker-sign/save API": "通过 worker-sign/save 接口创建工人入驻签署记录",
+    "Delete test data - no-op for worker sign module": "删除测试数据 - 工人签署模块无操作",
+}
+
+
+def _translate_docstring(doc):
+    """将英文 docstring 翻译为中文，找不到则原文返回"""
+    if not doc:
+        return ""
+    for en, zh in DOCSTRING_TRANSLATIONS.items():
+        if doc.strip() == en.strip():
+            return zh
+    for en, zh in DOCSTRING_TRANSLATIONS.items():
+        if doc.strip().startswith(en.strip().split("\n")[0]):
+            return zh.rstrip("。") + "，" + doc.strip()[len(en.strip().split("\n")[0]):].strip()
+    return doc
+
+
+def _fmt_act(resp, maxlen=200):
+    """Format actual response for description"""
+    if not resp:
+        return "（无响应）"
+    if isinstance(resp, dict):
+        s = json.dumps(resp, ensure_ascii=False, separators=(",", ":"))
+        return s[:maxlen] + ("..." if len(s) > maxlen else "")
+    return str(resp)[:maxlen]
+
+
+def build_description(category, field, api_info, extra_info="", actual_response=None, test_case_name="", test_docstring=""):
+    """构建详细的 Bug 描述，整合 OpenAPI 信息、实际响应和测试断言"""
+    dto = api_info.get("dto", "未知") if api_info else "未知"
+    actual_code = "unknown"
+    actual_msg = ""
+    if isinstance(actual_response, dict):
+        actual_code = actual_response.get("code", actual_response.get("_http_status", "unknown"))
+        actual_msg = actual_response.get("message", "")
+    actual_str = _fmt_act(actual_response)
+    test_ref = f"\n测试用例：{test_case_name}（{test_docstring}）" if test_case_name else ""
+
+    if category == "required_field_validation":
+        if field in (api_info.get("required_fields", []) if api_info else []):
+            return (f"OpenAPI 规范 {dto} 标记 {field} 为必填项，但传空/None 时后端未做校验，"
+                    f"返回 code=\"{actual_code}\"。\n预期：应返回 code=\"03\" 参数校验失败。{test_ref}")
         else:
-            return f"字段 {field} 存在问题，OpenAPI 规范 {dto} 定义了该接口{summary}，需要人工确认"
+            return (f"{field} 字段未做格式校验，传入无效值后端返回 code=\"{actual_code}\"。\n"
+                    f"预期：应返回 code=\"03\" 参数校验失败。{test_ref}")
+
+    elif category == "existence_validation":
+        return (f"对不存在记录执行删除/编辑操作，传入 {field}=999999 后端返回 code=\"{actual_code}\"。\n"
+                f"预期：应返回 code=\"03\" 记录不存在。{test_ref}")
+
+    elif category == "boundary_value":
+        return (f"{field} 边界值校验缺失，传入边界/格式异常值后端返回 code=\"{actual_code}\" {actual_msg}。\n"
+                f"预期：应返回 code=\"03\" 参数校验失败。{test_ref}")
+
+    elif category in ("security_sql_injection", "security_xss"):
+        vuln_type = "SQL 注入" if "sql" in category else "XSS"
+        cwe = "CWE-89" if "sql" in category else "CWE-79"
+        return (f"{field} 字段存在{vuln_type}漏洞（{cwe}，OWASP A03:2021），"
+                f"传入恶意 payload 后端返回 code=\"{actual_code}\"，未过滤危险字符。\n"
+                f"预期：应返回 code=\"03\" 拒绝恶意输入。{test_ref}")
+
+    elif category == "logic_bug":
+        if "404" in (extra_info or "") or "资源不存在" in (extra_info or ""):
+            return (f"{dto} 定义的接口，传入已存在的记录 ID 后端返回 code=\"{actual_code}\" / HTTP 404，"
+                    f"资源不存在。\n预期：应返回 code=\"00\" 并包含记录详情，或对已存在记录正常返回。{test_ref}")
+        elif "token" in field.lower():
+            return (f"未携带 Token 调用登出接口，后端返回 code=\"{actual_code}\"，"
+                    f"绕过了认证校验。\n预期：应返回 code=\"03\" 需认证错误。{test_ref}")
+        elif extra_info == "no_record":
+            return (f"更新不存在的服务项目定价记录，未做存在性校验，传入 serviceItemId 后端返回 code=\"{actual_code}\"。\n"
+                    f"预期：应返回 code=\"03\" 记录不存在，拒绝更新不存在的定价记录。{test_ref}")
+        else:
+            return (f"接口逻辑异常，实际返回 code=\"{actual_code}\" {actual_msg}。\n"
+                    f"OpenAPI 规范 {dto} 定义了标准行为（{api_info.get('summary','') if api_info else ''}），"
+                    f"但实际返回不符合预期。\n预期：{test_docstring or extra_info}。{test_ref}")
+
     else:
-        # 无 API 信息时的降级描述
-        if category == "required_field_validation":
-            return f"必填字段 {field} 缺失未校验，返回成功"
-        elif category == "existence_validation":
-            return f"对不存在记录操作未返回失败"
-        elif category == "boundary_value":
-            return f"{field} 边界/格式值未校验"
-        elif category in ("security_sql_injection", "security_xss"):
-            vuln_type = "SQL 注入" if "sql" in category else "XSS"
-            return f"{field} 字段未过滤 {vuln_type} payload，后端接受并返回成功"
-        elif category == "logic_bug":
-            return extra_info or "接口逻辑异常"
-        else:
-            return "需人工确认"
+        return f"字段 {field} 存在问题，实际响应：{actual_str}。{test_ref}"
 
 def snake_to_camel(field_name):
     """将下划线分隔的字段名转换为驼峰式
@@ -234,11 +332,16 @@ def snake_to_camel(field_name):
     parts = field_name.split("_")
     return parts[0] + "".join(part.capitalize() for part in parts[1:])
 
-def infer(nodeid, cls, name, msg):
+def infer(nodeid, cls, name, msg, inp=None, out=None, test_docstring=""):
     """返回 (category_key, display_section, api_path, field, tag, severity, description)"""
     module = cls.split(".")[1] if "." in cls else cls
     low = name.lower()
-    
+
+    # 本地描述生成函数，自动附加实际响应、用例名和 docstring
+    def _desc(cat, fld, api_info, extra_info=""):
+        return build_description(cat, fld, api_info, extra_info,
+                                 actual_response=out, test_case_name=name, test_docstring=test_docstring)
+
     # 先推断 API 路径
     api_path_hint = f"/{module.replace('_module', '')}"
     
@@ -264,26 +367,26 @@ def infer(nodeid, cls, name, msg):
         api = "POST /platform/knowledge/save" if "knowledge" in module else "POST /platform/businessScope/add"
         # 获取实际的 API 信息
         actual_info = get_api_info(api)
-        desc = build_description("security_sql_injection", field, actual_info)
+        desc = _desc("security_sql_injection", field, actual_info)
         return ("security_sql_injection", "安全漏洞（SQL 注入 / XSS）", api, field, "SQL", "high", desc)
     
     if "xss" in low:
         field = "content" if "content" in low else "title"
         api = "POST /platform/knowledge/save"
         actual_info = get_api_info(api)
-        desc = build_description("security_xss", field, actual_info)
+        desc = _desc("security_xss", field, actual_info)
         return ("security_xss", "安全漏洞（SQL 注入 / XSS）", api, field, "XSS", "high", desc)
     
     if "404" in msg:
         api = f"POST /{module.replace('_module','')}/*"
         actual_info = get_api_info(actual_api_path) if actual_api_path else None
-        desc = build_description("logic_bug", "id", actual_info, "接口返回 HTTP 404 / 资源不存在")
+        desc = _desc("logic_bug", "id", actual_info, "接口返回 HTTP 404 / 资源不存在")
         return ("logic_bug", "接口逻辑 Bug", api, "id", "exception", "high", desc)
     
     if "code': '02'" in msg or 'code":"02' in msg:
         api = "POST /api/worker-sign/*"
         actual_info = get_api_info("/api/worker-sign/worker-save") or get_api_info("/api/worker-sign/worker-sign-save")
-        desc = build_description("logic_bug", "uuid", actual_info, "接口返回 code:02 系统繁忙（未捕获异常）")
+        desc = _desc("logic_bug", "uuid", actual_info, "接口返回 code:02 系统繁忙（未捕获异常）")
         return ("logic_bug", "接口逻辑 Bug", api, "uuid", "exception", "high", desc)
     
     if "Expected failure" in msg or ("code': '00'" in msg and "got success" in msg):
@@ -291,21 +394,21 @@ def infer(nodeid, cls, name, msg):
         if "without_token" in low or "no_token" in low:
             api = "POST /sys/logout"
             actual_info = get_api_info("/sys/logout")
-            desc = build_description("logic_bug", "token", actual_info)
+            desc = _desc("logic_bug", "token", actual_info)
             return ("logic_bug", "接口逻辑 Bug", api, "token", "notoken", "high", desc)
         
         # 不存在记录操作
         if "non_existing" in low or "not_exist" in low:
             api = f"POST /{module.replace('_module','')}/*"
             actual_info = get_api_info(actual_api_path) if actual_api_path else None
-            desc = build_description("existence_validation", "id", actual_info)
+            desc = _desc("existence_validation", "id", actual_info)
             return ("existence_validation", "存在性校验 Bug", api, "id", "nonexist", "high", desc)
         
         # 无记录更新（如 test_update_pricing_no_record）
         if "no_record" in low:
             api = f"POST /{module.replace('_module','')}/*"
             actual_info = get_api_info(actual_api_path) if actual_api_path else None
-            desc = build_description("logic_bug", "id", actual_info, "未导入数据时更新返回成功")
+            desc = _desc("logic_bug", "id", actual_info, "no_record")
             return ("logic_bug", "接口逻辑 Bug", api, "id", "no record", "high", desc)
         
         # 边界值测试用例（如 test_pricing_amount_zero, test_pricing_amount_negative）
@@ -316,7 +419,7 @@ def infer(nodeid, cls, name, msg):
             section = "边界值"
             api = f"POST /{module.replace('_module','')}/*"
             actual_info = get_api_info(actual_api_path) if actual_api_path else None
-            desc = build_description(category, fld, actual_info)
+            desc = _desc(category, fld, actual_info)
             return (category, section, api, fld, tag, "high", desc)
         
         # 缺少必填项（如 test_get_pricing_tree_by_areas_missing_area_list）
@@ -325,7 +428,7 @@ def infer(nodeid, cls, name, msg):
             fld = snake_to_camel(m.group(1))
             api = f"POST /{module.replace('_module','')}/*"
             actual_info = get_api_info(actual_api_path) if actual_api_path else None
-            desc = build_description("required_field_validation", fld, actual_info)
+            desc = _desc("required_field_validation", fld, actual_info)
             return ("required_field_validation", "必填项校验 Bug", api, fld, "missing", "high", desc)
         
         if "invalid" in low:
@@ -335,20 +438,20 @@ def infer(nodeid, cls, name, msg):
             section = "边界值" if fld == "amount" else "必填项校验 Bug"
             api = f"POST /{module.replace('_module','')}/*"
             actual_info = get_api_info(actual_api_path) if actual_api_path else None
-            desc = build_description(category, fld, actual_info)
+            desc = _desc(category, fld, actual_info)
             return (category, section, api, fld, tag, "high", desc)
         
         # 默认识别为必填项缺失
         fld = "field"
         api = f"POST /{module.replace('_module','')}/*"
         actual_info = get_api_info(actual_api_path) if actual_api_path else None
-        desc = build_description("required_field_validation", fld, actual_info)
+        desc = _desc("required_field_validation", fld, actual_info)
         return ("required_field_validation", "必填项校验 Bug", api, fld, "missing", "high", desc)
     
     if "without_token" in low or "no token" in msg.lower():
         api = "POST /sys/logout"
         actual_info = get_api_info("/sys/logout")
-        desc = build_description("logic_bug", "token", actual_info)
+        desc = _desc("logic_bug", "token", actual_info)
         return ("logic_bug", "接口逻辑 Bug", api, "token", "notoken", "high", desc)
     
     return ("unknown", "其他", "POST /" + module, "field", "other", "medium", "需人工确认")
@@ -444,12 +547,17 @@ classified = []
 new_bugs = []
 max_num = 17
 for f in failures:
-    cat, section, api, field, tag, sev, desc = infer(f["nodeid"], f["cls"], f["name"], f["msg"])
+    # 提前获取请求/响应报文和测试 doc
+    inp, out, url = get_io(f["nodeid"])
+    test_doc = get_test_docstring(f["cls"], f["name"])
+    cat, section, api, field, tag, sev, desc = infer(
+        f["nodeid"], f["cls"], f["name"], f["msg"],
+        inp=inp, out=out, test_docstring=test_doc,
+    )
     if cat == "environment":
         classified.append({"env": True, "section": section, "method": f["name"], "desc": desc, "api": api})
         continue
-    inp, out, url = get_io(f["nodeid"])
-    real_api = url if "://" in url else api
+    real_api = url if url and "://" in url else api
     is_sec = cat in ("security_sql_injection", "security_xss")
     # 使用实际的 API 路径进行匹配
     yx_id = match_existing(real_api, field, tag, is_sec)
@@ -460,6 +568,9 @@ for f in failures:
         b["status"] = "needs_retest"
         b["last_execution"] = EXEC_ID
         b["last_seen"] = TODAY
+        b["description"] = desc
+        b["test_case"] = f["name"]
+        b["nodeid"] = f["nodeid"]
         # 更新 field 和 tag（如果缺失）
         if field and not b.get("field"):
             b["field"] = field

@@ -32,7 +32,10 @@ class TestBase(BaseTest):
         """Create a worker user via worker-save API
 
         Returns:
-            (user_uuid, phone) tuple
+            (client_uuid, backend_uuid, phone) tuple
+            client_uuid: 客户端生成的 user_uuid
+            backend_uuid: 后端生成的 userUuid（UUID 格式），用于后续接口调用
+            phone: 手机号
         """
         user_uuid = user_uuid or f"worker-{int(time.time())}"
         phone = phone or self._unique_phone()
@@ -52,16 +55,23 @@ class TestBase(BaseTest):
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_success(data)
-        return user_uuid, phone
+        backend_uuid = data.get("data", {}).get("userUuid", user_uuid)
+        return user_uuid, backend_uuid, phone
 
     def _create_worker_sign(self, user_uuid=None, worker_phone=None):
         """Create a worker sign record via worker-sign/save API
 
         Returns:
-            (sign_id, user_uuid) tuple
+            (sign_id, user_uuid) 元组
+
+        如果未指定 user_uuid，先通过 worker_save 创建工人用户，
+        使用后端生成的 UUID 参与入驻签署，确保 userUuid 格式合法。
         """
-        user_uuid = user_uuid or f"worker-{int(time.time())}"
-        worker_phone = worker_phone or self._unique_phone()
+        if user_uuid is None:
+            _, user_uuid, phone = self._create_worker_user()
+            worker_phone = worker_phone or phone
+        else:
+            worker_phone = worker_phone or self._unique_phone()
 
         response = self.client.worker_sign_save(
             user_uuid=user_uuid,

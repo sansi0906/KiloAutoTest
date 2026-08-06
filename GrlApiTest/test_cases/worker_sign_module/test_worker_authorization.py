@@ -39,3 +39,20 @@ class TestWorkerAuthorization(TestBase):
         self.validator.assert_status_code(response, 200)
         data = response.json()
         self.assert_save_failure(data)
+
+    def test_worker_authorization_with_invalid_phone(self):
+        """Authorize with invalid phone format, should fail"""
+        _, user_uuid, _ = self._create_worker_user()
+        response = self.client.worker_authorization(phone="12345")
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_failure(data)
+
+    def test_worker_authorization_with_nonexistent_uuid(self):
+        """Authorize with nonexistent userUuid, should fail"""
+        _, user_uuid, _ = self._create_worker_user()
+        response = self.client.worker_authorization(user_uuid="nonexistent-uuid")
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        # Should either fail or return empty result
+        assert data.get("code") in ("0", "00", "03"), f"Unexpected response: {data}"
