@@ -1,0 +1,220 @@
+{
+  "/api/worker-sign/worker-save": {
+    "post": {
+      "tags": [
+        "超级个体入驻"
+      ],
+      "summary": "用户注册提交信息",
+      "operationId": "worerkSave",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/WorkerOcrAddReqDto"
+            }
+          }
+        },
+        "required": true
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseResMessageWorkerOcrRespDto"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/worker-sign/worker-info": {
+    "post": {
+      "tags": [
+        "超级个体入驻"
+      ],
+      "summary": "查询用户信息",
+      "operationId": "workerInfo",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/WorkPhoneDto"
+            }
+          }
+        },
+        "required": true
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseResMessageObject"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/worker-sign/worker-authorization": {
+    "post": {
+      "tags": [
+        "超级个体入驻"
+      ],
+      "summary": "用户信息授权",
+      "operationId": "workerAuth",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/WorkPhoneDto"
+            }
+          }
+        },
+        "required": true
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseResMessageObject"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/worker-sign/save": {
+    "post": {
+      "tags": [
+        "超级个体入驻"
+      ],
+      "summary": "入驻超级个体",
+      "operationId": "save_6",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/WorkerSignAddReqDto"
+            }
+          }
+        },
+        "required": true
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseResMessageWorkerSignAddRespDto"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/worker-sign/gongrenle-station-list": {
+    "post": {
+      "tags": [
+        "超级个体入驻"
+      ],
+      "summary": "工人乐获取站点列表",
+      "operationId": "gongrenleGetData",
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/StationsListReqDto"
+            }
+          }
+        },
+        "required": true
+      },
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseResMessageObject"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/worker-sign/gongrenle-station-detail": {
+    "post": {
+      "tags": [
+        "超级个体入驻"
+      ],
+      "summary": "工人乐获取站点详情",
+      "operationId": "gongrenleStationDetail",
+      "parameters": [
+        {
+          "name": "businessId",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseResMessageObject"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/api/worker-sign/gongrenle-info": {
+    "post": {
+      "tags": [
+        "超级个体入驻"
+      ],
+      "summary": "工人乐查询用户详情",
+      "operationId": "gongrenleWorkInfo",
+      "parameters": [
+        {
+          "name": "phone",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "OK",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseResMessageObject"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,148 @@
+[
+  {
+    "module": "智能服务配置",
+    "page_name": "服务项目配置",
+    "url": "http://172.16.1.165:9100/smart-service/project-config",
+    "screenshot": "E:\\KiloAutoTest\\cjgt_web\\screenshots\\智能服务配置_0_服务项目配置.png",
+    "title": null,
+    "table_columns": [
+      "服务项目名称",
+      "副标题",
+      "计费方式",
+      "是否展示",
+      "创建时间",
+      "操作"
+    ],
+    "buttons": [
+      "查询",
+      "重置",
+      "展开",
+      "新增服务项目",
+      "编辑",
+      "不展示"
+    ],
+    "search_inputs": [
+      "请输入",
+      "开始时间",
+      "结束时间"
+    ],
+    "form_fields": [
+      "服务项目名称",
+      "创建时间",
+      "计费方式",
+      "是否展示"
+    ],
+    "table_row_count": 7
+  },
+  {
+    "module": "智能服务配置",
+    "page_name": "服务定价配置",
+    "url": "http://172.16.1.165:9100/smart-service/project-price",
+    "screenshot": "E:\\KiloAutoTest\\cjgt_web\\screenshots\\智能服务配置_1_服务定价配置.png",
+    "title": null,
+    "table_columns": [
+      "区域",
+      "服务价格（元）",
+      "操作"
+    ],
+    "buttons": [
+      "导入价格",
+      "下载服务定价模板"
+    ],
+    "search_inputs": [],
+    "form_fields": [],
+    "table_row_count": 2
+  },
+  {
+    "module": "智能服务配置",
+    "page_name": "合同服务配置",
+    "url": "http://172.16.1.165:9100/smart-service/contract-service",
+    "screenshot": "E:\\KiloAutoTest\\cjgt_web\\screenshots\\智能服务配置_2_合同服务配置.png",
+    "title": null,
+    "table_columns": [
+      "合同服务标题",
+      "合同服务内容",
+      "费用内容",
+      "所属服务项目",
+      "创建时间",
+      "操作"
+    ],
+    "buttons": [
+      "查询",
+      "重置",
+      "新增合同服务",
+      "编辑",
+      "删除"
+    ],
+    "search_inputs": [
+      "请输入"
+    ],
+    "form_fields": [
+      "合同服务标题",
+      "所属服务项目"
+    ],
+    "table_row_count": 11
+  },
+  {
+    "module": "智能服务配置",
+    "page_name": "经营范围配置",
+    "url": "http://172.16.1.165:9100/smart-service/scope-config",
+    "screenshot": "E:\\KiloAutoTest\\cjgt_web\\screenshots\\智能服务配置_3_经营范围配置.png",
+    "title": null,
+    "table_columns": [
+      "经营范围名称",
+      "备注",
+      "启用状态",
+      "创建时间",
+      "操作"
+    ],
+    "buttons": [
+      "查询",
+      "重置",
+      "新增经营范围"
+    ],
+    "search_inputs": [
+      "请输入"
+    ],
+    "form_fields": [
+      "经营范围名称",
+      "启用状态"
+    ],
+    "table_row_count": 2
+  },
+  {
+    "module": "内容管理",
+    "page_name": "知识库",
+    "url": "http://172.16.1.165:9100/content-manage/knowledge",
+    "screenshot": "E:\\KiloAutoTest\\cjgt_web\\screenshots\\内容管理_0_知识库.png",
+    "title": null,
+    "table_columns": [
+      "标题",
+      "内容",
+      "展示位置",
+      "适用区域",
+      "资讯类型",
+      "状态",
+      "发布时间",
+      "操作"
+    ],
+    "buttons": [
+      "查询",
+      "重置",
+      "新增知识库",
+      "详情",
+      "编辑",
+      "禁用"
+    ],
+    "search_inputs": [
+      "请输入标题"
+    ],
+    "form_fields": [
+      "标题",
+      "展示位置",
+      "资讯类型",
+      "状态"
+    ],
+    "table_row_count": 7
+  }
+]

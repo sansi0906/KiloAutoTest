@@ -74,3 +74,23 @@ Desktop.ini
 *.key
 *.p12
 *.pfx
+
+# ==================== 临时目录和缓存 ====================
+.jupyter/
+GrlApiTest/tempdir/
+GrlApiTest/olddir/
+cjgt_web/tmpidea/
+cjgt_web/screenshots/
+lyt/tmpidea/
+lyt/ reverify_results/
+lyt/explore_results/
+lyt/explore_results_v2/
+lyt/explore_results_v3/
+lyt/full_test_results/
+lyt/remaining_test_results/
+lyt/reverify_v2_results/
+lyt/final_15_test/
+lyt/order_deep_test/
+lyt/all_buttons/
+lyt/deep_test_results/
+

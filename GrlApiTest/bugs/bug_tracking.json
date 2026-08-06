@@ -1,0 +1,1291 @@
+{
+  "meta": {
+    "project": "GrlApiTest",
+    "description": "后端缺陷跟踪主文件",
+    "created": "2026-07-31",
+    "last_updated": "2026-08-06",
+    "yunxiao_org_id": "681dc36041ad8bef38ae0822",
+    "yunxiao_project_id": "6bc965ffd5ac5a28dfb230bb82"
+  },
+  "executions": [
+    {
+      "execution_id": "exec_20260731",
+      "date": "2026-07-31",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "217 passed, 19 failed (10 security + 8 backend bug + 1 env limit)",
+      "notes": "首次完整接口测试"
+    },
+    {
+      "execution_id": "exec_20260803",
+      "date": "2026-08-03",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "待补充",
+      "notes": "第二次测试执行"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记需要复测",
+      "created_at": "2026-08-06T08:36:34.729981"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记需要复测",
+      "created_at": "2026-08-06T08:38:25.499058"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T10:04:31.756072"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T11:43:38.462630"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T11:55:01.693201"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T11:55:49.469995"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T11:59:25.446208"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T11:59:44.352523"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T12:00:14.058750"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T12:01:22.329477"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T12:03:00.187776"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T12:04:13.812219"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T12:05:18.107688"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T13:20:39.259675"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "269 tests, 52 failed, 0 error, 0 skipped (pass rate 80.7%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T13:37:56.641027"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "263 tests, 30 failed, 0 error, 0 skipped (pass rate 88.6%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T13:40:11.443000"
+    },
+    {
+      "execution_id": "exec_20260806",
+      "date": "2026-08-06",
+      "environment": "http://172.16.1.165:9200",
+      "test_suite": "263 tests, 29 failed, 0 error, 0 skipped (pass rate 89.0%)",
+      "notes": "全量接口测试；清理业务数据已开启；不提交云效，仅标记 needs_retest",
+      "created_at": "2026-08-06T14:02:56.714440"
+    }
+  ],
+  "bugs": [
+    {
+      "id": "BUG-001",
+      "execution_id": "exec_20260731",
+      "category": "required_field_validation",
+      "title": "保存用户时缺少 status 必填项，后端未校验",
+      "api_path": "POST /platform/user/save",
+      "request_body": {
+        "userName": "174xxxxxxxx",
+        "realName": "测试用户",
+        "sex": 1,
+        "roleGroupId": 5,
+        "status": null
+      },
+      "response_body": {
+        "code": "00",
+        "message": "成功",
+        "data": null
+      },
+      "description": "OpenAPI 规范中 PlatformUserSaveReqDto 标记 status 为必填项，但传 null 时后端未做校验，返回成功 code:00",
+      "severity": "high",
+      "status": "submitted",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "dce2f925faa3b53603db2460d1",
+        "title": "【接口测试】POST /platform/user/save 必填项 status 未校验",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/dce2f925faa3b53603db2460d1?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      }
+    },
+    {
+      "id": "BUG-002",
+      "execution_id": "exec_20260731",
+      "category": "required_field_validation",
+      "title": "区域定价树查询缺少 areaList 必填项，后端未校验",
+      "api_path": "POST /platform/pricing/treeByAreas",
+      "request_body": {
+        "serviceItemId": 1,
+        "areaList": null
+      },
+      "response_body": {
+        "code": "00",
+        "message": "成功",
+        "data": {
+          "serviceItemId": "151",
+          "serviceItemName": null,
+          "servicePricingTree": []
+        }
+      },
+      "description": "OpenAPI 规范中 ServicePricingAreaTreeQueryReqDto 标记 areaList 为必填项，但传 null 时后端未做校验，返回成功 code:00",
+      "severity": "high",
+      "status": "submitted",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "5dd908f5c2582eefefa26adf27",
+        "title": "【接口测试】POST /platform/pricing/treeByAreas 必填项 areaList 未校验",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/5dd908f5c2582eefefa26adf27?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      }
+    },
+    {
+      "id": "BUG-003",
+      "execution_id": "exec_20260731",
+      "category": "required_field_validation",
+      "title": "密码登录模式下缺少 smsCode 必填项，后端未校验",
+      "api_path": "POST /sys/login",
+      "request_body": {
+        "username": "admin",
+        "password": "xxxx",
+        "loginType": 1,
+        "webType": 0,
+        "smsCode": null
+      },
+      "response_body": {
+        "code": "00",
+        "message": "成功",
+        "data": {
+          "token": "xxx"
+        }
+      },
+      "description": "OpenAPI 规范中 LoginReqDto 标记 smsCode 为必填项，但密码登录模式下传 null 时后端未做校验，返回成功 code:00",
+      "severity": "high",
+      "status": "submitted",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "5ebc8cea3ea74d3ce7759910c5",
+        "title": "【接口测试】POST /sys/login 密码登录模式下必填项 smsCode 未校验",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/5ebc8cea3ea74d3ce7759910c5?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      }
+    },
+    {
+      "id": "BUG-004",
+      "execution_id": "exec_20260731",
+      "category": "existence_validation",
+      "title": "删除不存在的用户，返回成功",
+      "api_path": "POST /platform/user/delete",
+      "request_body": {
+        "id": 999999
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "删除用户前未校验用户是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "severity": "high",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "d389fd96cef59b15f41251521d",
+        "title": "【接口测试】POST /platform/user/delete 删除不存在的用户返回成功",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/d389fd96cef59b15f41251521d?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "id",
+      "tag": "nonexist"
+    },
+    {
+      "id": "BUG-005",
+      "execution_id": "exec_20260731",
+      "category": "existence_validation",
+      "title": "编辑不存在的用户，返回成功",
+      "api_path": "POST /platform/user/edit",
+      "request_body": {
+        "id": 999999,
+        "userName": "17477034714",
+        "realName": "测试用户1785979711",
+        "sex": 1,
+        "roleGroupId": 5,
+        "status": 1
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "编辑用户前未校验用户是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "severity": "high",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "d39c228b55f204f2a43bd63077",
+        "title": "【接口测试】POST /platform/user/edit 编辑不存在的用户返回成功",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/d39c228b55f204f2a43bd63077?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "id",
+      "tag": "nonexist"
+    },
+    {
+      "id": "BUG-006",
+      "execution_id": "exec_20260731",
+      "category": "existence_validation",
+      "title": "修改不存在的用户状态，返回成功",
+      "api_path": "POST /platform/user/changeStatus",
+      "request_body": {
+        "id": 999999,
+        "status": 0
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "修改用户状态前未校验用户是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "severity": "high",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "8b90551cfe42f9f883970c8af8",
+        "title": "【接口测试】POST /platform/user/changeStatus 修改不存在的用户状态返回成功",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/8b90551cfe42f9f883970c8af8?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "id",
+      "tag": "nonexist"
+    },
+    {
+      "id": "BUG-007",
+      "execution_id": "exec_20260731",
+      "category": "existence_validation",
+      "title": "删除不存在的服务商，返回成功",
+      "api_path": "POST /platform/serverUser/delete",
+      "request_body": {
+        "id": 999999
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "删除服务商前未校验服务商是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "severity": "high",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "ac11fdb3887d2de0ff95e4589c",
+        "title": "【接口测试】POST /platform/serverUser/delete 删除不存在的服务商返回成功",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/ac11fdb3887d2de0ff95e4589c?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "id",
+      "tag": "nonexist"
+    },
+    {
+      "id": "BUG-008",
+      "execution_id": "exec_20260731",
+      "category": "existence_validation",
+      "title": "删除不存在的知识库，返回成功",
+      "api_path": "POST /platform/knowledge/delete",
+      "request_body": {
+        "id": 999999
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "删除知识库前未校验知识库是否存在，传入不存在的 ID 999999 返回成功 code:00，预期应返回失败",
+      "severity": "high",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "499106236bc668aea8ba74276e",
+        "title": "【接口测试】POST /platform/knowledge/delete 删除不存在的知识库返回成功",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/499106236bc668aea8ba74276e?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "id",
+      "tag": "nonexist"
+    },
+    {
+      "id": "BUG-009",
+      "execution_id": "exec_20260731",
+      "category": "logic_bug",
+      "title": "经营范围详情接口对所有 ID 返回 404",
+      "api_path": "POST /platform/businessScope/detail",
+      "request_body": {
+        "id": 999999
+      },
+      "response_body": {
+        "code": "03",
+        "message": "请求的资源不存在!",
+        "data": null
+      },
+      "description": "detail 接口对所有 ID（包括数据库中存在的 ID）均返回 HTTP 404 或 code:03，属于后端查询逻辑 Bug",
+      "severity": "high",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "99cefbe9af3c614deeb024948c",
+        "title": "【接口测试】POST /platform/businessScope/detail 对所有ID返回404",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/99cefbe9af3c614deeb024948c?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "id",
+      "tag": "exception"
+    },
+    {
+      "id": "BUG-010",
+      "execution_id": "exec_20260731",
+      "category": "logic_bug",
+      "title": "无 Token 登出返回成功",
+      "api_path": "POST /sys/logout",
+      "request_body": "无 Token 请求头",
+      "response_body": {
+        "code": "00",
+        "message": "成功",
+        "data": null
+      },
+      "description": "登出接口未校验 Token，无 Token 时返回成功 code:00，预期应返回认证失败",
+      "severity": "high",
+      "status": "submitted",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "183e0c66fd1600590ed01fdf00",
+        "title": "【接口测试】POST /sys/logout 无Token登出返回成功",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/183e0c66fd1600590ed01fdf00?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      }
+    },
+    {
+      "id": "BUG-011",
+      "execution_id": "exec_20260731",
+      "category": "security_sql_injection",
+      "title": "知识库标题存在 SQL 注入漏洞",
+      "api_path": "POST /platform/knowledge/save",
+      "request_body": {
+        "title": "1' UNION SELECT NULL--",
+        "content": "TestContent",
+        "consultType": 1,
+        "displayPosition": [
+          0,
+          1
+        ],
+        "applicableArea": [
+          {
+            "code": "110119000000",
+            "name": "延庆区",
+            "level": "county"
+          }
+        ]
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "知识库 title 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险",
+      "severity": "critical",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "0999a0cb97ce7cb683a0be9990",
+        "title": "【安全测试】POST /platform/knowledge/save title 字段 SQL 注入",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/0999a0cb97ce7cb683a0be9990?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "title",
+      "tag": "SQL"
+    },
+    {
+      "id": "BUG-012",
+      "execution_id": "exec_20260731",
+      "category": "security_xss",
+      "title": "知识库标题存在 XSS 漏洞",
+      "api_path": "POST /platform/knowledge/save",
+      "request_body": {
+        "title": "<svg onload=alert('xss')>",
+        "content": "TestContent",
+        "consultType": 1,
+        "displayPosition": [
+          0,
+          1
+        ],
+        "applicableArea": [
+          {
+            "code": "110119000000",
+            "name": "延庆区",
+            "level": "county"
+          }
+        ]
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "知识库 title 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险",
+      "severity": "critical",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "a0451a395b149aeacf2e05f6c9",
+        "title": "【安全测试】POST /platform/knowledge/save title 字段 XSS 注入",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/a0451a395b149aeacf2e05f6c9?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "title",
+      "tag": "XSS"
+    },
+    {
+      "id": "BUG-013",
+      "execution_id": "exec_20260731",
+      "category": "security_xss",
+      "title": "知识库内容存在 XSS 漏洞",
+      "api_path": "POST /platform/knowledge/save",
+      "request_body": {
+        "title": "TestTitle",
+        "content": "<svg onload=alert('xss')>",
+        "consultType": 1,
+        "displayPosition": [
+          0,
+          1
+        ],
+        "applicableArea": [
+          {
+            "code": "110119000000",
+            "name": "延庆区",
+            "level": "county"
+          }
+        ]
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "知识库 content 字段未过滤 XSS payload，后端接受并返回成功，存在 XSS 风险",
+      "severity": "critical",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "0e07fd9ffe9286a3c1331bc4a5",
+        "title": "【安全测试】POST /platform/knowledge/save content 字段 XSS 注入",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/0e07fd9ffe9286a3c1331bc4a5?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "content",
+      "tag": "XSS"
+    },
+    {
+      "id": "BUG-014",
+      "execution_id": "exec_20260731",
+      "category": "security_sql_injection",
+      "title": "经营范围 scopeName 字段 SQL 注入",
+      "api_path": "POST /platform/businessScope/add",
+      "request_body": {
+        "scopeName": "' OR 1=1 --",
+        "remark": "TestRemark"
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "经营范围 scopeName 字段未过滤 SQL 注入 payload，后端接受并返回成功，存在 SQL 注入风险",
+      "severity": "critical",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "e27c0ff9f0402137a8cbb6cdaa",
+        "title": "【安全测试】POST /platform/businessScope/add scopeName 字段 SQL 注入",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/e27c0ff9f0402137a8cbb6cdaa?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "scopeName",
+      "tag": "SQL"
+    },
+    {
+      "id": "BUG-015",
+      "execution_id": "exec_20260731",
+      "category": "boundary_value",
+      "title": "定价金额 amount=0 未校验",
+      "api_path": "POST /platform/pricing/updatePricing",
+      "request_body": {
+        "serviceItemId": 1,
+        "amount": 0,
+        "areaList": [
+          {
+            "code": "110101000000",
+            "level": "county",
+            "name": "东城区"
+          }
+        ]
+      },
+      "response_body": {
+        "code": "00",
+        "message": "成功",
+        "data": null
+      },
+      "description": "金额 amount=0 时后端未做校验，返回成功 code:00，预期应返回失败",
+      "severity": "medium",
+      "status": "submitted",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "56c9a19e92378dc9c635f46e8e",
+        "title": "【边界测试】POST /platform/pricing/updatePricing amount=0 未校验",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/56c9a19e92378dc9c635f46e8e?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      }
+    },
+    {
+      "id": "BUG-016",
+      "execution_id": "exec_20260731",
+      "category": "boundary_value",
+      "title": "定价金额 amount=-1 未校验",
+      "api_path": "POST /platform/pricing/updatePricing",
+      "request_body": {
+        "serviceItemId": "418",
+        "amount": 0,
+        "areaList": [
+          {
+            "code": "110101000000",
+            "level": "county",
+            "name": "东城区"
+          }
+        ]
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "description": "金额 amount=-1 时后端未做校验，返回成功 code:00，预期应返回失败",
+      "severity": "medium",
+      "status": "needs_retest",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "69896f6a2dc6d3e391410fc4bf",
+        "title": "【边界测试】POST /platform/pricing/updatePricing amount=-1 未校验",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/69896f6a2dc6d3e391410fc4bf?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "last_execution": "exec_20260806",
+      "last_seen": "2026-08-06",
+      "field": "amount",
+      "tag": "0"
+    },
+    {
+      "id": "BUG-017",
+      "execution_id": "exec_20260731",
+      "category": "existence_validation",
+      "title": "未导入定价数据更新返回成功",
+      "api_path": "POST /platform/pricing/updatePricing",
+      "request_body": {
+        "serviceItemId": "新建服务项ID",
+        "amount": 150.0,
+        "areaList": [
+          {
+            "code": "110101000000",
+            "level": "county",
+            "name": "东城区"
+          }
+        ]
+      },
+      "response_body": {
+        "code": "00",
+        "message": "成功",
+        "data": null
+      },
+      "description": "对未导入定价数据的服务项目更新定价，后端未做校验返回成功 code:00，预期应返回失败",
+      "severity": "high",
+      "status": "submitted",
+      "yunxiao": {
+        "submitted": true,
+        "workitem_id": "4d1dda9da0d84b86f7640b8ff5",
+        "title": "【接口测试】POST /platform/pricing/updatePricing 未导入定价数据更新返回成功",
+        "submitted_date": "2026-07-31",
+        "url": "https://devops.aliyun.com/workitem/4d1dda9da0d84b86f7640b8ff5?organizationId=681dc36041ad8bef38ae0822"
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      }
+    },
+    {
+      "id": "BUG-018",
+      "execution_id": "exec_20260806",
+      "category": "logic_bug",
+      "title": "login_module/test_logout_without_token",
+      "api_path": "http://172.16.1.165:9200/sys/logout",
+      "test_case": "test_logout_without_token",
+      "nodeid": "test_cases.login_module.test_logout.TestLogout::test_logout_without_token",
+      "description": "接口逻辑异常",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": null,
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "field": "token",
+      "tag": "notoken",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T14:02:56.713411"
+    },
+    {
+      "id": "BUG-019",
+      "execution_id": "exec_20260806",
+      "category": "logic_bug",
+      "title": "pricing_module/test_update_pricing_no_record",
+      "api_path": "http://172.16.1.165:9200/platform/pricing/updatePricing",
+      "test_case": "test_update_pricing_no_record",
+      "nodeid": "test_cases.pricing_module.test_pricing.TestPricing::test_update_pricing_no_record",
+      "description": "接口逻辑异常，OpenAPI 规范 ServicePricingUpdateReqDto 定义了标准行为，但实际返回异常",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": {
+        "serviceItemId": "419",
+        "amount": 150.0,
+        "areaList": [
+          {
+            "code": "110101000000",
+            "level": "county",
+            "name": "东城区"
+          }
+        ]
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": null
+      },
+      "field": "id",
+      "tag": "no record",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T14:02:56.714440"
+    },
+    {
+      "id": "BUG-020",
+      "execution_id": "exec_20260806",
+      "category": "logic_bug",
+      "title": "worker_sign_module/test_worker_authorization_success",
+      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
+      "test_case": "test_worker_authorization_success",
+      "nodeid": "test_cases.worker_sign_module.test_worker_authorization.TestWorkerAuthorization::test_worker_authorization_success",
+      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": {
+        "userUuid": "worker-1785979746",
+        "workerPhone": "17427786358",
+        "stationInfoId": 1,
+        "stationInfoName": "Test Station",
+        "provinceAreaCode": "110119000000",
+        "cityAreaCode": "110119000000",
+        "districtAreaCode": "110119000000",
+        "sourceType": 1,
+        "serviceItems": [
+          {
+            "serviceItemId": 1,
+            "itemName": "Test Service",
+            "billingMethod": 1,
+            "amount": 100.0
+          }
+        ]
+      },
+      "response_body": {
+        "code": "02",
+        "message": "系统繁忙，请稍后再试!",
+        "data": null
+      },
+      "field": "uuid",
+      "tag": "exception",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T14:02:56.714440"
+    },
+    {
+      "id": "BUG-021",
+      "execution_id": "exec_20260806",
+      "category": "logic_bug",
+      "title": "worker_sign_module/test_worker_authorization_with_phone",
+      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
+      "test_case": "test_worker_authorization_with_phone",
+      "nodeid": "test_cases.worker_sign_module.test_worker_authorization.TestWorkerAuthorization::test_worker_authorization_with_phone",
+      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": {
+        "userUuid": "worker-1785979747",
+        "workerPhone": "17480850962",
+        "stationInfoId": 1,
+        "stationInfoName": "Test Station",
+        "provinceAreaCode": "110119000000",
+        "cityAreaCode": "110119000000",
+        "districtAreaCode": "110119000000",
+        "sourceType": 1,
+        "serviceItems": [
+          {
+            "serviceItemId": 1,
+            "itemName": "Test Service",
+            "billingMethod": 1,
+            "amount": 100.0
+          }
+        ]
+      },
+      "response_body": {
+        "code": "02",
+        "message": "系统繁忙，请稍后再试!",
+        "data": null
+      },
+      "field": "uuid",
+      "tag": "exception",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T14:02:56.714440"
+    },
+    {
+      "id": "BUG-022",
+      "execution_id": "exec_20260806",
+      "category": "logic_bug",
+      "title": "worker_sign_module/test_worker_info_success_with_uuid",
+      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
+      "test_case": "test_worker_info_success_with_uuid",
+      "nodeid": "test_cases.worker_sign_module.test_worker_info.TestWorkerInfo::test_worker_info_success_with_uuid",
+      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": {
+        "userUuid": "worker-1785979747",
+        "workerPhone": "17442489112",
+        "stationInfoId": 1,
+        "stationInfoName": "Test Station",
+        "provinceAreaCode": "110119000000",
+        "cityAreaCode": "110119000000",
+        "districtAreaCode": "110119000000",
+        "sourceType": 1,
+        "serviceItems": [
+          {
+            "serviceItemId": 1,
+            "itemName": "Test Service",
+            "billingMethod": 1,
+            "amount": 100.0
+          }
+        ]
+      },
+      "response_body": {
+        "code": "02",
+        "message": "系统繁忙，请稍后再试!",
+        "data": null
+      },
+      "field": "uuid",
+      "tag": "exception",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T14:02:56.714440"
+    },
+    {
+      "id": "BUG-023",
+      "execution_id": "exec_20260806",
+      "category": "logic_bug",
+      "title": "worker_sign_module/test_worker_info_success_with_phone",
+      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
+      "test_case": "test_worker_info_success_with_phone",
+      "nodeid": "test_cases.worker_sign_module.test_worker_info.TestWorkerInfo::test_worker_info_success_with_phone",
+      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": {
+        "userUuid": "worker-1785979747",
+        "workerPhone": "17431300776",
+        "stationInfoId": 1,
+        "stationInfoName": "Test Station",
+        "provinceAreaCode": "110119000000",
+        "cityAreaCode": "110119000000",
+        "districtAreaCode": "110119000000",
+        "sourceType": 1,
+        "serviceItems": [
+          {
+            "serviceItemId": 1,
+            "itemName": "Test Service",
+            "billingMethod": 1,
+            "amount": 100.0
+          }
+        ]
+      },
+      "response_body": {
+        "code": "02",
+        "message": "系统繁忙，请稍后再试!",
+        "data": null
+      },
+      "field": "uuid",
+      "tag": "exception",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T14:02:56.714440"
+    },
+    {
+      "id": "BUG-024",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_save_invalid_phone_format",
+      "api_path": "http://172.16.1.165:9200/api/worker-sign/worker-save",
+      "test_case": "test_worker_save_invalid_phone_format",
+      "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_invalid_phone_format",
+      "description": "必填字段 phone 缺失未校验，返回成功",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": {
+        "name": "TestUser1785979750",
+        "phone": "12345",
+        "certNum": "110101199001011234",
+        "certFrontPhoto": "/tmp/cert_front.jpg",
+        "certBackPhoto": "/tmp/cert_back.jpg",
+        "address": "Beijing",
+        "verifyDate": false
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": {
+          "name": "TestUser1785979750",
+          "phone": "12345",
+          "certNo": "110101199001011234",
+          "userUuid": "89baa8c6-ad12-4c31-aa79-e4fdbaefebe5",
+          "newUser": 2,
+          "isAuth": 1,
+          "isSignSuccess": 2,
+          "provinceAreaCode": null,
+          "cityAreaCode": null,
+          "districtAreaCode": null,
+          "serverEndTime": null,
+          "provinceAreaCodeName": "",
+          "cityAreaCodeName": "",
+          "districtAreaCodeName": "",
+          "serverStartTime": null,
+          "stationInfoId": null
+        }
+      },
+      "field": "phone",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T14:02:56.714440"
+    },
+    {
+      "id": "BUG-025",
+      "execution_id": "exec_20260806",
+      "category": "required_field_validation",
+      "title": "worker_sign_module/test_worker_save_invalid_cert_num",
+      "api_path": "http://172.16.1.165:9200/api/worker-sign/worker-save",
+      "test_case": "test_worker_save_invalid_cert_num",
+      "nodeid": "test_cases.worker_sign_module.test_worker_save.TestWorkerSave::test_worker_save_invalid_cert_num",
+      "description": "必填字段 certNum 缺失未校验，返回成功",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": {
+        "name": "TestUser1785979750",
+        "phone": "17460388735",
+        "certNum": "123456",
+        "certFrontPhoto": "/tmp/cert_front.jpg",
+        "certBackPhoto": "/tmp/cert_back.jpg",
+        "address": "Beijing",
+        "verifyDate": false
+      },
+      "response_body": {
+        "code": "00",
+        "message": "操作成功",
+        "data": {
+          "name": "TestUser1785979750",
+          "phone": "17460388735",
+          "certNo": "123456",
+          "userUuid": "a8806cfc-3d6b-4800-a824-71b91a10f272",
+          "newUser": 2,
+          "isAuth": 1,
+          "isSignSuccess": 2,
+          "provinceAreaCode": null,
+          "cityAreaCode": null,
+          "districtAreaCode": null,
+          "serverEndTime": null,
+          "provinceAreaCodeName": "",
+          "cityAreaCodeName": "",
+          "districtAreaCodeName": "",
+          "serverStartTime": null,
+          "stationInfoId": null
+        }
+      },
+      "field": "certNum",
+      "tag": "missing",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T14:02:56.714440"
+    },
+    {
+      "id": "BUG-026",
+      "execution_id": "exec_20260806",
+      "category": "logic_bug",
+      "title": "worker_sign_module/test_worker_sign_save_success",
+      "api_path": "http://172.16.1.165:9200/api/worker-sign/save",
+      "test_case": "test_worker_sign_save_success",
+      "nodeid": "test_cases.worker_sign_module.test_worker_sign_save.TestWorkerSignSave::test_worker_sign_save_success",
+      "description": "接口逻辑异常，OpenAPI 规范 WorkerOcrAddReqDto 定义了标准行为，但实际返回异常",
+      "severity": "high",
+      "status": "needs_retest",
+      "request_body": {
+        "userUuid": "worker-1785979751",
+        "workerPhone": "17410622448",
+        "stationInfoId": 1,
+        "stationInfoName": "Test Station",
+        "provinceAreaCode": "110119000000",
+        "cityAreaCode": "110119000000",
+        "districtAreaCode": "110119000000",
+        "sourceType": 1,
+        "serviceItems": [
+          {
+            "serviceItemId": 1,
+            "itemName": "Test Service",
+            "billingMethod": 1,
+            "amount": 100.0
+          }
+        ]
+      },
+      "response_body": {
+        "code": "02",
+        "message": "系统繁忙，请稍后再试!",
+        "data": null
+      },
+      "field": "uuid",
+      "tag": "exception",
+      "yunxiao": {
+        "submitted": false,
+        "workitem_id": null,
+        "title": null,
+        "submitted_date": null,
+        "url": null
+      },
+      "fix": {
+        "fixed": false,
+        "fixed_date": null,
+        "verified": false,
+        "verified_date": null
+      },
+      "created_at": "2026-08-06T14:02:56.714440"
+    }
+  ],
+  "summary": {
+    "total_bugs": 17,
+    "by_category": {
+      "required_field_validation": 3,
+      "existence_validation": 5,
+      "logic_bug": 2,
+      "security_sql_injection": 2,
+      "security_xss": 3,
+      "boundary_value": 2
+    },
+    "by_status": {
+      "submitted": 17,
+      "in_progress": 0,
+      "fixed": 0,
+      "verified": 0,
+      "closed": 0
+    },
+    "yunxiao_submitted": 17,
+    "yunxiao_pending": 0,
+    "fixed": 0,
+    "unfixed": 17
+  }
+}

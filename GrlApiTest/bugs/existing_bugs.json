@@ -1,0 +1,70 @@
+{
+  "POST /platform/user/save_status null": {
+    "id": "dce2f925faa3b53603db2460d1",
+    "title": "【接口测试】POST /platform/user/save 必填项 status 未校验"
+  },
+  "POST /platform/user/delete_id 999999": {
+    "id": "d389fd96cef59b15f41251521d",
+    "title": "【接口测试】POST /platform/user/delete 删除不存在的用户返回成功"
+  },
+  "POST /platform/pricing/treeByAreas_areaList null": {
+    "id": "5dd908f5c2582eefefa26adf27",
+    "title": "【接口测试】POST /platform/pricing/treeByAreas 必填项 areaList 未校验"
+  },
+  "POST /sys/login_smsCode null": {
+    "id": "5ebc8cea3ea74d3ce7759910c5",
+    "title": "【接口测试】POST /sys/login 密码登录模式下必填项 smsCode 未校验"
+  },
+  "POST /platform/user/edit_id 999999": {
+    "id": "d39c228b55f204f2a43bd63077",
+    "title": "【接口测试】POST /platform/user/edit 编辑不存在的用户返回成功"
+  },
+  "POST /platform/user/changeStatus_id 999999": {
+    "id": "8b90551cfe42f9f883970c8af8",
+    "title": "【接口测试】POST /platform/user/changeStatus 修改不存在的用户状态返回成功"
+  },
+  "POST /platform/serverUser/delete_id 999999": {
+    "id": "ac11fdb3887d2de0ff95e4589c",
+    "title": "【接口测试】POST /platform/serverUser/delete 删除不存在的服务商返回成功"
+  },
+  "POST /platform/knowledge/delete_id 999999": {
+    "id": "499106236bc668aea8ba74276e",
+    "title": "【接口测试】POST /platform/knowledge/delete 删除不存在的知识库返回成功"
+  },
+  "POST /platform/businessScope/detail_id 1": {
+    "id": "99cefbe9af3c614deeb024948c",
+    "title": "【接口测试】POST /platform/businessScope/detail 对所有ID返回404"
+  },
+  "POST /sys/logout_no token": {
+    "id": "183e0c66fd1600590ed01fdf00",
+    "title": "【接口测试】POST /sys/logout 无Token登出返回成功"
+  },
+  "POST /platform/knowledge/save_title SQL注入": {
+    "id": "0999a0cb97ce7cb683a0be9990",
+    "title": "【安全测试】POST /platform/knowledge/save title 字段 SQL 注入"
+  },
+  "POST /platform/knowledge/save_title XSS": {
+    "id": "a0451a395b149aeacf2e05f6c9",
+    "title": "【安全测试】POST /platform/knowledge/save title 字段 XSS 注入"
+  },
+  "POST /platform/knowledge/save_content XSS": {
+    "id": "0e07fd9ffe9286a3c1331bc4a5",
+    "title": "【安全测试】POST /platform/knowledge/save content 字段 XSS 注入"
+  },
+  "POST /platform/businessScope/add_scopeName SQL注入": {
+    "id": "e27c0ff9f0402137a8cbb6cdaa",
+    "title": "【安全测试】POST /platform/businessScope/add scopeName 字段 SQL 注入"
+  },
+  "POST /platform/pricing/updatePricing_amount 0": {
+    "id": "56c9a19e92378dc9c635f46e8e",
+    "title": "【边界测试】POST /platform/pricing/updatePricing amount=0 未校验"
+  },
+  "POST /platform/pricing/updatePricing_amount -1": {
+    "id": "69896f6a2dc6d3e391410fc4bf",
+    "title": "【边界测试】POST /platform/pricing/updatePricing amount=-1 未校验"
+  },
+  "POST /platform/pricing/updatePricing_no record": {
+    "id": "4d1dda9da0d84b86f7640b8ff5",
+    "title": "【接口测试】POST /platform/pricing/updatePricing 未导入定价数据更新返回成功"
+  }
+}
