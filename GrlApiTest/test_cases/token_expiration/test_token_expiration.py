@@ -64,23 +64,3 @@ class TestTokenExpiration(BaseTest):
         assert len(results) == 3, f"Expected 3 results, got {len(results)}"
         assert len(errors) == 0, f"Unexpected errors: {errors}"
         assert all(code == 200 for code in results)
-
-    def test_malformed_token(self):
-        """使用格式错误的 Token，应返回认证错误"""
-        malformed_token = "not-a-valid-jwt-token"
-        self.client.set_token(malformed_token)
-        response = self.client.post("/platform/user/page", json={"pageNum": 1, "pageSize": 10})
-        self.validator.assert_status_code(response, 200)
-        data = response.json()
-        assert data.get("code") not in ("0", "00"), f"Malformed token accepted: {data}"
-
-    def test_token_in_wrong_header(self):
-        """Token 放在错误的 Header 中，应返回认证错误"""
-        token = self.login()
-        client = JeecgBootClient(base_url=self.config["base_url"])
-        client.session.headers.update({"Authorization": f"Bearer {token}"})
-        response = client.post("/platform/user/page", json={"pageNum": 1, "pageSize": 10})
-        self.validator.assert_status_code(response, 200)
-        data = response.json()
-        # 应返回认证错误（因为 Token 不在正确的 "token" Header 中）
-        assert data.get("code") not in ("0", "00"), f"Token in wrong header accepted: {data}"

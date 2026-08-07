@@ -41,7 +41,6 @@ class TestBase(BaseTest):
                     "name": "延庆区"
                 }
             ],
-            "officeAddressDetail": "北京市延庆区",
             "serviceArea": [
                 {
                     "code": "110000000000",

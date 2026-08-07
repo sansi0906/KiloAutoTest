@@ -17,13 +17,14 @@ from utils.validator import ResponseValidator
 
 class BaseTest:
     @pytest.fixture(autouse=True)
-    def setup(self, config, execution_id, db_helper, request):
+    def setup(self, config, execution_id, db_helper, pg_cleanup, request):
         """自动初始化客户端、验证器并登录"""
         self.client = JeecgBootClient(base_url=config["base_url"])
         self.validator = ResponseValidator()
         self.config = config
         self.execution_id = execution_id
         self.db_helper = db_helper
+        self.pg_cleanup = pg_cleanup
         self._created_ids = []
         self._module_id = None
         self._test_name = request.node.name

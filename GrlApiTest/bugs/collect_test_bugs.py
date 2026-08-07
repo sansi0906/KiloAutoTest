@@ -44,9 +44,13 @@ JUNIT = os.path.join(ROOT, "reports", "full_junit.xml")
 CAP = os.path.join(ROOT, "reports", "requests_capture.json")
 TRACKING = os.path.join(ROOT, "bugs", "bug_tracking.json")
 EXISTING = os.path.join(ROOT, "bugs", "existing_bugs.json")
-OUT = os.path.join(ROOT, "bugs", "latest_bug_list.md")
-TODAY = "2026-08-06"
-EXEC_ID = "exec_20260806"
+
+# ---------- 生成带时间戳的输出文件名 ----------
+from datetime import datetime
+_TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S")
+OUT = os.path.join(ROOT, "bugs", f"bug_list_{_TIMESTAMP}.md")
+TODAY = datetime.now().strftime("%Y-%m-%d")
+EXEC_ID = f"exec_{datetime.now().strftime('%Y%m%d')}"
 ENV = "http://172.16.1.165:9200"
 OPENAPI_URL = f"{ENV}/v3/api-docs"
 
@@ -713,6 +717,8 @@ if args.submit_to_yunxiao and new_bugs:
         print(f"❌ 调用云效提交脚本失败: {e}")
         print("请手动运行: python bugs/yunxiao_submitter.py --execution-id", EXEC_ID)
 elif not args.submit_to_yunxiao:
+    print(f"\n📄 Bug 列表已生成: {os.path.basename(OUT)}")
+    print(f"   保存路径: {OUT}")
     print("\n💡 提示: 使用 --submit-to-yunxiao 参数可自动提交到云效")
     print(f"   例如: python bugs/collect_test_bugs.py --submit-to-yunxiao")
     print(f"   或:   python bugs/yunxiao_submitter.py --execution-id {EXEC_ID}")

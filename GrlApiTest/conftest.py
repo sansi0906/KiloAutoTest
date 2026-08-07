@@ -6,7 +6,6 @@ conftest.py - pytest 固件配置
 """
 
 import html as html_module
-import json
 import os
 import sys
 import uuid
@@ -66,7 +65,7 @@ def pytest_html_results_table_row(report, cells):
 @pytest.fixture(scope="session")
 def config():
     """返回全局配置字典，包含基础URL、登录接口、用户凭证等"""
-    from config import BASE_URL, LOGIN_URL, USERNAME, PASSWORD, DB_CONFIG, DB_ENABLED, DB_CLEANUP_AFTER_TEST, DB_CLEANUP_MODULES
+    from config import BASE_URL, LOGIN_URL, USERNAME, PASSWORD, DB_CONFIG, DB_ENABLED, DB_CLEANUP_AFTER_TEST, DB_CLEANUP_MODULES, PG_CONFIG, PG_CLEANUP_UUID, PG_CLEANUP_ENABLED
     return {
         "base_url": BASE_URL,
         "login_url": LOGIN_URL,
@@ -76,6 +75,9 @@ def config():
         "db_enabled": DB_ENABLED,
         "db_cleanup_after_test": DB_CLEANUP_AFTER_TEST,
         "db_cleanup_modules": DB_CLEANUP_MODULES,
+        "pg_config": PG_CONFIG,
+        "pg_cleanup_uuid": PG_CLEANUP_UUID,
+        "pg_cleanup_enabled": PG_CLEANUP_ENABLED,
     }
 
 
@@ -124,6 +126,12 @@ def db_helper(config):
     from utils.db_helper import DatabaseHelper
     helper = DatabaseHelper(config.get("db_config"))
     yield helper
+    if config.get("db_cleanup_after_test"):
+        for module in config.get("db_cleanup_modules", []):
+            try:
+                helper.cleanup_test_data(module_name=module)
+            except Exception:
+                pass
 
 
 @pytest.hookimpl(hookwrapper=True)
@@ -150,22 +158,6 @@ def pytest_runtest_makereport(item, call):
         duration_ms = int(report.duration * 1000) if report.duration else None
         error_message = str(report.longrepr) if report.failed else None
 
-        # 读取请求/响应捕获数据
-        request_data = None
-        response_data = None
-        capture_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "reports", "requests_capture.json")
-        if os.path.exists(capture_file):
-            try:
-                with open(capture_file, "r", encoding="utf-8") as f:
-                    capture = json.load(f)
-                entries = capture.get(nodeid, [])
-                if entries:
-                    last_entry = entries[-1]
-                    request_data = json.dumps(last_entry.get("body"), ensure_ascii=False)
-                    response_data = json.dumps(last_entry.get("response"), ensure_ascii=False)
-            except Exception:
-                pass
-
         module_id = db_helper.save_test_module(module_name=module_name, module_desc=module_name)
         case_id = db_helper.save_test_case(module_id=module_id, case_name=case_name, case_desc=getattr(item.obj, '__doc__', '') or "", priority="P1")
         db_helper.save_test_result(
@@ -174,12 +166,21 @@ def pytest_runtest_makereport(item, call):
             status=status,
             duration_ms=duration_ms,
             error_message=error_message,
-            request_data=request_data,
-            response_data=response_data,
             environment="test"
         )
     except Exception:
         pass
 
 
-
+@pytest.fixture(scope="session")
+def pg_cleanup(config):
+    """PostgreSQL 业务数据清理固件（165 业务数据）"""
+    if not config.get("pg_cleanup_enabled"):
+        yield None
+        return
+    from utils.pg_cleanup import cleanup_test_data
+    yield cleanup_test_data
+    try:
+        cleanup_test_data(creator_uuid=config.get("pg_cleanup_uuid"), dry_run=False)
+    except Exception:
+        pass

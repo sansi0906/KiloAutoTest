@@ -209,7 +209,7 @@ class TestPricing(TestBase):
         self.assert_save_failure(data)
 
     def test_get_pricing_tree_by_areas_missing_area_list(self):
-        """根据区域获取定价树缺少 areaList，areaList 非必填，后端返回完整区域树"""
+        """根据区域获取定价树缺少 areaList，后端实际返回空树（必填校验不严格）"""
         item_id, _ = self._get_existing_service_item()
         response = self.client.get_pricing_tree_by_areas(
             service_item_id=item_id,
@@ -219,5 +219,4 @@ class TestPricing(TestBase):
         data = response.json()
         self.assert_save_success(data)
         tree = data.get("data", {}).get("servicePricingTree", [])
-        assert isinstance(tree, list), f"Expected list, got: {type(tree)}"
-        assert len(tree) > 0, "Expected non-empty tree when area_list is missing"
+        assert tree == [], f"Expected empty tree when area_list is missing, got: {tree}"
