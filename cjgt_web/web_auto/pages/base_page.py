@@ -33,6 +33,10 @@ class BasePage:
             pass
         self.page.wait_for_timeout(1000)
 
+    def is_logged_in(self) -> bool:
+        """检查当前是否处于登录状态（未重定向到登录页）"""
+        return "adminLogin" not in self.page.url
+
     # ──────────── 等待 ────────────
 
     def wait_modal(self, timeout: int = 5000) -> bool:
@@ -459,10 +463,12 @@ class BasePage:
                 if (!p) return {exists: false};
                 const total = p.querySelector('.ant-pagination-total-text');
                 const active = p.querySelector('.ant-pagination-item-active');
+                const items = p.querySelectorAll('.ant-pagination-item');
                 return {
                     exists: true,
                     total: total ? total.textContent.trim() : '',
-                    current: active ? active.textContent.trim() : '1'
+                    current: active ? active.textContent.trim() : '1',
+                    page_count: items.length
                 };
             }
         """)
@@ -502,6 +508,27 @@ class BasePage:
         self.page.wait_for_timeout(2000)
         logger.info("清空搜索")
 
+    def goto_page(self, page_num: int) -> bool:
+        """跳转到指定页码"""
+        try:
+            self.page.locator(
+                ".ant-pagination-item"
+            ).get_by_text(str(page_num)).click()
+            self.page.wait_for_timeout(2000)
+            logger.info(f"跳转到第 {page_num} 页")
+            return True
+        except Exception:
+            return False
+
+    def get_current_page(self) -> str:
+        """获取当前页码"""
+        return self.page.evaluate("""
+            () => {
+                const active = document.querySelector('.ant-pagination-item-active');
+                return active ? active.textContent.trim() : '1';
+            }
+        """)
+
     def get_modal_required_fields(self) -> list:
         """获取弹窗内必填字段标签"""
         return self.page.evaluate("""
@@ -533,9 +560,22 @@ class BasePage:
             logger.info("点击取消关闭弹窗")
 
     def close_modal_by_esc(self) -> None:
-        """ESC 关闭弹窗"""
-        self.page.keyboard.press("Escape")
+        """ESC 关闭弹窗（Ant Design Modal 默认开启键盘监听，需保证焦点在页面上）"""
         self.page.wait_for_timeout(500)
+        # 先点击弹窗内容区域确保焦点在页面上
+        modal_content = self.page.locator(".ant-modal-content")
+        if modal_content.count() > 0:
+            modal_content.first.click(force=True)
+            self.page.wait_for_timeout(300)
+        self.page.keyboard.press("Escape")
+        self.page.wait_for_timeout(1000)
+        # 如果仍然打开，尝试点击蒙层后再按 ESC
+        if self.page.locator(".ant-modal").count() > 0:
+            modal = self.page.locator(".ant-modal").first
+            modal.click(position={"x": 10, "y": 10})
+            self.page.wait_for_timeout(300)
+            self.page.keyboard.press("Escape")
+            self.page.wait_for_timeout(1000)
         logger.info("ESC 关闭弹窗")
 
     def is_modal_open(self) -> bool:

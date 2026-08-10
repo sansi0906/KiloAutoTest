@@ -11,8 +11,10 @@ class HomePage(BasePage):
     # 各模块路径
     PATHS = {
         "service_project": "/smart-service/project-config",
+        "service_price": "/smart-service/project-price",
         "contract_service": "/smart-service/contract-service",
         "knowledge": "/content-manage/knowledge",
+        "provider": "/service-provider/proxy-accounting",
     }
 
     def __init__(self, page: Page):
@@ -22,6 +24,10 @@ class HomePage(BasePage):
         """导航到服务项目配置"""
         self.navigate(self.PATHS["service_project"])
 
+    def goto_service_price(self) -> None:
+        """导航到服务定价配置"""
+        self.navigate(self.PATHS["service_price"])
+
     def goto_contract_service(self) -> None:
         """导航到合同服务配置"""
         self.navigate(self.PATHS["contract_service"])
@@ -29,3 +35,7 @@ class HomePage(BasePage):
     def goto_knowledge(self) -> None:
         """导航到知识库"""
         self.navigate(self.PATHS["knowledge"])
+
+    def goto_provider(self) -> None:
+        """导航到服务商管理-代理记账公司管理"""
+        self.navigate(self.PATHS["provider"])

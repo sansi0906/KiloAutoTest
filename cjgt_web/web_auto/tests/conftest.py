@@ -109,8 +109,24 @@ def logged_in_page(logged_in_context):
 
     优化：复用 module 级别的 logged_in_context，无需重新登录
     每个测试有独立的 page（状态隔离，互不影响）
+    会话过期时自动重新登录
     """
+    from pages.login_page import LoginPage
+
     pg = logged_in_context.new_page()
+    page_obj = LoginPage(pg)
+
+    # 检查会话是否有效，过期则重新登录
+    pg.goto(f"{BASE_URL}/dashboard/analysis", wait_until="networkidle")
+    pg.wait_for_timeout(1000)
+    if "/adminLogin" in pg.url:
+        logger.info("会话过期，重新登录")
+        page_obj.open()
+        assert page_obj.login(USERNAME, PASSWORD), "重新登录失败"
+        pg = logged_in_context.new_page()
+    else:
+        logger.info("会话有效，复用登录状态")
+
     yield pg
     pg.close()
 

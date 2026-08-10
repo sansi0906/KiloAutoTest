@@ -94,3 +94,6 @@ lyt/order_deep_test/
 lyt/all_buttons/
 lyt/deep_test_results/
 
+
+# ==================== 旧代码备份（含硬编码密码/手机号） ====================
+cjgt_web/oldCode/

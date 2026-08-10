@@ -16,3 +16,10 @@ contract_service:
 knowledge:
   title: "测试知识_{ts}"
   content: "<p>这是知识库测试内容_{ts}</p><p>包含多个段落</p>"
+
+# 服务商管理-代理记账公司
+provider:
+  company_name: "测试服务商-{ts}"
+  office_address: "延庆区"
+  contact_person: "测试联系人-{ts}"
+  contact_phone: "17495546358"

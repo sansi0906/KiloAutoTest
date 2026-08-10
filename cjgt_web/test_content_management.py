@@ -405,11 +405,23 @@ class ContentManagementTests(TestBase):
                 screenshot
             )
 
-    async def run_all(self):
-        """运行所有测试"""
-        await self.setup()
+    async def run_all(self, base=None):
+        """运行所有测试
+
+        Args:
+            base: 可选共享的TestBase实例。若提供，则复用已有浏览器和登录状态，
+                  跳过setup/login/teardown，避免重复打开浏览器。
+        """
+        if base is not None:
+            self.pw = base.pw
+            self.browser = base.browser
+            self.context = base.context
+            self.page = base.page
+        else:
+            await self.setup()
         try:
-            await self.login()
+            if base is None:
+                await self.login()
 
             print("\n--- 知识库测试 ---")
             await self.test_knowledge_page_load()
@@ -424,6 +436,7 @@ class ContentManagementTests(TestBase):
             await self.test_knowledge_table_pagination()
 
         finally:
-            await self.teardown()
+            if base is None:
+                await self.teardown()
 
         return self.test_results

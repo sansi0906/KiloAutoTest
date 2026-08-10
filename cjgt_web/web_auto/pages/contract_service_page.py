@@ -92,3 +92,36 @@ class ContractServicePage(BasePage):
             '.ant-table-tbody button:has-text("删除"), '
             '.ant-table-tbody a:has-text("删除")'
         ).count() > 0
+
+    def click_delete_first_row(self) -> bool:
+        """点击第一行删除按钮"""
+        btn = self.page.locator(
+            '.ant-table-tbody button:has-text("删除"), '
+            '.ant-table-tbody a:has-text("删除")'
+        )
+        if btn.count() == 0:
+            return False
+        btn.first.click()
+        self.page.wait_for_timeout(1000)
+        logger.info("点击删除按钮")
+        return True
+
+    def confirm_delete(self) -> list:
+        """在删除确认弹窗中点击确认"""
+        confirm = self.page.locator(
+            ".ant-popconfirm button.ant-btn-primary"
+        )
+        if confirm.count() > 0:
+            confirm.first.click()
+            self.page.wait_for_timeout(2000)
+        return self.get_toasts()
+
+    def cancel_delete(self) -> None:
+        """在删除确认弹窗中点击取消"""
+        cancel = self.page.locator(
+            ".ant-popconfirm button.ant-btn-default, "
+            ".ant-popconfirm .ant-btn:not(.ant-btn-primary)"
+        )
+        if cancel.count() > 0:
+            cancel.first.click()
+            self.page.wait_for_timeout(1000)

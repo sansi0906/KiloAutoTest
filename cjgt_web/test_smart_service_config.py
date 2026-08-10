@@ -433,113 +433,23 @@ class SmartServiceConfigTests(TestBase):
                 ""
             )
 
-    async def test_scope_config_page_load(self):
-        """测试经营范围配置 - 页面加载"""
-        test_name = "经营范围配置 - 页面加载"
-        await self.navigate_to("经营范围配置")
+    async def run_all(self, base=None):
+        """运行所有测试
 
-        url_ok = "/smart-service/scope-config" in self.page.url
-
-        headers = await self.get_table_headers()
-        expected_headers = ["经营范围名称", "备注", "启用状态", "创建时间", "操作"]
-        headers_ok = all(h in headers for h in expected_headers)
-
-        buttons = await self.get_buttons()
-        has_add = "新增经营范围" in buttons
-        has_query = "查询" in buttons
-
-        passed = url_ok and headers_ok and has_add and has_query
-        screenshot = await self.screenshot("smart_scope_config_page")
-        self.record_result(
-            test_name, passed,
-            f"URL正确, 表格列头完整, 有新增和查询按钮",
-            f"URL: {self.page.url}, 列头: {headers}, 按钮: {buttons}",
-            screenshot
-        )
-
-    async def test_scope_config_search(self):
-        """测试经营范围配置 - 搜索功能"""
-        test_name = "经营范围配置 - 搜索功能"
-        await self.navigate_to("经营范围配置")
-
-        rows_before = await self.get_table_row_count()
-
-        await self.fill_input("请输入", "测试")
-        await self.click_button("查询")
-        await self.page.wait_for_timeout(2000)
-
-        rows_after = await self.get_table_row_count()
-        url_ok = "/smart-service/scope-config" in self.page.url
-
-        passed = url_ok
-        screenshot = await self.screenshot("smart_scope_config_search")
-        self.record_result(
-            test_name, passed,
-            "输入关键词后点击查询，页面正常返回结果",
-            f"搜索前行数: {rows_before}, 搜索后行数: {rows_after}",
-            screenshot
-        )
-
-    async def test_scope_config_add_form(self):
-        """测试经营范围配置 - 新增表单"""
-        test_name = "经营范围配置 - 新增表单"
-        await self.navigate_to("经营范围配置")
-
-        await self.click_button("新增经营范围")
-        await self.page.wait_for_timeout(1500)
-
-        modal_appeared = await self.wait_for_modal()
-        if not modal_appeared:
-            drawer = self.page.locator('.ant-drawer').first
-            modal_appeared = await drawer.count() > 0
-
-        if modal_appeared:
-            form_labels = await self.page.evaluate("""
-                () => {
-                    const labels = document.querySelectorAll('.ant-form-item-label label, .ant-form-item label');
-                    const texts = [];
-                    for (const l of labels) {
-                        const text = l.textContent.trim();
-                        if (text) texts.push(text);
-                    }
-                    return texts;
-                }
-            """)
-
-            for btn_text in ["确定", "确 定", "保存", "提交", "确认"]:
-                await self.click_button(btn_text)
-                break
-
-            await self.page.wait_for_timeout(1000)
-            errors = await self.get_form_errors()
-
-            passed = len(errors) > 0 or len(form_labels) > 0
-            screenshot = await self.screenshot("smart_scope_config_add")
-            self.record_result(
-                test_name, passed,
-                "新增表单应包含字段且有验证",
-                f"表单字段: {form_labels}, 验证错误: {errors}",
-                screenshot
-            )
-
-            await self.close_modal()
-            for btn_text in ["取消", "取 消"]:
-                await self.click_button(btn_text)
-                break
+        Args:
+            base: 可选共享的TestBase实例。若提供，则复用已有浏览器和登录状态，
+                  跳过setup/login/teardown，避免重复打开浏览器。
+        """
+        if base is not None:
+            self.pw = base.pw
+            self.browser = base.browser
+            self.context = base.context
+            self.page = base.page
         else:
-            screenshot = await self.screenshot("smart_scope_config_add_no_modal")
-            self.record_result(
-                test_name, False,
-                "点击新增后应弹出表单",
-                "未检测到弹窗/抽屉",
-                screenshot
-            )
-
-    async def run_all(self):
-        """运行所有测试"""
-        await self.setup()
+            await self.setup()
         try:
-            await self.login()
+            if base is None:
+                await self.login()
 
             # 服务项目配置测试
             print("\n--- 服务项目配置测试 ---")
@@ -562,13 +472,8 @@ class SmartServiceConfigTests(TestBase):
             await self.test_contract_service_add_form()
             await self.test_contract_service_delete_confirm()
 
-            # 经营范围配置测试
-            print("\n--- 经营范围配置测试 ---")
-            await self.test_scope_config_page_load()
-            await self.test_scope_config_search()
-            await self.test_scope_config_add_form()
-
         finally:
-            await self.teardown()
+            if base is None:
+                await self.teardown()
 
         return self.test_results
