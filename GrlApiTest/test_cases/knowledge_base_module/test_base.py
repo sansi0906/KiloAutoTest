@@ -35,30 +35,18 @@ class TestBase(BaseTest):
     def _save_and_get_id(self, **kwargs):
         """新增知识库并通过分页查询获取ID"""
         payload = self._build_knowledge_payload(**kwargs)
-        response = self.client.save_knowledge(
-            title=payload["title"],
-            content=payload["content"],
-            consult_type=payload["consultType"],
-            display_position=payload["displayPosition"],
-            applicable_area=payload["applicableArea"],
+        return self._create_and_get_id(
+            create_fn=lambda: self.client.save_knowledge(
+                title=payload["title"],
+                content=payload["content"],
+                consult_type=payload["consultType"],
+                display_position=payload["displayPosition"],
+                applicable_area=payload["applicableArea"],
+            ),
+            query_fn=lambda: self.client.page_knowledge(page_num=1, page_size=10, title=payload["title"]),
+            match_key="title",
+            match_value=payload["title"],
         )
-        self.validator.assert_status_code(response, 200)
-        data = response.json()
-        self.assert_save_success(data)
-
-        page_resp = self.client.page_knowledge(page_num=1, page_size=10, title=payload["title"])
-        self.validator.assert_status_code(page_resp, 200)
-        page_data = page_resp.json()
-        records = page_data.get("data", {}).get("records", [])
-        knowledge_id = None
-        for record in records:
-            if record.get("title") == payload["title"]:
-                knowledge_id = record.get("id")
-                break
-        assert knowledge_id, f"Knowledge base not found after creation: {page_data}"
-        self._created_ids.append(knowledge_id)
-        self._log_test_data_created(knowledge_id, payload["title"])
-        return knowledge_id, payload["title"]
 
     def _delete_test_data(self, item_id):
         """删除测试数据"""

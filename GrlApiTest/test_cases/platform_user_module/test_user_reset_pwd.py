@@ -18,8 +18,6 @@ from .test_base import TestBase
 class TestUserResetPwd(TestBase):
     def test_reset_pwd_success(self):
         """重置已知用户密码，应返回成功"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, _, _ = self._create_user()
 
@@ -30,8 +28,6 @@ class TestUserResetPwd(TestBase):
 
     def test_reset_pwd_invalid_user_id(self):
         """使用不存在的用户ID重置密码，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.reset_pwd(user_id=999999)
         self.validator.assert_status_code(response, 200)
@@ -40,8 +36,6 @@ class TestUserResetPwd(TestBase):
 
     def test_reset_pwd_zero_user_id(self):
         """使用用户ID为0重置密码，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.reset_pwd(user_id=0)
         self.validator.assert_status_code(response, 200)
@@ -50,8 +44,6 @@ class TestUserResetPwd(TestBase):
 
     def test_reset_pwd_missing_id(self):
         """缺少 id 字段，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.reset_pwd(user_id=None)
         self.validator.assert_status_code(response, 200)

@@ -19,8 +19,6 @@ class TestUserPage(TestBase):
     @pytest.mark.smoke
     def test_page_users_success(self):
         """正常分页查询，应返回成功"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.page_users(page_num=1, page_size=10)
         self.validator.assert_status_code(response, 200)
@@ -30,8 +28,6 @@ class TestUserPage(TestBase):
 
     def test_page_users_by_user_name(self):
         """按用户名模糊查询，应返回匹配结果"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.page_users(
             page_num=1,
@@ -44,8 +40,6 @@ class TestUserPage(TestBase):
 
     def test_page_users_by_role_group_id(self):
         """按角色组ID筛选，应返回匹配结果"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.page_users(
             page_num=1,
@@ -58,8 +52,6 @@ class TestUserPage(TestBase):
 
     def test_page_users_by_status(self):
         """按状态筛选（启用），应返回匹配结果"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.page_users(
             page_num=1,
@@ -72,8 +64,6 @@ class TestUserPage(TestBase):
 
     def test_page_users_invalid_page_num(self):
         """使用无效页码（0），应返回失败或空结果"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.page_users(page_num=0, page_size=10)
         self.validator.assert_status_code(response, 200)
@@ -85,8 +75,6 @@ class TestUserPage(TestBase):
 
     def test_page_users_large_page_size(self):
         """使用超大每页条数（超过100），应返回失败或限制结果"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.page_users(page_num=1, page_size=999)
         self.validator.assert_status_code(response, 200)

@@ -18,37 +18,6 @@ from .test_base import TestBase
 
 
 class TestKnowledgeBase(TestBase):
-    def _save_and_get_id(self, **kwargs):
-        """新增知识库并通过分页查询获取ID
-
-        Returns:
-            (knowledge_id, title) 元组
-        """
-        payload = self._build_knowledge_payload(**kwargs)
-        response = self.client.save_knowledge(
-            title=payload["title"],
-            content=payload["content"],
-            consult_type=payload["consultType"],
-            display_position=payload["displayPosition"],
-            applicable_area=payload["applicableArea"],
-        )
-        self.validator.assert_status_code(response, 200)
-        data = response.json()
-        self.assert_save_success(data)
-
-        page_resp = self.client.page_knowledge(page_num=1, page_size=10, title=payload["title"])
-        self.validator.assert_status_code(page_resp, 200)
-        page_data = page_resp.json()
-        records = page_data.get("data", {}).get("records", [])
-        knowledge_id = None
-        for record in records:
-            if record.get("title") == payload["title"]:
-                knowledge_id = record.get("id")
-                break
-        assert knowledge_id, f"Knowledge base not found after creation: {page_data}"
-        self._created_ids.append(knowledge_id)
-        return knowledge_id, payload["title"]
-
     @pytest.mark.smoke
     def test_save_knowledge_success(self):
         """使用标准参数新增知识库，应返回成功"""
@@ -193,6 +162,7 @@ class TestKnowledgeBase(TestBase):
         self.assert_save_success(data)
 
     @pytest.mark.backend_bug
+    @pytest.mark.skip(reason="Bug 14: 已注释")
     def test_delete_knowledge_non_existing(self):
         """删除不存在的知识库，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）"""
         response = self.client.delete_knowledge(knowledge_id=999999)

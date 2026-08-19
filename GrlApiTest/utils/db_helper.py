@@ -48,28 +48,36 @@ class DatabaseHelper:
         try:
             conn = self._get_connection()
             conn.close()
-        except Exception:
-            if self.db_type == "postgresql":
-                import psycopg2
-                conn = psycopg2.connect(
-                    host=self.config["host"],
-                    port=self.config["port"],
-                    user=self.config["user"],
-                    password=self.config["password"],
-                    connect_timeout=self.config.get("connect_timeout", 10),
-                )
-                conn.autocommit = True
-                cursor = conn.cursor()
+            return
+        except Exception as e:
+            import logging
+            logging.info(f"Database does not exist, attempting to create: {e}")
+
+        if self.db_type == "postgresql":
+            import psycopg2
+            conn = psycopg2.connect(
+                host=self.config["host"],
+                port=self.config["port"],
+                user=self.config["user"],
+                password=self.config["password"],
+                connect_timeout=self.config.get("connect_timeout", 10),
+            )
+            conn.autocommit = True
+            cursor = conn.cursor()
+            try:
                 cursor.execute(
                     f"CREATE DATABASE {self.config['database']} "
                     "WITH ENCODING 'UTF8' TEMPLATE template1"
                 )
+            except Exception as e:
+                import logging
+                logging.warning(f"Failed to create PostgreSQL database: {e}")
+            finally:
+                cursor.close()
                 conn.close()
-            cursor.execute(
-                f"CREATE DATABASE {self.config['database']} "
-                "WITH ENCODING 'UTF8' TEMPLATE template1"
-            )
-            conn.close()
+        else:
+            import logging
+            logging.warning(f"MySQL database creation not implemented for db_type={self.db_type}")
 
     @contextmanager
     def get_cursor(self):
@@ -234,22 +242,22 @@ class DatabaseHelper:
         if module_name:
             conditions.append("m.module_name = %s")
             params.append(module_name)
-        if execution_id:
-            conditions.append("r.execution_id = %s")
-            params.append(execution_id)
 
         where_clause = " AND ".join(conditions) if conditions else "1=1"
 
         with self.get_cursor() as cursor:
-            cursor.execute(f"""
-                DELETE FROM test_logs
-                WHERE execution_id IN (
-                    SELECT r.execution_id FROM test_results r
-                    JOIN test_cases c ON r.case_id = c.id
-                    JOIN test_modules m ON c.module_id = m.id
-                    WHERE {where_clause}
-                )
-            """, tuple(params))
+            if execution_id:
+                cursor.execute("DELETE FROM test_logs WHERE execution_id = %s", (execution_id,))
+            else:
+                cursor.execute(f"""
+                    DELETE FROM test_logs
+                    WHERE execution_id IN (
+                        SELECT r.execution_id FROM test_results r
+                        JOIN test_cases c ON r.case_id = c.id
+                        JOIN test_modules m ON c.module_id = m.id
+                        WHERE {where_clause}
+                    )
+                """, tuple(params))
 
             cursor.execute(f"""
                 DELETE FROM test_results
@@ -261,9 +269,6 @@ class DatabaseHelper:
                     )
                 )
             """, tuple(params))
-
-            if execution_id:
-                cursor.execute("DELETE FROM test_logs WHERE execution_id = %s", (execution_id,))
 
             cursor.execute(f"""
                 DELETE FROM test_data

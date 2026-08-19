@@ -16,6 +16,9 @@ from utils.validator import ResponseValidator
 
 
 class BaseTest:
+    _module_name = "unknown"
+    _module_desc = "未知模块"
+
     @pytest.fixture(autouse=True)
     def setup(self, config, execution_id, db_helper, pg_cleanup, request):
         """自动初始化客户端、验证器并登录"""
@@ -46,8 +49,9 @@ class BaseTest:
                             module=getattr(self, '_module_name', 'unknown'),
                             case_name=getattr(self, '_test_name', 'unknown'),
                         )
-                    except Exception:
-                        pass
+                    except Exception as log_e:
+                        import logging
+                        logging.warning(f"Failed to log cleanup failure for id={item_id}: {log_e}")
 
     def _log_test_data_created(self, item_id, item_name=None):
         """记录测试数据创建日志"""
@@ -60,8 +64,9 @@ class BaseTest:
                     module=getattr(self, '_module_name', 'unknown'),
                     case_name=getattr(self, '_test_name', 'unknown'),
                 )
-            except Exception:
-                pass
+            except Exception as log_e:
+                import logging
+                logging.warning(f"Failed to log test data creation for id={item_id}: {log_e}")
 
     def _delete_test_data(self, item_id):
         """删除测试数据，由子类实现具体删除逻辑"""
@@ -101,6 +106,11 @@ class BaseTest:
         assert duration_ms <= max_duration_ms, \
             f"Response too slow: {duration_ms:.0f}ms > {max_duration_ms}ms"
         return duration_ms
+
+    def skip_if_empty(self, records, message="查询结果为空，跳过测试"):
+        """如果 records 为空，跳过当前测试"""
+        if not records:
+            pytest.skip(message)
 
     def assert_save_failure(self, data, expected_code=None):
         """断言操作失败"""
@@ -165,6 +175,38 @@ class BaseTest:
         suffix = random.randint(10000000, 99999999)
         return f"174{suffix}"
 
+    def _unique_item_name(self):
+        """生成唯一的服务项目名称"""
+        suffix = random.randint(1000, 9999)
+        return f"Test{suffix}"
+
+    def _create_service_item(self, item_name=None, billing_method=1):
+        """新增服务项目并通过分页查询获取项目ID
+
+        Returns:
+            (item_id, item_name) 元组
+        """
+        item_name = item_name or self._unique_item_name()
+        return self._create_and_get_id(
+            create_fn=lambda: self.client.add_service_item(
+                item_name=item_name,
+                billing_method=billing_method,
+                subtitle="TestSubtitle",
+                item_desc="TestDescription",
+            ),
+            query_fn=lambda: self.client.page_service_items(page_num=1, page_size=10, item_name=item_name),
+            match_key="itemName",
+            match_value=item_name,
+        )
+
+    def _get_pg_helper(self):
+        """获取 PostgreSQL 数据库助手实例（单例）"""
+        if not hasattr(self, "_pg_helper_instance"):
+            from config import PG_CONFIG
+            from utils.db_helper import DatabaseHelper
+            self._pg_helper_instance = DatabaseHelper(PG_CONFIG)
+        return self._pg_helper_instance
+
     def _get_existing_service_item(self, display_only=True):
         """获取一个已存在的服务项目"""
         if display_only:
@@ -177,3 +219,35 @@ class BaseTest:
         items = data.get("data", [])
         assert items, "No service items found"
         return items[0]["id"], items[0]["itemName"]
+
+    def _create_and_get_id(self, create_fn, query_fn, match_key, match_value, id_key="id"):
+        """通用创建并获取ID方法
+
+        Args:
+            create_fn: 创建函数（无参数），返回 Response
+            query_fn: 查询函数（无参数），返回 Response
+            match_key: 匹配字段名（如 "userName", "itemName", "roleName"）
+            match_value: 匹配值
+            id_key: ID 字段名，默认 "id"
+
+        Returns:
+            (item_id, match_value) 元组
+        """
+        response = create_fn()
+        self.validator.assert_status_code(response, 200)
+        data = response.json()
+        self.assert_save_success(data)
+
+        page_resp = query_fn()
+        self.validator.assert_status_code(page_resp, 200)
+        page_data = page_resp.json()
+        records = page_data.get("data", {}).get("records", [])
+        item_id = None
+        for record in records:
+            if record.get(match_key) == match_value:
+                item_id = record.get(id_key)
+                break
+        assert item_id, f"Item not found after creation: {page_data}"
+        self._created_ids.append(item_id)
+        self._log_test_data_created(item_id, match_value)
+        return item_id, match_value

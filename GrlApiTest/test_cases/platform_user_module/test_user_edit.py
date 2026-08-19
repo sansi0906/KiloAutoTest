@@ -29,8 +29,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_success(self):
         """使用有效参数编辑用户，应返回成功"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, user_name, real_name = self._create_user()
         new_real_name = self._unique_real_name()
@@ -50,8 +48,6 @@ class TestUserEdit(TestBase):
     @pytest.mark.backend_bug
     def test_edit_user_not_exist(self):
         """编辑不存在的用户ID，预期应返回失败，但后端实际返回成功（疑似未做存在性校验）"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.edit_user(
             user_id=999999,
@@ -67,8 +63,6 @@ class TestUserEdit(TestBase):
         # 实际后端bug：返回成功 code:00
         assert data.get("code") not in ("0", "00"), f"Expected failure for non-existent user, got: {data}"
         """编辑用户时使用已注册的手机号，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         phone1 = self._unique_user_name()
         phone2 = self._unique_user_name()
@@ -89,8 +83,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_missing_real_name(self):
         """缺少 realName 字段，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, user_name, _ = self._create_user()
 
@@ -108,8 +100,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_invalid_phone(self):
         """使用无效手机号格式，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, _, _ = self._create_user()
 
@@ -127,8 +117,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_change_status(self):
         """修改用户状态（启用/禁用），应返回成功"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, user_name, real_name = self._create_user()
 
@@ -146,8 +134,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_change_sex(self):
         """修改用户性别，应返回成功"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, user_name, real_name = self._create_user()
 
@@ -165,8 +151,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_missing_id(self):
         """缺少 user_id，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.edit_user(
             user_id=None,
@@ -182,8 +166,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_missing_user_name(self):
         """缺少 userName，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, _, _ = self._create_user()
 
@@ -201,8 +183,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_missing_status(self):
         """缺少 status，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, user_name, real_name = self._create_user()
 
@@ -220,8 +200,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_missing_real_name(self):
         """缺少 realName，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, user_name, _ = self._create_user()
 
@@ -239,8 +217,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_missing_role_group_id(self):
         """缺少 roleGroupId，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, user_name, real_name = self._create_user()
 
@@ -258,8 +234,6 @@ class TestUserEdit(TestBase):
 
     def test_edit_user_missing_sex(self):
         """缺少 sex，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, user_name, real_name = self._create_user()
 

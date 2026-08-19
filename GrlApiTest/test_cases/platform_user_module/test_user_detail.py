@@ -14,8 +14,6 @@ from .test_base import TestBase
 class TestUserDetail(TestBase):
     def test_detail_existing_user(self):
         """获取已存在的用户详情，应返回成功并包含完整用户信息"""
-        token = self.login()
-        self.client.set_token(token)
 
         user_id, user_name, real_name = self._create_user()
 
@@ -30,8 +28,6 @@ class TestUserDetail(TestBase):
 
     def test_detail_non_existing_user(self):
         """获取不存在的用户详情，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.get_user_detail(user_id=999999)
         self.validator.assert_status_code(response, 200)
@@ -40,8 +36,6 @@ class TestUserDetail(TestBase):
 
     def test_detail_missing_id(self):
         """缺少 id 字段，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.get_user_detail(user_id=None)
         self.validator.assert_status_code(response, 200)

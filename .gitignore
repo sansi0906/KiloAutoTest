@@ -97,3 +97,24 @@ lyt/deep_test_results/
 
 # ==================== 旧代码备份（含硬编码密码/手机号） ====================
 cjgt_web/oldCode/
+
+# ==================== 敏感配置文件（含密码/内网IP/手机号） ====================
+GrlApiTest/.env
+GrlApiTest/config.py
+GrlApiTest/analysis_report.md
+GrlApiTest/test_cases/login_module/test_send_code.py
+
+# ==================== Bug 报告与测试覆盖率报告（含内网IP/手机号） ====================
+GrlApiTest/bug_list.md
+GrlApiTest/bug_results.json
+GrlApiTest/bugs/
+GrlApiTest/test_cases/**/*_test_coverage.md
+
+# ==================== 临时调试脚本 ====================
+GrlApiTest/capture_bugs*.py
+GrlApiTest/capture_final_bugs.py
+GrlApiTest/check_*paths.py
+GrlApiTest/check_pricing_table.py
+GrlApiTest/collect_test_bugs.py
+GrlApiTest/generate_*bug_list.py
+GrlApiTest/check_client_paths.py

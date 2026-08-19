@@ -20,8 +20,6 @@ from utils.base_test import BaseTest
 class TestTokenExpiration(BaseTest):
     def test_valid_token_access(self):
         """使用有效 Token 访问接口，应返回成功"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.page_users(page_num=1, page_size=10)
         self.validator.assert_status_code(response, 200)

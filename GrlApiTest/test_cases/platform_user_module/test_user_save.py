@@ -31,8 +31,6 @@ class TestUserSave(TestBase):
     @pytest.mark.smoke
     def test_save_user_success(self):
         """使用有效参数创建用户，应返回成功"""
-        token = self.login()
-        self.client.set_token(token)
 
         real_name = self._unique_real_name()
         user_name = self._unique_user_name()
@@ -51,8 +49,6 @@ class TestUserSave(TestBase):
 
     def test_save_user_duplicate_phone(self):
         """使用已注册的手机号创建用户，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         real_name = self._unique_real_name()
         user_name = self._unique_user_name()
@@ -83,8 +79,6 @@ class TestUserSave(TestBase):
 
     def test_save_user_missing_user_name(self):
         """缺少 userName 字段，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name="",
@@ -99,8 +93,6 @@ class TestUserSave(TestBase):
 
     def test_save_user_missing_real_name(self):
         """缺少 realName 字段，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name=self._unique_user_name(),
@@ -115,8 +107,6 @@ class TestUserSave(TestBase):
 
     def test_save_user_invalid_phone(self):
         """使用无效手机号格式，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name="12345",
@@ -131,8 +121,6 @@ class TestUserSave(TestBase):
 
     def test_save_user_missing_role_group_id(self):
         """roleGroupId 设为 0，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name=self._unique_user_name(),
@@ -148,8 +136,6 @@ class TestUserSave(TestBase):
 
     def test_save_user_missing_sex(self):
         """sex 设为 None，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name=self._unique_user_name(),
@@ -164,8 +150,6 @@ class TestUserSave(TestBase):
 
     def test_save_user_missing_status(self):
         """缺少 status 字段，后端实际接受并返回成功（必填校验不严格）"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name=self._unique_user_name(),
@@ -181,8 +165,6 @@ class TestUserSave(TestBase):
 
     def test_save_user_missing_all_required(self):
         """所有必填字段均为空，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name="",

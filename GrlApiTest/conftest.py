@@ -7,7 +7,9 @@ conftest.py - pytest 固件配置
 
 import html as html_module
 import os
+import random
 import sys
+import time
 import uuid
 
 if sys.platform == "win32":
@@ -65,12 +67,14 @@ def pytest_html_results_table_row(report, cells):
 @pytest.fixture(scope="session")
 def config():
     """返回全局配置字典，包含基础URL、登录接口、用户凭证等"""
-    from config import BASE_URL, LOGIN_URL, USERNAME, PASSWORD, DB_CONFIG, DB_ENABLED, DB_CLEANUP_AFTER_TEST, DB_CLEANUP_MODULES, PG_CONFIG, PG_CLEANUP_UUID, PG_CLEANUP_ENABLED
+    from config import BASE_URL, LOGIN_URL, USERNAME, PASSWORD, DB_CONFIG, DB_ENABLED, DB_CLEANUP_AFTER_TEST, DB_CLEANUP_MODULES, PG_CONFIG, PG_CLEANUP_UUID, PG_CLEANUP_ENABLED, LOGIN_TYPE, WEB_TYPE
     return {
         "base_url": BASE_URL,
         "login_url": LOGIN_URL,
         "username": USERNAME,
         "password": PASSWORD,
+        "login_type": LOGIN_TYPE,
+        "web_type": WEB_TYPE,
         "db_config": DB_CONFIG,
         "db_enabled": DB_ENABLED,
         "db_cleanup_after_test": DB_CLEANUP_AFTER_TEST,
@@ -82,9 +86,9 @@ def config():
 
 
 @pytest.fixture(scope="session")
-def token_manager():
+def token_manager(config):
     """Token 管理器固件，自动清理过期 Token 文件"""
-    tm = TokenManager()
+    tm = TokenManager(base_url=config["base_url"])
     yield tm
     tm.clear()
 
@@ -94,7 +98,7 @@ def logged_in_client(config, token_manager):
     """已登录客户端固件，自动执行登录并携带 Token"""
     client = JeecgBootClient(base_url=config["base_url"])
     token = token_manager.get_token()
-    if not token:
+    if not token or not token_manager.is_token_valid(token):
         response = client.login(
             username=config["username"],
             password=config["password"],
@@ -117,8 +121,113 @@ def execution_id():
     return str(uuid.uuid4())
 
 
+@pytest.fixture(scope="session", autouse=True)
+def ensure_test_data(config, token_manager):
+    """Session 级数据预置：确保测试环境有基础依赖数据"""
+    client = JeecgBootClient(base_url=config["base_url"])
+    token = token_manager.get_token()
+    if not token or not token_manager.is_token_valid(token):
+        response = client.login(
+            username=config["username"],
+            password=config["password"],
+            login_type=config.get("login_type", 1),
+            web_type=config.get("web_type", 0),
+        )
+        if response.status_code == 200:
+            data = response.json()
+            if data and data.get("code") in ("0", "00"):
+                token = data.get("data", {}).get("token")
+                token_manager.save_token(token)
+    if not token:
+        import logging
+        logging.warning("ensure_test_data: 无法获取有效 token，跳过数据预置")
+        yield
+        return
+    client.set_token(token)
+
+    try:
+        _ensure_service_items(client, min_count=3)
+        _ensure_business_scope(client)
+        _ensure_role(client)
+        _ensure_service_provider_role(client)
+    except Exception as e:
+        import logging
+        logging.warning(f"ensure_test_data 预置失败: {e}")
+
+    yield
+    client.clear_token()
+
+
+def _ensure_service_items(client, min_count=3):
+    """确保至少有 min_count 个展示的服务项目"""
+    for _ in range(min_count):
+        resp = client.page_service_items(page_num=1, page_size=100, is_display=1)
+        if resp.status_code == 200:
+            data = resp.json()
+            records = data.get("data", {}).get("records", [])
+            if len(records) >= min_count:
+                return
+        client.add_service_item(
+            item_name=f"AutoItem{int(time.time())}_{random.randint(1000, 9999)}",
+            billing_method=1,
+            subtitle="AutoSubtitle",
+            item_desc="AutoDescription",
+        )
+
+
+def _ensure_business_scope(client):
+    """确保至少有 1 个启用的经营范围"""
+    resp = client.page_business_scopes(page_num=1, page_size=10, is_enabled=1)
+    if resp.status_code == 200:
+        data = resp.json()
+        records = data.get("data", {}).get("records", [])
+        if records:
+            return
+    client.add_business_scope(
+        scope_name=f"AutoScope{int(time.time())}",
+        remark="AutoRemark",
+    )
+
+
+def _ensure_role(client):
+    """确保至少有 1 个启用的角色，且存在服务商角色 SP1001"""
+    resp = client.page_roles(page_num=1, page_size=10, status=1)
+    if resp.status_code == 200:
+        data = resp.json()
+        records = data.get("data", {}).get("records", [])
+        if records:
+            return
+    client.save_role(
+        role_name=f"AutoRole{int(time.time())}",
+        status=1,
+        role_remark="AutoRemark",
+    )
+
+
+def _ensure_service_provider_role(client):
+    """确保服务商角色 SP1001 存在（系统预设角色，API 不允许创建，直接插入数据库）"""
+    from config import PG_CONFIG
+    from utils.db_helper import DatabaseHelper
+    pg_helper = DatabaseHelper(PG_CONFIG)
+
+    role = pg_helper.fetch_one(
+        "SELECT id FROM cjgt_platform_role WHERE role_no = %s AND delete_status = 0",
+        ("SP1001",)
+    )
+    if role:
+        return role["id"]
+
+    role_id = pg_helper.execute(
+        """INSERT INTO cjgt_platform_role 
+           (role_name, role_remark, status, create_user_name, last_modify_name, delete_status, create_user_uuid, last_modify_uuid, role_no, web_type) 
+           VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+        ("服务商", "系统预设服务商角色", 1, "system", "system", 0, "00000000-0000-0000-0000-000000000000", "00000000-0000-0000-0000-000000000000", "SP1001", 0)
+    )
+    return role_id
+
+
 @pytest.fixture(scope="session")
-def db_helper(config):
+def db_helper(config, execution_id):
     """数据库工具固件（163 MySQL 测试框架数据）"""
     if not config.get("db_enabled"):
         yield None
@@ -127,16 +236,28 @@ def db_helper(config):
     helper = DatabaseHelper(config.get("db_config"))
     yield helper
     if config.get("db_cleanup_after_test"):
-        for module in config.get("db_cleanup_modules", []):
-            try:
-                helper.cleanup_test_data(module_name=module)
-            except Exception:
-                pass
+        try:
+            helper.cleanup_test_data(execution_id=execution_id)
+        except Exception as e:
+            import logging
+            logging.warning(f"MySQL test data cleanup failed: {e}")
+
+
+@pytest.fixture(scope="session")
+def pg_helper(config):
+    """PostgreSQL 工具固件（165 业务数据库）"""
+    pg_config = config.get("pg_config")
+    if not pg_config:
+        yield None
+        return
+    from utils.db_helper import DatabaseHelper
+    helper = DatabaseHelper(pg_config)
+    yield helper
 
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    """测试用例执行后自动记录结果到数据库"""
+    """测试用例执行后自动记录结果到数据库，失败时附加 Allure 日志"""
     outcome = yield
     report = outcome.get_result()
 
@@ -158,6 +279,19 @@ def pytest_runtest_makereport(item, call):
         duration_ms = int(report.duration * 1000) if report.duration else None
         error_message = str(report.longrepr) if report.failed else None
 
+        request_data = None
+        response_data = None
+        instance = getattr(item, "instance", None)
+        client = getattr(instance, "client", None) if instance else None
+        history = getattr(client, "_request_history", None) if client else None
+
+        if history:
+            last_entry = history[-1] if history else None
+            if last_entry:
+                import json
+                request_data = json.dumps(last_entry.get("body"), ensure_ascii=False)
+                response_data = json.dumps(last_entry.get("response"), ensure_ascii=False)
+
         module_id = db_helper.save_test_module(module_name=module_name, module_desc=module_name)
         case_id = db_helper.save_test_case(module_id=module_id, case_name=case_name, case_desc=getattr(item.obj, '__doc__', '') or "", priority="P1")
         db_helper.save_test_result(
@@ -166,10 +300,36 @@ def pytest_runtest_makereport(item, call):
             status=status,
             duration_ms=duration_ms,
             error_message=error_message,
+            request_data=request_data,
+            response_data=response_data,
             environment="test"
         )
-    except Exception:
-        pass
+
+        if report.failed:
+            try:
+                import allure
+                allure.attach(
+                    error_message or "Test failed without detailed error",
+                    name="Error Details",
+                    attachment_type=allure.attachment_type.TEXT,
+                )
+                if request_data:
+                    allure.attach(
+                        request_data,
+                        name="Last Request Body",
+                        attachment_type=allure.attachment_type.TEXT,
+                    )
+                if response_data:
+                    allure.attach(
+                        response_data,
+                        name="Last Response Body",
+                        attachment_type=allure.attachment_type.TEXT,
+                    )
+            except Exception:
+                pass
+    except Exception as e:
+        import logging
+        logging.warning(f"Failed to record test result for {item.nodeid}: {e}")
 
 
 @pytest.fixture(scope="session")
@@ -182,5 +342,6 @@ def pg_cleanup(config):
     yield cleanup_test_data
     try:
         cleanup_test_data(creator_uuid=config.get("pg_cleanup_uuid"), dry_run=False)
-    except Exception:
-        pass
+    except Exception as e:
+        import logging
+        logging.warning(f"PostgreSQL cleanup failed: {e}")

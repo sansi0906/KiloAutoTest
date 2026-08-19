@@ -24,7 +24,10 @@ CLEANUP_TABLES = [
     "cjgt_service_provider",
     "cjgt_business_scope",
     "cjgt_service_item",
+    "cjgt_contact_config",
+    "cjgt_user_agreement",
     "cjgt_platform_user",
+    "cjgt_sms_log",
 ]
 
 CLEANUP_SQL = {
@@ -35,7 +38,10 @@ CLEANUP_SQL = {
     "cjgt_service_provider": "DELETE FROM {table} WHERE create_user_uuid = %s",
     "cjgt_business_scope": "DELETE FROM {table} WHERE create_user_uuid = %s",
     "cjgt_service_item": "DELETE FROM {table} WHERE create_user_uuid = %s",
+    "cjgt_contact_config": "DELETE FROM {table} WHERE create_user_uuid = %s",
+    "cjgt_user_agreement": "DELETE FROM {table} WHERE create_user_uuid = %s",
     "cjgt_platform_user": "DELETE FROM {table} WHERE create_user_uuid = %s AND is_super_admin != 1",
+    "cjgt_sms_log": "DELETE FROM {table} WHERE LEFT(phone, 3) = '174'",
 }
 
 
@@ -74,7 +80,10 @@ def cleanup_test_data(creator_uuid=None, dry_run=False):
             count = cursor.rowcount
             results[table] = count
             if dry_run:
-                cursor.execute(f"SELECT COUNT(*) FROM {table} WHERE create_user_uuid = %s", (creator_uuid,))
+                if table == "cjgt_sms_log":
+                    cursor.execute(f"SELECT COUNT(*) FROM {table} WHERE LEFT(phone, 3) = '174'")
+                else:
+                    cursor.execute(f"SELECT COUNT(*) FROM {table} WHERE create_user_uuid = %s", (creator_uuid,))
                 actual_count = cursor.fetchone()[0]
                 print(f"[DRY RUN] {table}: {actual_count} rows would be deleted")
             else:

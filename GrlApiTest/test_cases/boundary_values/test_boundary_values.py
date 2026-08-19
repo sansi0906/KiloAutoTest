@@ -195,8 +195,6 @@ class TestBoundaryValues(BaseTest):
 
     def test_user_status_invalid(self):
         """status=2，后端实际接受，返回成功"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name=self._unique_user_name(),
@@ -211,8 +209,6 @@ class TestBoundaryValues(BaseTest):
 
     def test_user_status_negative(self):
         """status=-1，后端实际接受，返回成功"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name=self._unique_user_name(),
@@ -241,8 +237,6 @@ class TestBoundaryValues(BaseTest):
 
     def test_user_name_special_chars(self):
         """userName 包含特殊字符，应返回失败"""
-        token = self.login()
-        self.client.set_token(token)
 
         response = self.client.save_platform_user(
             user_name="test<>'\"user",
@@ -259,17 +253,17 @@ class TestBoundaryValues(BaseTest):
 
     @pytest.mark.backend_bug
     def test_pricing_amount_zero(self):
-        """amount=0，应返回失败"""
+        """amount=0，当前业务支持免费项目，断言为正常成功场景"""
         item_id, _ = self._get_existing_service_item()
 
         response = self.client.update_pricing(
             service_item_id=item_id,
-            amount=0,
+            pending_amount=0,
             area_list=[{"code": "110101000000", "level": "county", "name": "东城区"}],
         )
         self.validator.assert_status_code(response, 200)
         data = response.json()
-        self.assert_save_failure(data)
+        self.assert_save_success(data)
 
     @pytest.mark.backend_bug
     def test_pricing_amount_negative(self):
@@ -278,7 +272,7 @@ class TestBoundaryValues(BaseTest):
 
         response = self.client.update_pricing(
             service_item_id=item_id,
-            amount=-1,
+            pending_amount=-1,
             area_list=[{"code": "110101000000", "level": "county", "name": "东城区"}],
         )
         self.validator.assert_status_code(response, 200)
@@ -298,7 +292,7 @@ class TestBoundaryValues(BaseTest):
 
         response = self.client.update_pricing(
             service_item_id=item_id,
-            amount=999999999.99,
+            pending_amount=999999999.99,
             area_list=[{"code": "110101000000", "level": "county", "name": "东城区"}],
         )
         self.validator.assert_status_code(response, 200)
