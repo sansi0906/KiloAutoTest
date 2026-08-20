@@ -6,10 +6,10 @@ import asyncio
 import os
 from playwright.async_api import async_playwright, Page, Browser, BrowserContext
 
-BASE_URL = "http://172.16.1.165:9100"
+BASE_URL = os.getenv("CJGT_BASE_URL", "http://localhost:9100")
 LOGIN_URL = f"{BASE_URL}/adminLogin"
-USERNAME = "17695729351"
-PASSWORD = "123456"
+USERNAME = os.getenv("CJGT_USERNAME", "test_user")
+PASSWORD = os.getenv("CJGT_PASSWORD", "test_password")
 SCREENSHOT_DIR = os.path.join(os.path.dirname(__file__), "screenshots")
 REPORT_DIR = os.path.join(os.path.dirname(__file__), "reports")
 os.makedirs(SCREENSHOT_DIR, exist_ok=True)
@@ -22,6 +22,11 @@ PAGES = {
     "合同服务配置": "/smart-service/contract-service",
     "经营范围配置": "/smart-service/scope-config",
     "知识库": "/content-manage/knowledge",
+    "服务商管理": "/service-provider/proxy-accounting",
+    "超级个体档案": "/customer/customer-archive",
+    "服务工单管理": "/customer/work-order",
+    "订单管理": "/order/order-manage",
+    "合同管理": "/contract/contract-manage",
 }
 
 

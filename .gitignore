@@ -118,3 +118,5 @@ GrlApiTest/check_pricing_table.py
 GrlApiTest/collect_test_bugs.py
 GrlApiTest/generate_*bug_list.py
 GrlApiTest/check_client_paths.py
+
+cjgt_web/explore_order_contract_fixed.py

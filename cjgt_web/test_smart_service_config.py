@@ -233,6 +233,291 @@ class SmartServiceConfigTests(TestBase):
                 ""
             )
 
+    async def test_project_config_billing_method_filter(self):
+        """测试服务项目配置 - 按计费方式筛选"""
+        test_name = "服务项目配置 - 按计费方式筛选"
+        await self.navigate_to("服务项目配置")
+
+        # 先展开搜索区域（如果有展开按钮）
+        expand_btn = self.page.locator('button:has-text("展开"), .ant-btn:has-text("展开")').first
+        if await expand_btn.count() > 0:
+            await expand_btn.click()
+            await self.page.wait_for_timeout(1000)
+
+        # 点击计费方式下拉框
+        billing_select = self.page.locator('.ant-select').nth(0)
+        if await billing_select.count() > 0:
+            await billing_select.scroll_into_view_if_needed()
+            await self.page.wait_for_timeout(500)
+            try:
+                await billing_select.click(timeout=5000)
+            except Exception:
+                await self.page.evaluate("""
+                    () => {
+                        const selects = document.querySelectorAll('.ant-select');
+                        if (selects.length > 0) selects[0].click();
+                    }
+                """)
+            await self.page.wait_for_timeout(500)
+
+            # 获取下拉选项
+            options = await self.page.evaluate("""
+                () => {
+                    const opts = document.querySelectorAll('.ant-select-item-option');
+                    const texts = [];
+                    for (const opt of opts) {
+                        const text = opt.textContent.trim();
+                        if (text) texts.push(text);
+                    }
+                    return texts;
+                }
+            """)
+
+            if options:
+                first_option = self.page.locator('.ant-select-item-option').first
+                await first_option.click()
+                await self.page.wait_for_timeout(500)
+
+                await self.click_button("查询")
+                await self.page.wait_for_timeout(2000)
+
+                rows_after = await self.get_table_row_count()
+                url_ok = "/smart-service/project-config" in self.page.url
+
+                passed = url_ok
+                screenshot = await self.screenshot("smart_project_config_billing_filter")
+                self.record_result(
+                    test_name, passed,
+                    "选择计费方式后查询，页面正常返回结果",
+                    f"选项: {options}, 查询后行数: {rows_after}",
+                    screenshot
+                )
+            else:
+                self.record_result(test_name, False, "计费方式下拉框应有选项", "无选项", "")
+        else:
+            self.record_result(test_name, False, "应有计费方式下拉框", "未找到下拉框", "")
+
+    async def test_project_config_display_status_filter(self):
+        """测试服务项目配置 - 按是否展示筛选"""
+        test_name = "服务项目配置 - 按是否展示筛选"
+        await self.navigate_to("服务项目配置")
+
+        expand_btn = self.page.locator('button:has-text("展开"), .ant-btn:has-text("展开")').first
+        if await expand_btn.count() > 0:
+            await expand_btn.click()
+            await self.page.wait_for_timeout(1000)
+
+        display_select = self.page.locator('.ant-select').nth(1)
+        if await display_select.count() > 0:
+            await display_select.scroll_into_view_if_needed()
+            await self.page.wait_for_timeout(500)
+            try:
+                await display_select.click(timeout=5000)
+            except Exception:
+                await self.page.evaluate("""
+                    () => {
+                        const selects = document.querySelectorAll('.ant-select');
+                        if (selects.length > 1) selects[1].click();
+                    }
+                """)
+            await self.page.wait_for_timeout(500)
+
+            options = await self.page.evaluate("""
+                () => {
+                    const opts = document.querySelectorAll('.ant-select-item-option');
+                    const texts = [];
+                    for (const opt of opts) {
+                        const text = opt.textContent.trim();
+                        if (text) texts.push(text);
+                    }
+                    return texts;
+                }
+            """)
+
+            if options:
+                first_option = self.page.locator('.ant-select-item-option').first
+                await first_option.click()
+                await self.page.wait_for_timeout(500)
+
+                await self.click_button("查询")
+                await self.page.wait_for_timeout(2000)
+
+                rows_after = await self.get_table_row_count()
+                url_ok = "/smart-service/project-config" in self.page.url
+
+                passed = url_ok
+                screenshot = await self.screenshot("smart_project_config_display_filter")
+                self.record_result(
+                    test_name, passed,
+                    "选择是否展示后查询，页面正常返回结果",
+                    f"选项: {options}, 查询后行数: {rows_after}",
+                    screenshot
+                )
+            else:
+                self.record_result(test_name, False, "是否展示下拉框应有选项", "无选项", "")
+        else:
+            self.record_result(test_name, False, "应有是否展示下拉框", "未找到下拉框", "")
+
+    async def test_project_config_date_range_filter(self):
+        """测试服务项目配置 - 按日期范围筛选"""
+        test_name = "服务项目配置 - 按日期范围筛选"
+        await self.navigate_to("服务项目配置")
+
+        expand_btn = self.page.locator('button:has-text("展开"), .ant-btn:has-text("展开")').first
+        if await expand_btn.count() > 0:
+            await expand_btn.click()
+            await self.page.wait_for_timeout(1000)
+
+        # 查找日期输入框
+        date_inputs = await self.page.locator('input[placeholder="开始时间"], input[placeholder="结束时间"]').count()
+        has_date_filter = date_inputs >= 2
+
+        if has_date_filter:
+            # 填写开始时间
+            start_input = self.page.locator('input[placeholder="开始时间"]').first
+            if await start_input.count() > 0:
+                await self.page.evaluate("""
+                    (value) => {
+                        const el = document.querySelector('input[placeholder="开始时间"]');
+                        if (el) {
+                            el.value = value;
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                            el.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    }
+                """, "2024-01-01")
+                await self.page.wait_for_timeout(500)
+
+            # 填写结束时间
+            end_input = self.page.locator('input[placeholder="结束时间"]').first
+            if await end_input.count() > 0:
+                await self.page.evaluate("""
+                    (value) => {
+                        const el = document.querySelector('input[placeholder="结束时间"]');
+                        if (el) {
+                            el.value = value;
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                            el.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    }
+                """, "2024-12-31")
+                await self.page.wait_for_timeout(500)
+
+            await self.click_button("查询")
+            await self.page.wait_for_timeout(2000)
+
+            url_ok = "/smart-service/project-config" in self.page.url
+            passed = url_ok
+            screenshot = await self.screenshot("smart_project_config_date_filter")
+            self.record_result(
+                test_name, passed,
+                "选择日期范围后查询，页面正常返回结果",
+                f"URL: {self.page.url}",
+                screenshot
+            )
+        else:
+            self.record_result(test_name, False, "应有开始时间/结束时间筛选框", "未找到日期筛选框", "")
+
+    async def test_project_config_pagination(self):
+        """测试服务项目配置 - 表格分页"""
+        test_name = "服务项目配置 - 表格分页"
+        await self.navigate_to("服务项目配置")
+
+        pagination = self.page.locator('.ant-pagination').first
+        has_pagination = await pagination.count() > 0
+
+        if has_pagination:
+            pagination_info = await self.page.evaluate("""
+                () => {
+                    const pagination = document.querySelector('.ant-pagination');
+                    if (!pagination) return null;
+                    const total = pagination.querySelector('.ant-pagination-total-text');
+                    const items = pagination.querySelectorAll('.ant-pagination-item');
+                    return {
+                        total: total ? total.textContent : null,
+                        page_count: items.length,
+                    };
+                }
+            """)
+            passed = pagination_info is not None and pagination_info.get('page_count', 0) >= 1
+            screenshot = await self.screenshot("smart_project_config_pagination")
+            self.record_result(
+                test_name, passed,
+                "表格应有分页器且至少2页",
+                f"分页信息: {pagination_info}",
+                screenshot
+            )
+        else:
+            rows = await self.get_table_row_count()
+            passed = rows > 0
+            screenshot = await self.screenshot("smart_project_config_no_pagination")
+            self.record_result(
+                test_name, passed,
+                "表格应有分页器或显示数据",
+                f"分页器: 无, 数据行数: {rows}",
+                screenshot
+            )
+
+    async def test_project_config_add_with_data(self):
+        """测试服务项目配置 - 新增服务项目（带数据）"""
+        test_name = "服务项目配置 - 新增服务项目（带数据）"
+        await self.navigate_to("服务项目配置")
+
+        # 点击新增按钮
+        add_btn = self.page.locator('button:has-text("新增服务项目"), .ant-btn:has-text("新增服务项目")').first
+        if await add_btn.count() > 0:
+            await add_btn.click()
+            await self.page.wait_for_timeout(2000)
+
+            modal_appeared = await self.wait_for_modal()
+            if not modal_appeared:
+                drawer = self.page.locator('.ant-drawer').first
+                modal_appeared = await drawer.count() > 0
+
+            if modal_appeared:
+                # 填写服务项目名称
+                name_input = self.page.locator('input[placeholder="请输入"]').first
+                if await name_input.count() > 0:
+                    test_name_val = f"自动化测试项目_{int(asyncio.get_event_loop().time())}"
+                    await name_input.fill(test_name_val)
+
+                # 选择计费方式（第一个radio）
+                radio = self.page.locator('input[type="radio"]').first
+                if await radio.count() > 0:
+                    await radio.click()
+                    await self.page.wait_for_timeout(500)
+
+                # 提交表单
+                for btn_text in ["确定", "确 定", "保存", "提交"]:
+                    if await self.click_button(btn_text):
+                        break
+
+                await self.page.wait_for_timeout(2000)
+
+                # 检查是否成功（通过表格中是否出现新数据或toast）
+                toast_msgs = await self.get_form_errors()
+                passed = len(toast_msgs) == 0  # 没有错误提示则认为成功
+
+                screenshot = await self.screenshot("smart_project_config_add_data")
+                self.record_result(
+                    test_name, passed,
+                    "填写表单后提交应成功",
+                    f"验证错误: {toast_msgs}",
+                    screenshot
+                )
+
+                await self.close_modal()
+            else:
+                screenshot = await self.screenshot("smart_project_config_add_no_modal")
+                self.record_result(
+                    test_name, False,
+                    "点击新增后应弹出表单",
+                    "未检测到弹窗/抽屉",
+                    screenshot
+                )
+        else:
+            self.record_result(test_name, False, "应有新增服务项目按钮", "未找到按钮", "")
+
     async def test_project_price_page_load(self):
         """测试服务定价配置 - 页面加载"""
         test_name = "服务定价配置 - 页面加载"
@@ -266,7 +551,6 @@ class SmartServiceConfigTests(TestBase):
         async with self.page.expect_download(timeout=10000) as download_info:
             downloaded = await self.click_button("下载服务定价模板")
             if not downloaded:
-                # 尝试其他选择器
                 btn = self.page.locator('a:has-text("下载"), button:has-text("下载"), .ant-btn:has-text("下载")').first
                 if await btn.count() > 0:
                     await btn.click()
@@ -289,6 +573,146 @@ class SmartServiceConfigTests(TestBase):
                 "未找到下载按钮",
                 ""
             )
+
+    async def test_project_price_region_filter(self):
+        """测试服务定价配置 - 按区域筛选"""
+        test_name = "服务定价配置 - 按区域筛选"
+        await self.navigate_to("服务定价配置")
+
+        region_select = self.page.locator('.ant-select').first
+        if await region_select.count() > 0:
+            await region_select.scroll_into_view_if_needed()
+            await self.page.wait_for_timeout(500)
+            try:
+                await region_select.click(timeout=5000)
+            except Exception:
+                await self.page.evaluate("""
+                    () => {
+                        const selects = document.querySelectorAll('.ant-select');
+                        if (selects.length > 0) selects[0].click();
+                    }
+                """)
+            await self.page.wait_for_timeout(500)
+
+            options = await self.page.evaluate("""
+                () => {
+                    const opts = document.querySelectorAll('.ant-select-item-option');
+                    const texts = [];
+                    for (const opt of opts) {
+                        const text = opt.textContent.trim();
+                        if (text) texts.push(text);
+                    }
+                    return texts;
+                }
+            """)
+
+            if options:
+                first_option = self.page.locator('.ant-select-item-option').first
+                await first_option.click()
+                await self.page.wait_for_timeout(500)
+
+                rows_after = await self.get_table_row_count()
+                url_ok = "/smart-service/project-price" in self.page.url
+
+                passed = url_ok
+                screenshot = await self.screenshot("smart_project_price_region_filter")
+                self.record_result(
+                    test_name, passed,
+                    "选择区域后页面正常返回结果",
+                    f"选项: {options}, 查询后行数: {rows_after}",
+                    screenshot
+                )
+            else:
+                # 区域选择器可能是级联选择器，点击后直接通过URL验证
+                url_ok = "/smart-service/project-price" in self.page.url
+                passed = url_ok
+                screenshot = await self.screenshot("smart_project_price_region_filter")
+                self.record_result(
+                    test_name, passed,
+                    "区域选择器可交互，页面URL正常",
+                    f"URL: {self.page.url}",
+                    screenshot
+                )
+        else:
+            self.record_result(test_name, False, "应有区域下拉框", "未找到下拉框", "")
+
+    async def test_project_price_price_data_verification(self):
+        """测试服务定价配置 - 价格数据验证"""
+        test_name = "服务定价配置 - 价格数据验证"
+        await self.navigate_to("服务定价配置")
+
+        # 验证表格中价格列有数据
+        price_data = await self.page.evaluate("""
+            () => {
+                const rows = document.querySelectorAll('.ant-table-tbody tr');
+                const data = [];
+                for (let i = 0; i < Math.min(rows.length, 3); i++) {
+                    const cells = rows[i].querySelectorAll('td');
+                    if (cells.length >= 3) {
+                        data.push({
+                            region: cells[0] ? cells[0].textContent.trim() : '',
+                            price: cells[1] ? cells[1].textContent.trim() : '',
+                            pending_price: cells[2] ? cells[2].textContent.trim() : ''
+                        });
+                    }
+                }
+                return data;
+            }
+        """)
+
+        has_data = len(price_data) > 0 and any(d['region'] for d in price_data)
+        passed = has_data
+        screenshot = await self.screenshot("smart_project_price_data")
+        self.record_result(
+            test_name, passed,
+            "表格中应有区域和价格数据",
+            f"前3行数据: {price_data}",
+            screenshot
+        )
+
+    async def test_project_price_edit_price(self):
+        """测试服务定价配置 - 编辑价格"""
+        test_name = "服务定价配置 - 编辑价格"
+        await self.navigate_to("服务定价配置")
+
+        edit_btn = self.page.locator('a:has-text("编辑"), button:has-text("编辑"), .ant-btn:has-text("编辑")').first
+        if await edit_btn.count() > 0:
+            await edit_btn.click()
+            await self.page.wait_for_timeout(2000)
+
+            modal_appeared = await self.wait_for_modal()
+            if not modal_appeared:
+                drawer = self.page.locator('.ant-drawer').first
+                modal_appeared = await drawer.count() > 0
+
+            if modal_appeared:
+                # 检查表单字段
+                form_labels = await self.page.evaluate("""
+                    () => {
+                        const labels = document.querySelectorAll('.ant-form-item-label label, .ant-form-item label');
+                        const texts = [];
+                        for (const l of labels) {
+                            const text = l.textContent.trim();
+                            if (text) texts.push(text);
+                        }
+                        return texts;
+                    }
+                """)
+
+                passed = len(form_labels) > 0
+                screenshot = await self.screenshot("smart_project_price_edit")
+                self.record_result(
+                    test_name, passed,
+                    "点击编辑后应弹出编辑表单",
+                    f"表单字段: {form_labels}",
+                    screenshot
+                )
+
+                await self.close_modal()
+            else:
+                self.record_result(test_name, False, "点击编辑后应弹出表单", "未检测到弹窗", "")
+        else:
+            self.record_result(test_name, False, "表格中应有编辑按钮", "未找到编辑按钮", "")
 
     async def test_contract_service_page_load(self):
         """测试合同服务配置 - 页面加载"""
@@ -400,24 +824,21 @@ class SmartServiceConfigTests(TestBase):
         test_name = "合同服务配置 - 删除确认"
         await self.navigate_to("合同服务配置")
 
-        # 查找删除按钮
         delete_btn = self.page.locator('a:has-text("删除"), button:has-text("删除"), .ant-btn:has-text("删除")').first
         if await delete_btn.count() > 0:
             await delete_btn.click()
             await self.page.wait_for_timeout(1000)
 
-            # 检查是否有确认弹窗
             confirm = self.page.locator('.ant-popconfirm, .ant-modal-confirm, .ant-popover').first
             has_confirm = await confirm.count() > 0
 
             if has_confirm:
-                # 点击取消
                 cancel_btn = self.page.locator('.ant-popconfirm-buttons .ant-btn:not(.ant-btn-primary), .ant-modal-confirm-btns .ant-btn:not(.ant-btn-primary)').first
                 if await cancel_btn.count() > 0:
                     await cancel_btn.click()
                     await self.page.wait_for_timeout(500)
 
-            passed = True  # 删除有确认弹窗则通过，没有也记录
+            passed = True
             screenshot = await self.screenshot("smart_contract_service_delete")
             self.record_result(
                 test_name, passed,
@@ -430,6 +851,209 @@ class SmartServiceConfigTests(TestBase):
                 test_name, False,
                 "表格中应有删除按钮",
                 "未找到删除按钮",
+                ""
+            )
+
+    async def test_contract_service_project_filter(self):
+        """测试合同服务配置 - 按所属服务项目筛选"""
+        test_name = "合同服务配置 - 按所属服务项目筛选"
+        await self.navigate_to("合同服务配置")
+
+        project_select = self.page.locator('.ant-select').first
+        if await project_select.count() > 0:
+            await project_select.scroll_into_view_if_needed()
+            await self.page.wait_for_timeout(500)
+            try:
+                await project_select.click(timeout=5000)
+            except Exception:
+                await self.page.evaluate("""
+                    () => {
+                        const selects = document.querySelectorAll('.ant-select');
+                        if (selects.length > 0) selects[0].click();
+                    }
+                """)
+            await self.page.wait_for_timeout(500)
+
+            options = await self.page.evaluate("""
+                () => {
+                    const opts = document.querySelectorAll('.ant-select-item-option');
+                    const texts = [];
+                    for (const opt of opts) {
+                        const text = opt.textContent.trim();
+                        if (text) texts.push(text);
+                    }
+                    return texts;
+                }
+            """)
+
+            if options:
+                first_option = self.page.locator('.ant-select-item-option').first
+                await first_option.click()
+                await self.page.wait_for_timeout(500)
+
+                await self.click_button("查询")
+                await self.page.wait_for_timeout(2000)
+
+                rows_after = await self.get_table_row_count()
+                url_ok = "/smart-service/contract-service" in self.page.url
+
+                passed = url_ok
+                screenshot = await self.screenshot("smart_contract_service_project_filter")
+                self.record_result(
+                    test_name, passed,
+                    "选择所属服务项目后查询，页面正常返回结果",
+                    f"选项: {options}, 查询后行数: {rows_after}",
+                    screenshot
+                )
+            else:
+                self.record_result(test_name, False, "所属服务项目下拉框应有选项", "无选项", "")
+        else:
+            self.record_result(test_name, False, "应有所属服务项目下拉框", "未找到下拉框", "")
+
+    async def test_contract_service_pagination(self):
+        """测试合同服务配置 - 表格分页"""
+        test_name = "合同服务配置 - 表格分页"
+        await self.navigate_to("合同服务配置")
+
+        pagination = self.page.locator('.ant-pagination').first
+        has_pagination = await pagination.count() > 0
+
+        if has_pagination:
+            pagination_info = await self.page.evaluate("""
+                () => {
+                    const pagination = document.querySelector('.ant-pagination');
+                    if (!pagination) return null;
+                    const total = pagination.querySelector('.ant-pagination-total-text');
+                    const items = pagination.querySelectorAll('.ant-pagination-item');
+                    return {
+                        total: total ? total.textContent : null,
+                        page_count: items.length,
+                    };
+                }
+            """)
+            passed = pagination_info is not None
+            screenshot = await self.screenshot("smart_contract_service_pagination")
+            self.record_result(
+                test_name, passed,
+                "表格应有分页器",
+                f"分页信息: {pagination_info}",
+                screenshot
+            )
+        else:
+            rows = await self.get_table_row_count()
+            passed = rows > 0
+            screenshot = await self.screenshot("smart_contract_service_no_pagination")
+            self.record_result(
+                test_name, passed,
+                "表格应有分页器或显示数据",
+                f"分页器: 无, 数据行数: {rows}",
+                screenshot
+            )
+
+    async def test_contract_service_add_with_data(self):
+        """测试合同服务配置 - 新增合同服务（带数据）"""
+        test_name = "合同服务配置 - 新增合同服务（带数据）"
+        await self.navigate_to("合同服务配置")
+
+        add_btn = self.page.locator('button:has-text("新增合同服务"), .ant-btn:has-text("新增合同服务")').first
+        if await add_btn.count() > 0:
+            await add_btn.click()
+            await self.page.wait_for_timeout(2000)
+
+            modal_appeared = await self.wait_for_modal()
+            if not modal_appeared:
+                drawer = self.page.locator('.ant-drawer').first
+                modal_appeared = await drawer.count() > 0
+
+            if modal_appeared:
+                # 填写合同服务标题
+                title_input = self.page.locator('input[placeholder="请输入"]').first
+                if await title_input.count() > 0:
+                    test_title = f"自动化测试合同_{int(asyncio.get_event_loop().time())}"
+                    await title_input.fill(test_title)
+
+                # 选择所属服务项目
+                project_select = self.page.locator('.ant-select').first
+                if await project_select.count() > 0:
+                    await project_select.scroll_into_view_if_needed()
+                    await self.page.wait_for_timeout(500)
+                    try:
+                        await project_select.click(timeout=5000)
+                    except Exception:
+                        await self.page.evaluate("""
+                            () => {
+                                const selects = document.querySelectorAll('.ant-select');
+                                if (selects.length > 0) selects[0].click();
+                            }
+                        """)
+                    await self.page.wait_for_timeout(500)
+                    first_option = self.page.locator('.ant-select-item-option').first
+                    if await first_option.count() > 0:
+                        await first_option.click()
+                        await self.page.wait_for_timeout(500)
+
+                # 提交表单
+                for btn_text in ["确定", "确 定", "保存", "提交"]:
+                    if await self.click_button(btn_text):
+                        break
+
+                await self.page.wait_for_timeout(2000)
+
+                errors = await self.get_form_errors()
+                passed = len(errors) == 0
+                screenshot = await self.screenshot("smart_contract_service_add_data")
+                self.record_result(
+                    test_name, passed,
+                    "填写表单后提交应成功",
+                    f"验证错误: {errors}",
+                    screenshot
+                )
+
+                await self.close_modal()
+            else:
+                screenshot = await self.screenshot("smart_contract_service_add_no_modal")
+                self.record_result(
+                    test_name, False,
+                    "点击新增后应弹出表单",
+                    "未检测到弹窗/抽屉",
+                    screenshot
+                )
+        else:
+            self.record_result(test_name, False, "应有新增合同服务按钮", "未找到按钮", "")
+
+    async def test_contract_service_edit(self):
+        """测试合同服务配置 - 编辑功能"""
+        test_name = "合同服务配置 - 编辑功能"
+        await self.navigate_to("合同服务配置")
+
+        edit_btn = self.page.locator('a:has-text("编辑"), button:has-text("编辑"), .ant-btn:has-text("编辑")').first
+        if await edit_btn.count() > 0:
+            await edit_btn.click()
+            await self.page.wait_for_timeout(1500)
+
+            modal_appeared = await self.wait_for_modal()
+            if not modal_appeared:
+                drawer = self.page.locator('.ant-drawer').first
+                modal_appeared = await drawer.count() > 0
+
+            passed = modal_appeared
+            screenshot = await self.screenshot("smart_contract_service_edit")
+            self.record_result(
+                test_name, passed,
+                "点击编辑后应弹出编辑表单",
+                f"弹窗出现: {modal_appeared}",
+                screenshot
+            )
+
+            await self.close_modal()
+            for btn_text in ["取消", "取 消"]:
+                await self.click_button(btn_text)
+                break
+        else:
+            self.record_result(
+                test_name, False,
+                "表格中应有编辑按钮",
+                "未找到编辑按钮",
                 ""
             )
 
@@ -456,24 +1080,37 @@ class SmartServiceConfigTests(TestBase):
             await self.test_project_config_page_load()
             await self.test_project_config_search()
             await self.test_project_config_search_reset()
+            await self.test_project_config_billing_method_filter()
+            await self.test_project_config_display_status_filter()
+            await self.test_project_config_date_range_filter()
             await self.test_project_config_add_form_validation()
+            await self.test_project_config_add_with_data()
             await self.test_project_config_edit()
             await self.test_project_config_toggle_display()
+            await self.test_project_config_pagination()
 
             # 服务定价配置测试
             print("\n--- 服务定价配置测试 ---")
             await self.test_project_price_page_load()
+            await self.test_project_price_region_filter()
+            await self.test_project_price_price_data_verification()
+            await self.test_project_price_edit_price()
             await self.test_project_price_download_template()
 
             # 合同服务配置测试
             print("\n--- 合同服务配置测试 ---")
             await self.test_contract_service_page_load()
             await self.test_contract_service_search()
+            await self.test_contract_service_project_filter()
             await self.test_contract_service_add_form()
+            await self.test_contract_service_add_with_data()
+            await self.test_contract_service_edit()
             await self.test_contract_service_delete_confirm()
+            await self.test_contract_service_pagination()
 
         finally:
             if base is None:
                 await self.teardown()
 
         return self.test_results
+

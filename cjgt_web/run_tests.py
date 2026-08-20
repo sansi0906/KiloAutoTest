@@ -14,6 +14,9 @@ import os
 from datetime import datetime
 from test_smart_service_config import SmartServiceConfigTests
 from test_content_management import ContentManagementTests
+from test_provider_management import ProviderManagementTests
+from test_customer_management import CustomerManagementTests
+from test_order_contract_management import OrderManagementTests, ContractManagementTests
 from test_base import TestBase, SCREENSHOT_DIR
 
 REPORT_DIR = os.path.join(os.path.dirname(__file__), "reports")
@@ -24,27 +27,90 @@ TEST_CASES = {
         ("服务项目配置", "test_project_config_page_load"),
         ("服务项目配置", "test_project_config_search"),
         ("服务项目配置", "test_project_config_search_reset"),
+        ("服务项目配置", "test_project_config_billing_method_filter"),
+        ("服务项目配置", "test_project_config_display_status_filter"),
+        ("服务项目配置", "test_project_config_date_range_filter"),
         ("服务项目配置", "test_project_config_add_form_validation"),
+        ("服务项目配置", "test_project_config_add_with_data"),
         ("服务项目配置", "test_project_config_edit"),
         ("服务项目配置", "test_project_config_toggle_display"),
+        ("服务项目配置", "test_project_config_pagination"),
         ("服务定价配置", "test_project_price_page_load"),
+        ("服务定价配置", "test_project_price_region_filter"),
+        ("服务定价配置", "test_project_price_price_data_verification"),
+        ("服务定价配置", "test_project_price_edit_price"),
         ("服务定价配置", "test_project_price_download_template"),
         ("合同服务配置", "test_contract_service_page_load"),
         ("合同服务配置", "test_contract_service_search"),
+        ("合同服务配置", "test_contract_service_project_filter"),
         ("合同服务配置", "test_contract_service_add_form"),
+        ("合同服务配置", "test_contract_service_add_with_data"),
+        ("合同服务配置", "test_contract_service_edit"),
         ("合同服务配置", "test_contract_service_delete_confirm"),
+        ("合同服务配置", "test_contract_service_pagination"),
     ],
     "内容管理": [
         ("知识库", "test_knowledge_page_load"),
         ("知识库", "test_knowledge_search_by_title"),
         ("知识库", "test_knowledge_search_reset"),
+        ("知识库", "test_knowledge_search_by_location"),
         ("知识库", "test_knowledge_search_by_type"),
         ("知识库", "test_knowledge_search_by_status"),
         ("知识库", "test_knowledge_add_form_validation"),
+        ("知识库", "test_knowledge_add_with_data"),
         ("知识库", "test_knowledge_detail_view"),
         ("知识库", "test_knowledge_edit"),
         ("知识库", "test_knowledge_disable"),
         ("知识库", "test_knowledge_table_pagination"),
+    ],
+    "服务商管理": [
+        ("代理记账公司管理", "test_provider_page_load"),
+        ("代理记账公司管理", "test_provider_search"),
+        ("代理记账公司管理", "test_provider_search_reset"),
+        ("代理记账公司管理", "test_provider_add_form_validation"),
+        ("代理记账公司管理", "test_provider_add_with_license"),
+        ("代理记账公司管理", "test_provider_edit"),
+        ("代理记账公司管理", "test_provider_detail"),
+        ("代理记账公司管理", "test_provider_disable"),
+        ("代理记账公司管理", "test_provider_reset_password"),
+        ("代理记账公司管理", "test_provider_pagination"),
+    ],
+    "客户管理": [
+        ("超级个体档案", "test_customer_archive_page_load"),
+        ("超级个体档案", "test_customer_archive_search"),
+        ("超级个体档案", "test_customer_archive_search_reset"),
+        ("超级个体档案", "test_customer_archive_detail"),
+        ("超级个体档案", "test_customer_archive_view_contract"),
+        ("超级个体档案", "test_customer_archive_pagination"),
+        ("服务工单管理", "test_work_order_page_load"),
+        ("服务工单管理", "test_work_order_search"),
+        ("服务工单管理", "test_work_order_search_reset"),
+        ("服务工单管理", "test_work_order_detail"),
+        ("服务工单管理", "test_work_order_pagination"),
+    ],
+    "订单管理": [
+        ("订单管理", "test_order_page_load"),
+        ("订单管理", "test_order_search"),
+        ("订单管理", "test_order_search_reset"),
+        ("订单管理", "test_order_filter_by_payment_status"),
+        ("订单管理", "test_order_filter_by_source"),
+        ("订单管理", "test_order_filter_by_date_range"),
+        ("订单管理", "test_order_combined_filter"),
+        ("订单管理", "test_order_detail"),
+        ("订单管理", "test_order_pagination"),
+    ],
+    "合同管理": [
+        ("合同管理", "test_contract_page_load"),
+        ("合同管理", "test_contract_search"),
+        ("合同管理", "test_contract_search_reset"),
+        ("合同管理", "test_contract_filter_by_party_a_name"),
+        ("合同管理", "test_contract_filter_by_validity_date"),
+        ("合同管理", "test_contract_combined_filter"),
+        ("合同管理", "test_contract_expand"),
+        ("合同管理", "test_contract_agreement_button_exists"),
+        ("合同管理", "test_contract_agreement_opens_new_tab"),
+        ("合同管理", "test_contract_agreement_returns_to_list"),
+        ("合同管理", "test_contract_pagination"),
     ],
 }
 
@@ -196,6 +262,38 @@ async def main():
         content = ContentManagementTests()
         content_results = await content.run_all(base=base)
         all_results.extend(content_results)
+
+        # 3. 服务商管理模块测试
+        print("\n" + "=" * 60)
+        print("运行服务商管理模块测试")
+        print("=" * 60)
+        provider = ProviderManagementTests()
+        provider_results = await provider.run_all(base=base)
+        all_results.extend(provider_results)
+
+        # 4. 客户管理模块测试
+        print("\n" + "=" * 60)
+        print("运行客户管理模块测试")
+        print("=" * 60)
+        customer = CustomerManagementTests()
+        customer_results = await customer.run_all(base=base)
+        all_results.extend(customer_results)
+
+        # 5. 订单管理模块测试
+        print("\n" + "=" * 60)
+        print("运行订单管理模块测试")
+        print("=" * 60)
+        order = OrderManagementTests()
+        order_results = await order.run_all(base=base)
+        all_results.extend(order_results)
+
+        # 6. 合同管理模块测试
+        print("\n" + "=" * 60)
+        print("运行合同管理模块测试")
+        print("=" * 60)
+        contract = ContractManagementTests()
+        contract_results = await contract.run_all(base=base)
+        all_results.extend(contract_results)
 
         # 生成报告
         generate_report(all_results)

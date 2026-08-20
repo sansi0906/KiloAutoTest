@@ -102,10 +102,25 @@ class ContentManagementTests(TestBase):
         test_name = "知识库 - 按资讯类型筛选"
         await self.navigate_to("知识库")
 
+        expand_btn = self.page.locator('button:has-text("展开"), .ant-btn:has-text("展开")').first
+        if await expand_btn.count() > 0:
+            await expand_btn.click()
+            await self.page.wait_for_timeout(1000)
+
         # 查找资讯类型的下拉选择器
         type_select = self.page.locator('.ant-select').nth(1)  # 第二个下拉框可能是资讯类型
         if await type_select.count() > 0:
-            await type_select.click()
+            await type_select.scroll_into_view_if_needed()
+            await self.page.wait_for_timeout(500)
+            try:
+                await type_select.click(timeout=5000)
+            except Exception:
+                await self.page.evaluate("""
+                    () => {
+                        const selects = document.querySelectorAll('.ant-select');
+                        if (selects.length > 1) selects[1].click();
+                    }
+                """)
             await self.page.wait_for_timeout(500)
 
             # 获取下拉选项
@@ -150,6 +165,11 @@ class ContentManagementTests(TestBase):
         test_name = "知识库 - 按状态筛选"
         await self.navigate_to("知识库")
 
+        expand_btn = self.page.locator('button:has-text("展开"), .ant-btn:has-text("展开")').first
+        if await expand_btn.count() > 0:
+            await expand_btn.click()
+            await self.page.wait_for_timeout(1000)
+
         # 查找状态下拉选择器（通常是最后一个）
         selects = self.page.locator('.ant-select')
         select_count = await selects.count()
@@ -157,7 +177,19 @@ class ContentManagementTests(TestBase):
         if select_count > 0:
             # 尝试最后一个下拉框
             status_select = selects.nth(select_count - 1)
-            await status_select.click()
+            await status_select.scroll_into_view_if_needed()
+            await self.page.wait_for_timeout(500)
+            try:
+                await status_select.click(timeout=5000)
+            except Exception:
+                idx = select_count - 1
+                await self.page.evaluate("""
+                    () => {
+                        const selects = document.querySelectorAll('.ant-select');
+                        const idx = arguments[0];
+                        if (selects.length > idx) selects[idx].click();
+                    }
+                """, idx)
             await self.page.wait_for_timeout(500)
 
             options = await self.page.evaluate("""
@@ -405,6 +437,196 @@ class ContentManagementTests(TestBase):
                 screenshot
             )
 
+    async def test_knowledge_search_by_location(self):
+        """测试知识库 - 按展示位置筛选"""
+        test_name = "知识库 - 按展示位置筛选"
+        await self.navigate_to("知识库")
+
+        expand_btn = self.page.locator('button:has-text("展开"), .ant-btn:has-text("展开")').first
+        if await expand_btn.count() > 0:
+            await expand_btn.click()
+            await self.page.wait_for_timeout(1000)
+
+        location_select = self.page.locator('.ant-select').nth(0)
+        if await location_select.count() > 0:
+            await location_select.scroll_into_view_if_needed()
+            await self.page.wait_for_timeout(500)
+            try:
+                await location_select.click(timeout=5000)
+            except Exception:
+                await self.page.evaluate("""
+                    () => {
+                        const selects = document.querySelectorAll('.ant-select');
+                        if (selects.length > 0) selects[0].click();
+                    }
+                """)
+            await self.page.wait_for_timeout(500)
+
+            options = await self.page.evaluate("""
+                () => {
+                    const opts = document.querySelectorAll('.ant-select-item-option');
+                    const texts = [];
+                    for (const opt of opts) {
+                        const text = opt.textContent.trim();
+                        if (text) texts.push(text);
+                    }
+                    return texts;
+                }
+            """)
+
+            if options:
+                first_option = self.page.locator('.ant-select-item-option').first
+                await first_option.click()
+                await self.page.wait_for_timeout(500)
+
+                await self.click_button("查询")
+                await self.page.wait_for_timeout(2000)
+
+                rows_after = await self.get_table_row_count()
+                url_ok = "/content-manage/knowledge" in self.page.url
+
+                passed = url_ok
+                screenshot = await self.screenshot("content_knowledge_search_location")
+                self.record_result(
+                    test_name, passed,
+                    "选择展示位置后查询，页面正常返回结果",
+                    f"选项: {options}, 查询后行数: {rows_after}",
+                    screenshot
+                )
+            else:
+                self.record_result(test_name, False, "展示位置下拉框应有选项", "无选项", "")
+        else:
+            self.record_result(test_name, False, "应有展示位置下拉框", "未找到下拉框", "")
+
+    async def test_knowledge_add_with_data(self):
+        """测试知识库 - 新增知识库（带数据）"""
+        test_name = "知识库 - 新增知识库（带数据）"
+        await self.navigate_to("知识库")
+
+        add_btn = self.page.locator('button:has-text("新增知识库"), .ant-btn:has-text("新增知识库")').first
+        if await add_btn.count() > 0:
+            await add_btn.click()
+            await self.page.wait_for_timeout(2000)
+
+            modal_appeared = await self.wait_for_modal()
+            if not modal_appeared:
+                drawer = self.page.locator('.ant-drawer').first
+                modal_appeared = await drawer.count() > 0
+
+            if modal_appeared:
+                # 填写标题
+                title_input = self.page.locator('input[placeholder="请输入标题"]').first
+                if await title_input.count() > 0:
+                    test_title = f"自动化测试知识_{int(asyncio.get_event_loop().time())}"
+                    await title_input.fill(test_title)
+
+                # 选择展示位置
+                location_select = self.page.locator('.ant-select').nth(0)
+                if await location_select.count() > 0:
+                    await location_select.scroll_into_view_if_needed()
+                    await self.page.wait_for_timeout(500)
+                    try:
+                        await location_select.click(timeout=5000)
+                    except Exception:
+                        await self.page.evaluate("""
+                            () => {
+                                const selects = document.querySelectorAll('.ant-select');
+                                if (selects.length > 0) selects[0].click();
+                            }
+                        """)
+                    await self.page.wait_for_timeout(500)
+                    first_option = self.page.locator('.ant-select-item-option').first
+                    if await first_option.count() > 0:
+                        await first_option.click()
+                        await self.page.wait_for_timeout(500)
+
+                # 选择资讯类型
+                type_select = self.page.locator('.ant-select').nth(1)
+                if await type_select.count() > 0:
+                    await type_select.scroll_into_view_if_needed()
+                    await self.page.wait_for_timeout(500)
+                    try:
+                        await type_select.click(timeout=5000)
+                    except Exception:
+                        await self.page.evaluate("""
+                            () => {
+                                const selects = document.querySelectorAll('.ant-select');
+                                if (selects.length > 1) selects[1].click();
+                            }
+                        """)
+                    await self.page.wait_for_timeout(500)
+                    first_option = self.page.locator('.ant-select-item-option').first
+                    if await first_option.count() > 0:
+                        await first_option.click()
+                        await self.page.wait_for_timeout(500)
+
+                # 提交表单
+                for btn_text in ["确定", "确 定", "保存", "提交"]:
+                    if await self.click_button(btn_text):
+                        break
+
+                await self.page.wait_for_timeout(2000)
+
+                errors = await self.get_form_errors()
+                passed = len(errors) == 0
+                screenshot = await self.screenshot("content_knowledge_add_data")
+                self.record_result(
+                    test_name, passed,
+                    "填写表单后提交应成功",
+                    f"验证错误: {errors}",
+                    screenshot
+                )
+
+                await self.close_modal()
+            else:
+                screenshot = await self.screenshot("content_knowledge_add_no_modal")
+                self.record_result(
+                    test_name, False,
+                    "点击新增后应弹出表单",
+                    "未检测到弹窗/抽屉",
+                    screenshot
+                )
+        else:
+            self.record_result(test_name, False, "应有新增知识库按钮", "未找到按钮", "")
+
+    async def test_knowledge_edit_with_data(self):
+        """测试知识库 - 编辑知识库（带数据）"""
+        test_name = "知识库 - 编辑知识库（带数据）"
+        await self.navigate_to("知识库")
+
+        edit_btn = self.page.locator('a:has-text("编辑"), button:has-text("编辑"), .ant-btn:has-text("编辑")').first
+        if await edit_btn.count() > 0:
+            await edit_btn.click()
+            await self.page.wait_for_timeout(2000)
+
+            modal_appeared = await self.wait_for_modal()
+            if not modal_appeared:
+                drawer = self.page.locator('.ant-drawer').first
+                modal_appeared = await drawer.count() > 0
+
+            if modal_appeared:
+                # 检查表单是否有数据预填
+                title_input = self.page.locator('input[placeholder="请输入标题"]').first
+                has_prefill = False
+                if await title_input.count() > 0:
+                    value = await title_input.input_value()
+                    has_prefill = bool(value)
+
+                passed = modal_appeared
+                screenshot = await self.screenshot("content_knowledge_edit_data")
+                self.record_result(
+                    test_name, passed,
+                    "点击编辑后应弹出编辑表单",
+                    f"弹窗出现: {modal_appeared}, 标题预填: {has_prefill}",
+                    screenshot
+                )
+
+                await self.close_modal()
+            else:
+                self.record_result(test_name, False, "点击编辑后应弹出表单", "未检测到弹窗", "")
+        else:
+            self.record_result(test_name, False, "表格中应有编辑按钮", "未找到编辑按钮", "")
+
     async def run_all(self, base=None):
         """运行所有测试
 
@@ -427,11 +649,14 @@ class ContentManagementTests(TestBase):
             await self.test_knowledge_page_load()
             await self.test_knowledge_search_by_title()
             await self.test_knowledge_search_reset()
+            await self.test_knowledge_search_by_location()
             await self.test_knowledge_search_by_type()
             await self.test_knowledge_search_by_status()
             await self.test_knowledge_add_form_validation()
+            await self.test_knowledge_add_with_data()
             await self.test_knowledge_detail_view()
             await self.test_knowledge_edit()
+            await self.test_knowledge_edit_with_data()
             await self.test_knowledge_disable()
             await self.test_knowledge_table_pagination()
 
