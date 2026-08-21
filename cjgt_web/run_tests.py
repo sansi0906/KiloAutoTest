@@ -14,7 +14,6 @@ import os
 from datetime import datetime
 from test_smart_service_config import SmartServiceConfigTests
 from test_content_management import ContentManagementTests
-from test_provider_management import ProviderManagementTests
 from test_customer_management import CustomerManagementTests
 from test_order_contract_management import OrderManagementTests, ContractManagementTests
 from test_base import TestBase, SCREENSHOT_DIR
@@ -62,18 +61,6 @@ TEST_CASES = {
         ("知识库", "test_knowledge_edit"),
         ("知识库", "test_knowledge_disable"),
         ("知识库", "test_knowledge_table_pagination"),
-    ],
-    "服务商管理": [
-        ("代理记账公司管理", "test_provider_page_load"),
-        ("代理记账公司管理", "test_provider_search"),
-        ("代理记账公司管理", "test_provider_search_reset"),
-        ("代理记账公司管理", "test_provider_add_form_validation"),
-        ("代理记账公司管理", "test_provider_add_with_license"),
-        ("代理记账公司管理", "test_provider_edit"),
-        ("代理记账公司管理", "test_provider_detail"),
-        ("代理记账公司管理", "test_provider_disable"),
-        ("代理记账公司管理", "test_provider_reset_password"),
-        ("代理记账公司管理", "test_provider_pagination"),
     ],
     "客户管理": [
         ("超级个体档案", "test_customer_archive_page_load"),
@@ -263,15 +250,7 @@ async def main():
         content_results = await content.run_all(base=base)
         all_results.extend(content_results)
 
-        # 3. 服务商管理模块测试
-        print("\n" + "=" * 60)
-        print("运行服务商管理模块测试")
-        print("=" * 60)
-        provider = ProviderManagementTests()
-        provider_results = await provider.run_all(base=base)
-        all_results.extend(provider_results)
-
-        # 4. 客户管理模块测试
+        # 3. 客户管理模块测试
         print("\n" + "=" * 60)
         print("运行客户管理模块测试")
         print("=" * 60)

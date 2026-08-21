@@ -185,20 +185,7 @@ class OrderManagementTests(TestBase):
         await self.page.wait_for_timeout(2000)
 
         try:
-            await self.page.evaluate("""
-                () => {
-                    const inputs = document.querySelectorAll('input[placeholder="开始日期"], input[placeholder="结束日期"]');
-                    if (inputs.length >= 2) {
-                        inputs[0].value = '2026-01-01';
-                        inputs[0].dispatchEvent(new Event('input', { bubbles: true }));
-                        inputs[0].dispatchEvent(new Event('change', { bubbles: true }));
-                        inputs[1].value = '2026-12-31';
-                        inputs[1].dispatchEvent(new Event('input', { bubbles: true }));
-                        inputs[1].dispatchEvent(new Event('change', { bubbles: true }));
-                    }
-                }
-            """)
-            await self.page.wait_for_timeout(500)
+            await self.set_date_range("2026-01-01", "2026-12-31")
             await self.click_button("查询")
             await self.page.wait_for_timeout(2000)
 
@@ -295,24 +282,28 @@ class OrderManagementTests(TestBase):
             await detail_btn.click()
             await self.page.wait_for_timeout(2000)
 
-            # 获取弹窗内容
-            modal_body = await self.page.evaluate("""
-                () => {
-                    const modal = document.querySelector('.ant-modal-content');
-                    if (!modal) return null;
-                    const body = modal.querySelector('.ant-modal-body');
-                    return body ? body.textContent.trim() : '';
-                }
-            """)
-            
-            passed = modal_body and len(modal_body) > 0
-            screenshot = await self.screenshot("order_detail_fields")
-            self.record_result(
-                test_name, passed,
-                "详情弹窗应包含订单相关字段信息",
-                f"弹窗内容长度: {len(modal_body) if modal_body else 0}, 内容预览: {modal_body[:200] if modal_body else 'N/A'}",
-                screenshot
-            )
+            # 等待详情弹窗/抽屉出现
+            modal_body = self.page.locator('.ant-modal-body, .ant-drawer-body').first
+            if await modal_body.count() > 0:
+                await modal_body.wait_for(timeout=5000)
+                body_text = await modal_body.text_content() or ""
+                passed = len(body_text.strip()) > 0
+                screenshot = await self.screenshot("order_detail_fields")
+                self.record_result(
+                    test_name, passed,
+                    "详情弹窗应包含订单相关字段信息",
+                    f"弹窗内容长度: {len(body_text)}, 内容预览: {body_text[:200]}",
+                    screenshot
+                )
+            else:
+                passed = False
+                screenshot = await self.screenshot("order_detail_fields_no_modal")
+                self.record_result(
+                    test_name, passed,
+                    "详情弹窗应包含订单相关字段信息",
+                    "未找到详情弹窗/抽屉",
+                    screenshot
+                )
 
             await self.close_modal()
         else:
@@ -502,20 +493,7 @@ class ContractManagementTests(TestBase):
         await self.page.wait_for_timeout(2000)
 
         try:
-            await self.page.evaluate("""
-                () => {
-                    const inputs = document.querySelectorAll('input[placeholder="开始日期"], input[placeholder="结束日期"]');
-                    if (inputs.length >= 2) {
-                        inputs[0].value = '2026-01-01';
-                        inputs[0].dispatchEvent(new Event('input', { bubbles: true }));
-                        inputs[0].dispatchEvent(new Event('change', { bubbles: true }));
-                        inputs[1].value = '2026-12-31';
-                        inputs[1].dispatchEvent(new Event('input', { bubbles: true }));
-                        inputs[1].dispatchEvent(new Event('change', { bubbles: true }));
-                    }
-                }
-            """)
-            await self.page.wait_for_timeout(500)
+            await self.set_date_range("2026-01-01", "2026-12-31")
             await self.click_button("查询")
             await self.page.wait_for_timeout(2000)
 

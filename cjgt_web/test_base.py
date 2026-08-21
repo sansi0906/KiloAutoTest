@@ -22,7 +22,6 @@ PAGES = {
     "合同服务配置": "/smart-service/contract-service",
     "经营范围配置": "/smart-service/scope-config",
     "知识库": "/content-manage/knowledge",
-    "服务商管理": "/service-provider/proxy-accounting",
     "超级个体档案": "/customer/customer-archive",
     "服务工单管理": "/customer/work-order",
     "订单管理": "/order/order-manage",
@@ -169,20 +168,15 @@ class TestBase:
 
     async def get_form_errors(self):
         """获取表单错误提示（修复版：支持多种选择器）"""
-        # 先等待验证错误显示
         await self.page.wait_for_timeout(500)
         return await self.page.evaluate("""
             () => {
                 const errors = [];
-                
-                // 方法1: .ant-form-item-explain-error (Ant Design标准类)
                 const errorElements = document.querySelectorAll('.ant-form-item-explain-error');
                 for (const el of errorElements) {
                     const text = el.textContent.trim();
                     if (text) errors.push(text);
                 }
-                
-                // 方法2: 检查class包含error的元素
                 const allElements = document.querySelectorAll('[class*="error"]');
                 for (const el of allElements) {
                     const text = el.textContent.trim();
@@ -190,7 +184,32 @@ class TestBase:
                         errors.push(text);
                     }
                 }
-                
                 return [...new Set(errors)];
             }
         """)
+
+    async def get_toasts(self) -> list:
+        """获取 Toast 消息列表"""
+        return await self.page.evaluate("""
+            () => {
+                const toasts = document.querySelectorAll('.ant-message-notice-content');
+                return Array.from(toasts).map(t => t.textContent.trim());
+            }
+        """)
+
+    async def set_date_range(self, start_date: str, end_date: str):
+        """设置日期范围（直接设置 input 值并触发事件）"""
+        await self.page.evaluate("""
+            (dates) => {
+                const inputs = document.querySelectorAll('input[placeholder="开始日期"], input[placeholder="结束日期"]');
+                inputs.forEach(input => input.removeAttribute('readonly'));
+                if (inputs.length >= 2) {
+                    inputs[0].value = dates[0];
+                    inputs[0].dispatchEvent(new Event('input', { bubbles: true }));
+                    inputs[0].dispatchEvent(new Event('change', { bubbles: true }));
+                    inputs[1].value = dates[1];
+                    inputs[1].dispatchEvent(new Event('input', { bubbles: true }));
+                    inputs[1].dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            }
+        """, [start_date, end_date])
